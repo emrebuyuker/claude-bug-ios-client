@@ -232,7 +232,9 @@ final class ViewController: UIViewController {
     // MARK: Network
     private func callAskClaude(bugDescription: String) {
         let payload: [String: Any] = ["bugDescription": bugDescription]
-        functions.httpsCallable("askClaude").call(payload) { [weak self] result, error in
+        let callable = functions.httpsCallable("askClaude")
+        callable.timeoutInterval = 180   // match server-side timeout; default is 70s
+        callable.call(payload) { [weak self] result, error in
             guard let self = self else { return }
 
             self.loadingView.stopAnimating()
@@ -304,7 +306,9 @@ final class ViewController: UIViewController {
             "changes": changesPayload,
         ]
 
-        functions.httpsCallable("createPR").call(payload) { [weak self] result, error in
+        let callable = functions.httpsCallable("createPR")
+        callable.timeoutInterval = 120
+        callable.call(payload) { [weak self] result, error in
             guard let self = self else { return }
 
             self.loadingView.stopAnimating()
