@@ -29,6 +29,127 @@ enum ChatItem {
     case proposal(ProposedChange)
 }
 
+// MARK: - Diff helpers
+
+fileprivate enum DiffLineKind { case context, added, removed, separator }
+
+fileprivate struct DiffLine {
+    let kind: DiffLineKind
+    let text: String
+}
+
+/// Build a unified-style diff between `old` and `new` showing only changed
+/// lines plus `contextLines` of unchanged context above/below each hunk.
+fileprivate func computeUnifiedDiff(
+    old: String,
+    new: String,
+    contextLines: Int = 2
+) -> [DiffLine] {
+    let oldLines = old.components(separatedBy: "\n")
+    let newLines = new.components(separatedBy: "\n")
+    let diff = newLines.difference(from: oldLines)
+
+    // Map offsets to changes
+    var removedAtOld = [Int: String]()
+    var insertedAtNew = [Int: String]()
+    for change in diff {
+        switch change {
+        case let .remove(offset, element, _):
+            removedAtOld[offset] = element
+        case let .insert(offset, element, _):
+            insertedAtNew[offset] = element
+        }
+    }
+
+    // Walk both arrays, emitting lines in order
+    var full: [DiffLine] = []
+    var oldIdx = 0
+    var newIdx = 0
+    while oldIdx < oldLines.count || newIdx < newLines.count {
+        if oldIdx < oldLines.count, removedAtOld[oldIdx] != nil {
+            full.append(DiffLine(kind: .removed, text: oldLines[oldIdx]))
+            oldIdx += 1
+        } else if newIdx < newLines.count, insertedAtNew[newIdx] != nil {
+            full.append(DiffLine(kind: .added, text: newLines[newIdx]))
+            newIdx += 1
+        } else if oldIdx < oldLines.count, newIdx < newLines.count {
+            full.append(DiffLine(kind: .context, text: oldLines[oldIdx]))
+            oldIdx += 1
+            newIdx += 1
+        } else {
+            break
+        }
+    }
+
+    // Collapse: keep only changed lines + N context around them
+    let changedIdx = full.enumerated().compactMap { idx, line -> Int? in
+        line.kind == .context ? nil : idx
+    }
+    if changedIdx.isEmpty { return [] }
+
+    var keep = Set<Int>()
+    for ci in changedIdx {
+        let lo = max(0, ci - contextLines)
+        let hi = min(full.count - 1, ci + contextLines)
+        for j in lo...hi { keep.insert(j) }
+    }
+
+    var result: [DiffLine] = []
+    var prev: Int?
+    for i in keep.sorted() {
+        if let p = prev, i > p + 1 {
+            result.append(DiffLine(kind: .separator, text: "⋯"))
+        }
+        result.append(full[i])
+        prev = i
+    }
+    return result
+}
+
+fileprivate func renderDiff(_ lines: [DiffLine]) -> NSAttributedString {
+    let mono = UIFont.monospacedSystemFont(ofSize: 11, weight: .regular)
+    let monoBold = UIFont.monospacedSystemFont(ofSize: 11, weight: .semibold)
+
+    if lines.isEmpty {
+        return NSAttributedString(
+            string: "(değişiklik yok)",
+            attributes: [.font: mono, .foregroundColor: UIColor.secondaryLabel]
+        )
+    }
+
+    let out = NSMutableAttributedString()
+    for (i, line) in lines.enumerated() {
+        let prefix: String
+        var fg: UIColor = .label
+        var bg: UIColor = .clear
+        switch line.kind {
+        case .added:
+            prefix = "+ "
+            fg = UIColor.systemGreen
+            bg = UIColor.systemGreen.withAlphaComponent(0.12)
+        case .removed:
+            prefix = "- "
+            fg = UIColor.systemRed
+            bg = UIColor.systemRed.withAlphaComponent(0.12)
+        case .context:
+            prefix = "  "
+            fg = .label
+        case .separator:
+            prefix = "  "
+            fg = .tertiaryLabel
+        }
+
+        let body = prefix + line.text + (i == lines.count - 1 ? "" : "\n")
+        let attrs: [NSAttributedString.Key: Any] = [
+            .font: line.kind == .separator ? monoBold : mono,
+            .foregroundColor: fg,
+            .backgroundColor: bg,
+        ]
+        out.append(NSAttributedString(string: body, attributes: attrs))
+    }
+    return out
+}
+
 // MARK: - ViewController
 
 final class ViewController: UIViewController {
@@ -641,7 +762,12 @@ final class ProposedChangeCell: UITableViewCell {
         self.onDecisionChanged = onDecision
         filePathLabel.text = change.filePath
         descriptionLabel.text = change.changeDescription
-        codeView.text = change.newContent
+        let diff = computeUnifiedDiff(
+            old: change.oldContent,
+            new: change.newContent,
+            contextLines: 2
+        )
+        codeView.attributedText = renderDiff(diff)
         applyDecisionStyle(change.decision)
     }
 
