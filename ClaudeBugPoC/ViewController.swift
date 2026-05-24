@@ -193,16 +193,36 @@ final class ViewController: UIViewController {
         return v
     }()
 
-    private lazy var inputField: UITextField = {
-        let tf = UITextField()
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.borderStyle = .roundedRect
-        tf.placeholder = "Bug'ı tarif et..."
-        tf.returnKeyType = .send
-        tf.delegate = self
-        tf.backgroundColor = .systemBackground
-        return tf
+    // ── BUG FIX: UITextField → UITextView ──────────────────────────────────
+    // UITextField tek satır gösterir; uzun metinler kesilir.
+    // UITextView çok satırlı metin girişini destekler.
+    private lazy var inputField: UITextView = {
+        let tv = UITextView()
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.font = .systemFont(ofSize: 16)
+        tv.textColor = .label
+        tv.backgroundColor = .systemBackground
+        tv.layer.cornerRadius = 8
+        tv.layer.borderWidth = 0.5
+        tv.layer.borderColor = UIColor.separator.cgColor
+        tv.textContainerInset = UIEdgeInsets(top: 8, left: 6, bottom: 8, right: 6)
+        tv.isScrollEnabled = true
+        tv.returnKeyType = .send
+        tv.delegate = self
+        return tv
     }()
+
+    // Placeholder etiketi (UITextView'ın built-in placeholder'ı yok)
+    private lazy var placeholderLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.text = "Bug'ı tarif et..."
+        lbl.font = .systemFont(ofSize: 16)
+        lbl.textColor = .placeholderText
+        lbl.isUserInteractionEnabled = false
+        return lbl
+    }()
+    // ───────────────────────────────────────────────────────────────────────
 
     private lazy var sendButton: UIButton = {
         let btn = UIButton(type: .system)
@@ -241,6 +261,8 @@ final class ViewController: UIViewController {
     }()
 
     private var inputBottomConstraint: NSLayoutConstraint?
+    // inputField'ın yüksekliğini dinamik tutmak için
+    private var inputFieldHeightConstraint: NSLayoutConstraint?
 
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -260,6 +282,7 @@ final class ViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(inputContainer)
         inputContainer.addSubview(inputField)
+        inputContainer.addSubview(placeholderLabel)   // placeholder ekle
         inputContainer.addSubview(sendButton)
         view.addSubview(loadingView)
         view.addSubview(createPRButton)
@@ -268,6 +291,10 @@ final class ViewController: UIViewController {
             equalTo: view.safeAreaLayoutGuide.bottomAnchor
         )
         inputBottomConstraint = bottomConstraint
+
+        // inputField başlangıç yüksekliği: 1 satır (~40 pt)
+        let heightConstraint = inputField.heightAnchor.constraint(equalToConstant: 40)
+        inputFieldHeightConstraint = heightConstraint
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -278,12 +305,16 @@ final class ViewController: UIViewController {
             inputContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             inputContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomConstraint,
-            inputContainer.heightAnchor.constraint(equalToConstant: 60),
 
             inputField.leadingAnchor.constraint(equalTo: inputContainer.leadingAnchor, constant: 12),
             inputField.trailingAnchor.constraint(equalTo: sendButton.leadingAnchor, constant: -8),
-            inputField.centerYAnchor.constraint(equalTo: inputContainer.centerYAnchor),
-            inputField.heightAnchor.constraint(equalToConstant: 40),
+            inputField.topAnchor.constraint(equalTo: inputContainer.topAnchor, constant: 10),
+            inputField.bottomAnchor.constraint(equalTo: inputContainer.bottomAnchor, constant: -10),
+            heightConstraint,
+
+            // Placeholder: textContainerInset ile hizalı
+            placeholderLabel.leadingAnchor.constraint(equalTo: inputField.leadingAnchor, constant: 10),
+            placeholderLabel.topAnchor.constraint(equalTo: inputField.topAnchor, constant: 8),
 
             sendButton.trailingAnchor.constraint(equalTo: inputContainer.trailingAnchor, constant: -12),
             sendButton.centerYAnchor.constraint(equalTo: inputContainer.centerYAnchor),
@@ -327,6 +358,8 @@ final class ViewController: UIViewController {
 
         append(.user(text))
         inputField.text = ""
+        updateInputFieldHeight()
+        placeholderLabel.isHidden = false
         inputField.resignFirstResponder()
         sendButton.isEnabled = false
         loadingView.startAnimating()
@@ -348,6 +381,19 @@ final class ViewController: UIViewController {
         createPRButton.isEnabled = false
         loadingView.startAnimating()
         callCreatePR(bugTitle: bugTitle, accepted: accepted)
+    }
+
+    // MARK: inputField yükseklik güncelleme
+    private func updateInputFieldHeight() {
+        let maxHeight: CGFloat = 120   // ~4 satır
+        let minHeight: CGFloat = 40    // 1 satır
+        let fittingSize = inputField.sizeThatFits(
+            CGSize(width: inputField.bounds.width, height: .greatestFiniteMagnitude)
+        )
+        let newHeight = min(max(fittingSize.height, minHeight), maxHeight)
+        inputField.isScrollEnabled = fittingSize.height > maxHeight
+        inputFieldHeightConstraint?.constant = newHeight
+        UIView.animate(withDuration: 0.15) { self.view.layoutIfNeeded() }
     }
 
     // MARK: Network
@@ -517,11 +563,22 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - TextField Delegate
-extension ViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        sendTapped()
+// MARK: - TextViewDelegate (eski TextFieldDelegate'in yerini alır)
+extension ViewController: UITextViewDelegate {
+
+    // Return tuşuna basılınca gönder
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            sendTapped()
+            return false   // yeni satır ekleme
+        }
         return true
+    }
+
+    // Her değişiklikte yüksekliği ve placeholder'ı güncelle
+    func textViewDidChange(_ textView: UITextView) {
+        placeholderLabel.isHidden = !textView.text.isEmpty
+        updateInputFieldHeight()
     }
 }
 
