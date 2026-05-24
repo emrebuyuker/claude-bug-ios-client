@@ -18,13 +18,14 @@ final class ViewController: UIViewController {
     private var messages: [ChatMessage] = [
         ChatMessage(
             role: .system,
-            content: "👋 Test repo: emrebuyuker/claude-bug-test\n\n"
-                + "Aşağıdan bir bug tarif et, Claude GitHub'dan kodu okuyup analiz eder.\n\n"
-                + "Örnek sorular:\n"
-                + "• Feed ekranında array index out of bounds crash alıyorum\n"
-                + "• Login butonuna basınca unexpectedly found nil\n"
-                + "• TimerViewController deinit log basmıyor, memory leak şüphesi\n"
-                + "• Cüzdan bakiyesi yanlış görünüyor (örn 1936030245 USD)"
+            content: "👋 Bu uygulamanın kendi Swift kodunu analiz edebilirsin.\n\n"
+                + "Aşağıdan bir bug ya da şüpheli davranış tarif et — Claude, "
+                + "GitHub'daki iOS kaynaklarını (ClaudeBugPoC/) okuyup "
+                + "root cause ve fix önerir.\n\n"
+                + "Örnek:\n"
+                + "• \"Gönder butonuna basınca app donuyor\"\n"
+                + "• \"Klavye açılınca input alanı kapanıyor\"\n"
+                + "• \"Cevap geldikten sonra tablo en alta scroll etmiyor\""
         )
     ]
 
