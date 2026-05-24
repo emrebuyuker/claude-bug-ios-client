@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		93B08F3F2FC348A4002B0F07 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 93B08F3E2FC348A4002B0F07 /* FirebaseAppCheck */; };
 		93FB9CA22FC25F79008D2FBC /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 93FB9CA12FC25F79008D2FBC /* FirebaseFunctions */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93B08F3F2FC348A4002B0F07 /* FirebaseAppCheck in Frameworks */,
 				93FB9CA22FC25F79008D2FBC /* FirebaseFunctions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -47,10 +49,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		93B08F3D2FC348A4002B0F07 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		93FB9C7D2FC25D17008D2FBC = {
 			isa = PBXGroup;
 			children = (
 				93FB9C882FC25D17008D2FBC /* ClaudeBugPoC */,
+				93B08F3D2FC348A4002B0F07 /* Frameworks */,
 				93FB9C872FC25D17008D2FBC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -84,6 +94,7 @@
 			name = ClaudeBugPoC;
 			packageProductDependencies = (
 				93FB9CA12FC25F79008D2FBC /* FirebaseFunctions */,
+				93B08F3E2FC348A4002B0F07 /* FirebaseAppCheck */,
 			);
 			productName = ClaudeBugPoC;
 			productReference = 93FB9C862FC25D17008D2FBC /* ClaudeBugPoC.app */;
@@ -367,6 +378,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		93B08F3E2FC348A4002B0F07 /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93FB9CA02FC25F79008D2FBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
 		93FB9CA12FC25F79008D2FBC /* FirebaseFunctions */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 93FB9CA02FC25F79008D2FBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
