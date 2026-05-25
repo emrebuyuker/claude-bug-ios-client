@@ -1,0 +1,187 @@
+fastlane_require 'dotenv'
+default_platform(:ios)
+
+# ==========================================================================
+# ClaudeBugPoC iOS — Fastlane
+#
+# Lane index:
+#   - clean                  Wipe generated Xcode project, workspace, ipa, Pods
+#   - generate_dev           Generate Xcode project (project.yml, dev mode)
+#   - generate_firebase      Generate Xcode project for Firebase distribution
+#   - generate_testflight    Generate Xcode project for TestFlight build
+#   - publish_firebase       Build & upload .ipa to Firebase App Distribution
+#   - publish_testflight     Build & upload .ipa to App Store Connect
+#   - deploy_firebase        generate_firebase + publish_firebase
+#   - deploy_testflight      generate_testflight + publish_testflight
+#   - upload_to_firebase     Upload an already-built ipa to Firebase
+#
+# Usage:
+#   bundle exec fastlane generate_firebase
+# ==========================================================================
+
+platform :ios do
+
+  desc 'Clean any generated Xcode project, workspace, ipa and Pods'
+  lane :clean do
+    Dir.chdir('../') do
+      sh('rm -rf *.xcodeproj')
+      sh('rm -rf *.xcworkspace')
+      sh('rm -rf *.ipa')
+      sh('rm -rf Pods')
+    end
+  end
+
+  desc 'Generate Xcode project and install dependencies for development mode'
+  lane :generate_dev do
+    generate('dev')
+  end
+
+  desc 'Generate Xcode project and install dependencies for Firebase distribution'
+  lane :generate_firebase do
+    generate('firebase')
+  end
+
+  desc 'Generate Xcode project and install dependencies for TestFlight build'
+  lane :generate_testflight do
+    generate('testflight')
+  end
+
+  desc 'Publish a pre-generated project to Firebase App Distribution'
+  lane :publish_firebase do
+    publish('firebase')
+  end
+
+  desc 'Publish a pre-generated project to TestFlight'
+  lane :publish_testflight do
+    publish('testflight')
+  end
+
+  desc 'Generate and publish project to Firebase'
+  lane :deploy_firebase do
+    generate('firebase')
+    publish('firebase')
+  end
+
+  desc 'Generate and publish project to TestFlight'
+  lane :deploy_testflight do |options|
+    password = options[:password]
+    ENV["FASTLANE_PASSWORD"] = password if password
+    generate('testflight')
+    publish('testflight')
+  end
+
+  desc 'Upload an already-built ipa to Firebase App Distribution'
+  lane :upload_to_firebase do
+    Dir.chdir('../') do
+      sh('firebase appdistribution:distribute ClaudeBugPoC.ipa  \
+    --app ' + get_firebase_app_token + '  \
+    --release-notes "' + get_firebase_release_notes + '" --groups ' + generate_firebase_groups)
+    end
+
+    # Crashlytics dSYM upload — proje Crashlytics pod'u kullanmaya başladığında uncomment et:
+    # dsym_path = ENV["DSYM_OUTPUT_PATH"]
+    # puts "dsym file path: #{dsym_path}"
+    # upload_symbols_to_crashlytics(
+    #   gsp_path: ENV["GOOGLE_SERVICES_PLIST"],
+    #   binary_path: "./Pods/FirebaseCrashlytics/upload-symbols",
+    #   dsym_path: dsym_path
+    # )
+  end
+
+  # --------------------------------------------------------------------------
+  # Helpers
+  # --------------------------------------------------------------------------
+
+  def generate(type)
+    clean
+
+    case type
+    when 'dev'
+      # No env override — uses defaults from project.yml
+    when 'firebase'
+      Dotenv.overload '../.env.test'
+      update_info_plist
+    when 'testflight'
+      Dotenv.overload '../.env.prod'
+      update_info_plist
+    end
+
+    Dir.chdir('../') do
+      # Kopyala: google-services-firebase.plist → ClaudeBugPoC/GoogleService-Info.plist
+      config_source = ENV['FIREBASE_CONFIG_FILE']
+      target = ENV['GOOGLE_SERVICES_PLIST']
+      if config_source && target && File.exist?(config_source)
+        sh("cat #{config_source} > #{target}")
+      end
+
+      # XcodeGen — yml seç (project.yml, firebase.yml veya testflight.yml)
+      xcodegen_config = ENV['XCODEGEN_CONFIG_FILE']
+      if xcodegen_config.nil? || xcodegen_config.empty?
+        sh('xcodegen -q')
+      else
+        sh("xcodegen -q -s #{xcodegen_config}")
+      end
+    end
+
+    cocoapods(try_repo_update_on_error: true)
+  end
+
+  def publish(type)
+    info_plist = ENV['INFO_PLIST'] || 'ClaudeBugPoC/Info.plist'
+    version = get_info_plist_value(key: 'CFBundleShortVersionString', path: info_plist)
+    build = get_info_plist_value(key: 'CFBundleVersion', path: info_plist)
+    puts "Building ClaudeBugPoC #{version} (#{build})"
+
+    case type
+    when 'firebase'
+      Dotenv.overload '../.env.test'
+      build_app(
+        configuration: 'Debug',
+        export_options: { method: 'development' }
+      )
+      upload_to_firebase
+
+    when 'testflight'
+      Dotenv.overload '../.env.prod'
+      build_app(
+        configuration: 'Release',
+        export_options: { method: 'app-store' }
+      )
+      deliver(
+        submit_for_review: false,
+        username: ENV['APPSTORE_USERNAME'],
+        force: true,
+        skip_metadata: true,
+        skip_screenshots: true
+      )
+    end
+  end
+
+  def update_info_plist
+    path = ENV['INFO_PLIST']
+    return if path.nil? || path.empty?
+
+    set_info_plist_value(path: path, key: 'CFBundleDisplayName', value: ENV['APP_NAME']) if ENV['APP_NAME']
+  end
+
+  def get_firebase_app_token
+    Dotenv.overload '../.env.test'
+    ENV['FIREBASE_APP_TOKEN'] || ''
+  end
+
+  def get_firebase_release_notes
+    Dotenv.overload '../.env.test'
+    ENV['FIREBASE_RELASE_NOTES'] || ''
+  end
+
+  def generate_firebase_groups
+    Dotenv.overload '../.env.test'
+    ENV['FIREBASE_GROUPS'] || ''
+  end
+
+  def generate_firebase_testers
+    Dotenv.overload '../.env.test'
+    names = ENV['FIREBASE_TESTERS'] || ''
+    names.split(',').map { |t| t.gsub(/\s+/, '') }.join(',')
+  end
+end
