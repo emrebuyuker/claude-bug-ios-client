@@ -1,5 +1,6 @@
 import UIKit
 import FirebaseFunctions
+import Alamofire
 
 // MARK: - Models
 
@@ -271,6 +272,37 @@ final class ViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setupViews()
         setupKeyboardObservers()
+        demoNetworkManager()
+    }
+
+    /// Demo: NetworkManager üzerinden TMDB'ye gerçek bir istek atar ve
+    /// sonucu console'a yazar. ApiConstant.bearerToken'ı kendi TMDB v4
+    /// token'ınla değiştirdikten sonra çalışır.
+    private func demoNetworkManager() {
+        guard ApiConstant.bearerToken != "YOUR_TMDB_V4_TOKEN_HERE" else {
+            print("⚠️  TMDB token not configured — set ApiConstant.bearerToken to run the NetworkManager demo.")
+            return
+        }
+        NetworkManager.shared.request(service: MovieService.popular(page: 1)) {
+            (result: Result<PagedResponse<Movie>, AFError>) in
+            switch result {
+            case .success(let response):
+                print("✅ TMDB popular page \(response.page): \(response.results.count) movies, total \(response.totalResults)")
+                if let first = response.results.first {
+                    NetworkManager.shared.request(service: MovieService.detail(id: first.id)) {
+                        (detailResult: Result<MovieDetail, AFError>) in
+                        switch detailResult {
+                        case .success(let detail):
+                            print("🎬 Detail for \(detail.title): runtime=\(detail.runtime ?? 0)m, cast=\(detail.credits?.cast.count ?? 0)")
+                        case .failure(let error):
+                            print("❌ TMDB detail error: \(error.localizedDescription)")
+                        }
+                    }
+                }
+            case .failure(let error):
+                print("❌ TMDB list error: \(error.localizedDescription)")
+            }
+        }
     }
 
     deinit {

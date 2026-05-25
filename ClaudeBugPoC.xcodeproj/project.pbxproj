@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		93B08F3F2FC348A4002B0F07 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 93B08F3E2FC348A4002B0F07 /* FirebaseAppCheck */; };
-		93FB9CA22FC25F79008D2FBC /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 93FB9CA12FC25F79008D2FBC /* FirebaseFunctions */; };
+		BBDDA93454C3D4D129458997 /* Pods_ClaudeBugPoC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B8BE6F0B954821657AECFC /* Pods_ClaudeBugPoC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		93FB9C862FC25D17008D2FBC /* ClaudeBugPoC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClaudeBugPoC.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2B8BE6F0B954821657AECFC /* Pods_ClaudeBugPoC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClaudeBugPoC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F90F67C61FA7369228F888D4 /* Pods-ClaudeBugPoC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.release.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.release.xcconfig"; sourceTree = "<group>"; };
+		FAB2D0899358F6E8BBC603D0 /* Pods-ClaudeBugPoC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.debug.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -41,8 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93B08F3F2FC348A4002B0F07 /* FirebaseAppCheck in Frameworks */,
-				93FB9CA22FC25F79008D2FBC /* FirebaseFunctions in Frameworks */,
+				BBDDA93454C3D4D129458997 /* Pods_ClaudeBugPoC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +53,7 @@
 		93B08F3D2FC348A4002B0F07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B2B8BE6F0B954821657AECFC /* Pods_ClaudeBugPoC.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -62,6 +64,7 @@
 				93FB9C882FC25D17008D2FBC /* ClaudeBugPoC */,
 				93B08F3D2FC348A4002B0F07 /* Frameworks */,
 				93FB9C872FC25D17008D2FBC /* Products */,
+				F27E5109E88A2660404E4D69 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,6 +76,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F27E5109E88A2660404E4D69 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FAB2D0899358F6E8BBC603D0 /* Pods-ClaudeBugPoC.debug.xcconfig */,
+				F90F67C61FA7369228F888D4 /* Pods-ClaudeBugPoC.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -80,9 +93,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 93FB9C992FC25D18008D2FBC /* Build configuration list for PBXNativeTarget "ClaudeBugPoC" */;
 			buildPhases = (
+				A9E96978262FB5259B783A0A /* [CP] Check Pods Manifest.lock */,
 				93FB9C822FC25D17008D2FBC /* Sources */,
 				93FB9C832FC25D17008D2FBC /* Frameworks */,
 				93FB9C842FC25D17008D2FBC /* Resources */,
+				DE4BFCC4EC5136160221AF1A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -92,10 +107,6 @@
 				93FB9C882FC25D17008D2FBC /* ClaudeBugPoC */,
 			);
 			name = ClaudeBugPoC;
-			packageProductDependencies = (
-				93FB9CA12FC25F79008D2FBC /* FirebaseFunctions */,
-				93B08F3E2FC348A4002B0F07 /* FirebaseAppCheck */,
-			);
 			productName = ClaudeBugPoC;
 			productReference = 93FB9C862FC25D17008D2FBC /* ClaudeBugPoC.app */;
 			productType = "com.apple.product-type.application";
@@ -124,9 +135,6 @@
 			);
 			mainGroup = 93FB9C7D2FC25D17008D2FBC;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-				93FB9CA02FC25F79008D2FBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 93FB9C872FC25D17008D2FBC /* Products */;
 			projectDirPath = "";
@@ -147,6 +155,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A9E96978262FB5259B783A0A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ClaudeBugPoC-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DE4BFCC4EC5136160221AF1A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		93FB9C822FC25D17008D2FBC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -160,12 +210,14 @@
 /* Begin XCBuildConfiguration section */
 		93FB9C9A2FC25D18008D2FBC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FAB2D0899358F6E8BBC603D0 /* Pods-ClaudeBugPoC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ClaudeBugPoC/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -193,12 +245,14 @@
 		};
 		93FB9C9B2FC25D18008D2FBC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F90F67C61FA7369228F888D4 /* Pods-ClaudeBugPoC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ClaudeBugPoC/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -365,30 +419,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		93FB9CA02FC25F79008D2FBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 12.13.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		93B08F3E2FC348A4002B0F07 /* FirebaseAppCheck */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 93FB9CA02FC25F79008D2FBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAppCheck;
-		};
-		93FB9CA12FC25F79008D2FBC /* FirebaseFunctions */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 93FB9CA02FC25F79008D2FBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFunctions;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 93FB9C7E2FC25D17008D2FBC /* Project object */;
 }
