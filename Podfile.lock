@@ -42,12 +42,16 @@ PODS:
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
   - GTMSessionFetcher/Core (5.2.0)
+  - Kingfisher (8.8.0)
   - PromisesObjC (2.4.0)
+  - SnapKit (5.7.1)
 
 DEPENDENCIES:
   - Alamofire
   - FirebaseAppCheck
   - FirebaseFunctions
+  - Kingfisher
+  - SnapKit
 
 SPEC REPOS:
   trunk:
@@ -64,7 +68,9 @@ SPEC REPOS:
     - FirebaseSharedSwift
     - GoogleUtilities
     - GTMSessionFetcher
+    - Kingfisher
     - PromisesObjC
+    - SnapKit
 
 SPEC CHECKSUMS:
   Alamofire: eec6cd8f73b242b59e34153a606a909eb9864b14
@@ -80,8 +86,10 @@ SPEC CHECKSUMS:
   FirebaseSharedSwift: 3b009645c42263e13d7b320c3543f2938908ebe9
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
   GTMSessionFetcher: 904bdd2a82c635bcd6f44edf94cc8775c5d1d6e6
+  Kingfisher: beeaf65ed57dfa710d416aea4093277e8a9b1968
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
+  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
 
-PODFILE CHECKSUM: 46930100461e71395c06ec7551bc819c9d89a29c
+PODFILE CHECKSUM: 25121696ab95d0c9efd49293052e8d255427103f
 
 COCOAPODS: 1.16.2

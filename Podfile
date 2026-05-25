@@ -6,6 +6,12 @@ target 'ClaudeBugPoC' do
   # Networking
   pod 'Alamofire'
 
+  # Layout
+  pod 'SnapKit'
+
+  # Image loading
+  pod 'Kingfisher'
+
   # Firebase (matches the previous SPM setup)
   pod 'FirebaseFunctions'
   pod 'FirebaseAppCheck'
