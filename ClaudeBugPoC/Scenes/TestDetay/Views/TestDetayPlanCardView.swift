@@ -18,11 +18,26 @@ final class TestDetayPlanCardView: LayoutableView {
     }
 
     // MARK: - UI
-    private lazy var providerLabel: UILabel = {
+    private lazy var providerLogoImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFit
+        iv.tintColor = Const.mutedColor
+        return iv
+    }()
+
+    private lazy var providerNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .bold)
-        label.textColor = Const.providerRed
+        label.font = .systemFont(ofSize: 14, weight: .semibold)
+        label.textColor = Const.labelColor
         return label
+    }()
+
+    private lazy var providerStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [providerLogoImageView, providerNameLabel])
+        stack.axis = .horizontal
+        stack.spacing = 6
+        stack.alignment = .center
+        return stack
     }()
 
     private lazy var badgeDot: UIView = {
@@ -63,10 +78,16 @@ final class TestDetayPlanCardView: LayoutableView {
     private lazy var headerRow: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
-        view.addSubview(providerLabel)
+        view.addSubview(providerStack)
         view.addSubview(badgeView)
-        providerLabel.snp.makeConstraints { make in
+        providerStack.snp.makeConstraints { make in
             make.leading.centerY.equalToSuperview()
+            make.height.equalToSuperview()
+            make.trailing.lessThanOrEqualTo(badgeView.snp.leading).offset(-8)
+        }
+        providerLogoImageView.snp.makeConstraints { make in
+            make.height.equalTo(20)
+            make.width.lessThanOrEqualTo(120)
         }
         badgeView.snp.makeConstraints { make in
             make.trailing.centerY.equalToSuperview()
@@ -121,8 +142,24 @@ final class TestDetayPlanCardView: LayoutableView {
     }
 
     // MARK: - Configure
-    func configure(provider: String, badge: String, data: String, validity: String) {
-        providerLabel.text = provider
+    func configure(
+        provider: String,
+        providerAssetName: String?,
+        badge: String,
+        data: String,
+        validity: String
+    ) {
+        if let assetName = providerAssetName, let image = UIImage(named: assetName) {
+            providerLogoImageView.image = image
+            providerLogoImageView.tintColor = nil
+            providerNameLabel.isHidden = true
+        } else {
+            providerLogoImageView.image = UIImage(systemName: "simcard.fill")?
+                .withRenderingMode(.alwaysTemplate)
+            providerLogoImageView.tintColor = Const.mutedColor
+            providerNameLabel.text = provider
+            providerNameLabel.isHidden = false
+        }
         badgeLabel.text = badge
         dataRow.valueLabel.text = data
         validityRow.valueLabel.text = validity

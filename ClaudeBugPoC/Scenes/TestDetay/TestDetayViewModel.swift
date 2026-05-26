@@ -10,6 +10,7 @@ struct EsimPlanSummary {
     let countryTitle: String
     let bannerText: String
     let providerName: String
+    let providerLogoAssetName: String?
     let badgeText: String
     let dataAmount: String
     let validity: String
@@ -68,7 +69,8 @@ private extension EsimPlanSummary {
     static let japonyaSample = EsimPlanSummary(
         countryTitle: "Japonya",
         bannerText: "Bu plan eSIM io'nun Global eSIM'ine dahil değil. Aşağıdaki eSIM'i Kur bağlantısına tıklayarak kurulumu başlatabilirsiniz.",
-        providerName: "vodafone",
+        providerName: "Vodafone",
+        providerLogoAssetName: nil,
         badgeText: "Yerel Tarife",
         dataAmount: "1 GB",
         validity: "30 Days",

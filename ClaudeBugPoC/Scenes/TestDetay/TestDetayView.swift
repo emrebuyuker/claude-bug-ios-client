@@ -191,6 +191,7 @@ final class TestDetayView: LayoutableView {
         infoBannerView.configure(with: plan.bannerText)
         planCardView.configure(
             provider: plan.providerName,
+            providerAssetName: plan.providerLogoAssetName,
             badge: plan.badgeText,
             data: plan.dataAmount,
             validity: plan.validity

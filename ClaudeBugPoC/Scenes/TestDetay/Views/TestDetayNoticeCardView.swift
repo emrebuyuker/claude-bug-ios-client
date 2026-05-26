@@ -43,7 +43,7 @@ final class TestDetayNoticeCardView: LayoutableView {
             make.size.equalTo(16)
         }
         messageLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(14)
+            make.top.equalToSuperview().offset(16)
             make.leading.equalTo(iconImageView.snp.trailing).offset(8)
             make.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(16)
