@@ -10,6 +10,8 @@ import SnapKit
 protocol FigmaCompareViewDelegate: AnyObject {
     func figmaCompareView(_ view: FigmaCompareView, didTapSubmitWith url: String)
     func figmaCompareViewDidTapReset(_ view: FigmaCompareView)
+    func figmaCompareViewDidTapCreateJira(_ view: FigmaCompareView)
+    func figmaCompareView(_ view: FigmaCompareView, didTapEditFor differenceId: UUID)
 }
 
 // MARK: - View
@@ -181,6 +183,39 @@ final class FigmaCompareView: LayoutableView {
         return cv
     }()
 
+    private lazy var createJiraButton: UIButton = {
+        var config = UIButton.Configuration.filled()
+        config.title = LocalizationKey.View.FigmaCompare.createJiraButton.localize
+        config.image = UIImage(systemName: "ladybug.fill")
+        config.imagePadding = 8
+        config.baseBackgroundColor = .systemIndigo
+        config.baseForegroundColor = .white
+        config.cornerStyle = .medium
+        config.contentInsets = NSDirectionalEdgeInsets(top: 14, leading: 20, bottom: 14, trailing: 20)
+        let button = UIButton(configuration: config)
+        button.addTarget(self, action: #selector(handleCreateJira), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var jiraButtonContainer: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+        let separator = UIView()
+        separator.backgroundColor = .separator
+        view.addSubview(separator)
+        view.addSubview(createJiraButton)
+        separator.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+            make.height.equalTo(0.5)
+        }
+        createJiraButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(12)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(12)
+        }
+        return view
+    }()
+
     private lazy var resultContainer: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -191,7 +226,42 @@ final class FigmaCompareView: LayoutableView {
         view.addSubview(resetButton)
         view.addSubview(collectionView)
         view.addSubview(resultEmptyLabel)
+        view.addSubview(jiraButtonContainer)
         view.isHidden = true
+        return view
+    }()
+
+    // MARK: - Action Loading Overlay
+    private lazy var actionOverlaySpinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.color = .white
+        spinner.hidesWhenStopped = false
+        return spinner
+    }()
+
+    private lazy var actionOverlayLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15, weight: .medium)
+        label.textColor = .white
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
+
+    private lazy var actionOverlay: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.55)
+        view.isHidden = true
+        view.addSubview(actionOverlaySpinner)
+        view.addSubview(actionOverlayLabel)
+        actionOverlaySpinner.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-20)
+        }
+        actionOverlayLabel.snp.makeConstraints { make in
+            make.top.equalTo(actionOverlaySpinner.snp.bottom).offset(16)
+            make.leading.trailing.equalToSuperview().inset(40)
+        }
         return view
     }()
 
@@ -230,6 +300,7 @@ final class FigmaCompareView: LayoutableView {
         addSubview(loadingContainer)
         addSubview(resultContainer)
         addSubview(errorContainer)
+        addSubview(actionOverlay)
         generateAccessibilityIdentifiers()
     }
 
@@ -238,6 +309,13 @@ final class FigmaCompareView: LayoutableView {
         layoutLoadingContainer()
         layoutResultContainer()
         layoutErrorContainer()
+        layoutActionOverlay()
+    }
+
+    private func layoutActionOverlay() {
+        actionOverlay.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 
     // MARK: - Layout Helpers
@@ -310,7 +388,10 @@ final class FigmaCompareView: LayoutableView {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(resultMetadataLabel.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(jiraButtonContainer.snp.top)
+        }
+        jiraButtonContainer.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
         }
         resultEmptyLabel.snp.makeConstraints { make in
             make.center.equalTo(collectionView)
@@ -378,7 +459,21 @@ final class FigmaCompareView: LayoutableView {
             .replacing("cost", with: String(format: "%.4f", response.estimatedCostUsd))
 
         resultEmptyLabel.isHidden = !response.differences.isEmpty
+        createJiraButton.isEnabled = !response.differences.isEmpty
+        createJiraButton.alpha = response.differences.isEmpty ? 0.5 : 1.0
         collectionView.reloadData()
+    }
+
+    func showActionLoading(_ message: String) {
+        actionOverlayLabel.text = message
+        actionOverlay.isHidden = false
+        actionOverlaySpinner.startAnimating()
+        bringSubviewToFront(actionOverlay)
+    }
+
+    func hideActionLoading() {
+        actionOverlay.isHidden = true
+        actionOverlaySpinner.stopAnimating()
     }
 
     func showError(_ message: String) {
@@ -405,6 +500,17 @@ final class FigmaCompareView: LayoutableView {
     @objc private func handleReset() {
         urlTextField.text = ""
         delegate?.figmaCompareViewDidTapReset(self)
+    }
+
+    @objc private func handleCreateJira() {
+        delegate?.figmaCompareViewDidTapCreateJira(self)
+    }
+}
+
+// MARK: - FigmaDifferenceCellDelegate
+extension FigmaCompareView: FigmaDifferenceCellDelegate {
+    func figmaDifferenceCellDidTapEdit(_ cell: FigmaDifferenceCell, differenceId: UUID) {
+        delegate?.figmaCompareView(self, didTapEditFor: differenceId)
     }
 }
 

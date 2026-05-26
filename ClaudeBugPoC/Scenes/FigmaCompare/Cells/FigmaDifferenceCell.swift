@@ -6,7 +6,18 @@
 import UIKit
 import SnapKit
 
+// MARK: - Delegate
+protocol FigmaDifferenceCellDelegate: AnyObject {
+    func figmaDifferenceCellDidTapEdit(_ cell: FigmaDifferenceCell, differenceId: UUID)
+}
+
 final class FigmaDifferenceCell: LayoutableCollectionViewCell {
+
+    // MARK: - Public
+    weak var delegate: FigmaDifferenceCellDelegate?
+
+    // MARK: - Private
+    private var differenceId: UUID?
 
     // MARK: - UI
     private lazy var categoryLabel: UILabel = {
@@ -51,6 +62,25 @@ final class FigmaDifferenceCell: LayoutableCollectionViewCell {
         return label
     }()
 
+    private lazy var editButton: UIButton = {
+        var config = UIButton.Configuration.tinted()
+        config.title = LocalizationKey.View.FigmaCompare.editButton.localize
+        config.image = UIImage(systemName: "wand.and.stars")
+        config.imagePadding = 6
+        config.baseForegroundColor = .systemIndigo
+        config.cornerStyle = .medium
+        config.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12)
+        var titleAttr = AttributeContainer()
+        titleAttr.font = .systemFont(ofSize: 13, weight: .semibold)
+        config.attributedTitle = AttributedString(
+            LocalizationKey.View.FigmaCompare.editButton.localize,
+            attributes: titleAttr
+        )
+        let button = UIButton(configuration: config)
+        button.addTarget(self, action: #selector(handleEditTap), for: .touchUpInside)
+        return button
+    }()
+
     private lazy var container: UIView = {
         let view = UIView()
         view.backgroundColor = .secondarySystemBackground
@@ -62,8 +92,12 @@ final class FigmaDifferenceCell: LayoutableCollectionViewCell {
         view.addSubview(titleLabel)
         view.addSubview(detailLabel)
         view.addSubview(codeHintLabel)
+        view.addSubview(editButton)
         return view
     }()
+
+    // MARK: - Constants
+    static let editButtonAreaHeight: CGFloat = 44
 
     // MARK: - Init
     override init(frame: CGRect) {
@@ -106,12 +140,18 @@ final class FigmaDifferenceCell: LayoutableCollectionViewCell {
         codeHintLabel.snp.makeConstraints { make in
             make.top.equalTo(detailLabel.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(14)
-            make.bottom.equalToSuperview().inset(12)
+        }
+        editButton.snp.makeConstraints { make in
+            make.top.equalTo(codeHintLabel.snp.bottom).offset(10)
+            make.trailing.equalToSuperview().inset(14)
+            make.bottom.equalToSuperview().inset(10)
+            make.height.equalTo(32)
         }
     }
 
     // MARK: - Configure
     func configure(with difference: FigmaDifference) {
+        differenceId = difference.id
         categoryLabel.text = difference.category.localizationKey.localize
         severityLabel.text = difference.severity.localizationKey.localize
         titleLabel.text = difference.title
@@ -126,13 +166,27 @@ final class FigmaDifferenceCell: LayoutableCollectionViewCell {
         }
     }
 
+    func setEditEnabled(_ enabled: Bool) {
+        editButton.isEnabled = enabled
+        editButton.alpha = enabled ? 1.0 : 0.5
+    }
+
     override func prepareForReuse() {
         super.prepareForReuse()
+        differenceId = nil
         categoryLabel.text = nil
         severityLabel.text = nil
         titleLabel.text = nil
         detailLabel.text = nil
         codeHintLabel.text = nil
         codeHintLabel.isHidden = true
+        editButton.isEnabled = true
+        editButton.alpha = 1.0
+    }
+
+    // MARK: - Actions
+    @objc private func handleEditTap() {
+        guard let id = differenceId else { return }
+        delegate?.figmaDifferenceCellDidTapEdit(self, differenceId: id)
     }
 }

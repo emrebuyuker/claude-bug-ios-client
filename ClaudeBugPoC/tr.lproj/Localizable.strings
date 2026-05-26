@@ -50,6 +50,15 @@
 "figmaCompare.severity.high" = "🔴 Yüksek";
 "figmaCompare.severity.medium" = "🟡 Orta";
 "figmaCompare.severity.low" = "🟢 Düşük";
+"figmaCompare.button.edit" = "Düzenle";
+"figmaCompare.button.createJira" = "Tüm Farkları Jira'da Aç";
+"figmaCompare.button.open" = "Aç";
+"figmaCompare.action.creatingJira" = "Jira ticket oluşturuluyor...";
+"figmaCompare.action.applyingFix" = "Claude düzeltmeyi hazırlıyor ve PR açıyor...";
+"figmaCompare.action.jiraSuccess.title" = "✅ Ticket oluşturuldu";
+"figmaCompare.action.jiraSuccess.message" = "{ticketKey} ticket'ı açıldı. Detayları görmek için Aç'a dokun.";
+"figmaCompare.action.fixSuccess.title" = "✅ PR açıldı";
+"figmaCompare.action.fixSuccess.message" = "PR #{prNumber} oluşturuldu.\nDüzeltilen dosya: {filePath}";
 
 // MARK: - AI Inspector
 "aiInspector.title" = "Eleman Detayı";

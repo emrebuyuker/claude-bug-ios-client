@@ -56,6 +56,15 @@ enum LocalizationKey {
             static let severityHigh = "figmaCompare.severity.high"
             static let severityMedium = "figmaCompare.severity.medium"
             static let severityLow = "figmaCompare.severity.low"
+            static let editButton = "figmaCompare.button.edit"
+            static let createJiraButton = "figmaCompare.button.createJira"
+            static let openButton = "figmaCompare.button.open"
+            static let creatingJiraMessage = "figmaCompare.action.creatingJira"
+            static let applyingFixMessage = "figmaCompare.action.applyingFix"
+            static let jiraSuccessTitle = "figmaCompare.action.jiraSuccess.title"
+            static let jiraSuccessMessage = "figmaCompare.action.jiraSuccess.message"
+            static let fixSuccessTitle = "figmaCompare.action.fixSuccess.title"
+            static let fixSuccessMessage = "figmaCompare.action.fixSuccess.message"
         }
 
         enum AIInspector {

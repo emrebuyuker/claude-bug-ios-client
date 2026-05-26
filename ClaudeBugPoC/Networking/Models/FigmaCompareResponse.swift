@@ -55,6 +55,7 @@ enum FigmaDifferenceSeverity: String {
 
 // MARK: - Difference
 struct FigmaDifference {
+    let id: UUID
     let category: FigmaDifferenceCategory
     let severity: FigmaDifferenceSeverity
     let title: String
@@ -68,6 +69,7 @@ struct FigmaDifference {
               let detail = dictionary["detail"] as? String else {
             return nil
         }
+        self.id = UUID()
         self.category = FigmaDifferenceCategory(rawValue: categoryRaw) ?? .other
         self.severity = FigmaDifferenceSeverity(rawValue: severityRaw) ?? .medium
         self.title = title
