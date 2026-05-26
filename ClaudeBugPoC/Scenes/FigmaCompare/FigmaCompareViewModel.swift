@@ -41,8 +41,8 @@ final class FigmaCompareViewModel {
 
     // MARK: - Private
     private let functions: Functions
-    private static let callableTimeout: TimeInterval = 240
-    private static let fixCallableTimeout: TimeInterval = 300
+    private static let callableTimeout: TimeInterval = 540
+    private static let fixCallableTimeout: TimeInterval = 540
 
     // MARK: - Init
     init(
