@@ -7,11 +7,27 @@ import UIKit
 
 final class MainTabBarController: UITabBarController {
 
+    // MARK: - Private
+    private lazy var floatingButton: AIFloatingButton = {
+        let button = AIFloatingButton.create()
+        button.delegate = self
+        return button
+    }()
+
+    private var didPlaceFloatingButton = false
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureAppearance()
         viewControllers = makeTabs()
+        view.addSubview(floatingButton)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        positionFloatingButtonIfNeeded()
+        view.bringSubviewToFront(floatingButton)
     }
 
     // MARK: - Setup
@@ -74,5 +90,37 @@ final class MainTabBarController: UITabBarController {
         )
         nav.tabBarItem.accessibilityIdentifier = identifier
         return nav
+    }
+
+    // MARK: - Floating Button
+    private func positionFloatingButtonIfNeeded() {
+        guard !didPlaceFloatingButton, view.bounds.width > 0 else { return }
+        let safe = view.safeAreaInsets
+        let half = AIFloatingButton.size / 2
+        let margin = AIFloatingButton.edgeMargin
+        let posX = view.bounds.width - safe.right - half - margin
+        let posY = view.bounds.height - tabBar.bounds.height - safe.bottom - half - margin
+        floatingButton.center = CGPoint(x: posX, y: posY)
+        didPlaceFloatingButton = true
+    }
+
+    @objc private func dismissChat() {
+        dismiss(animated: true)
+    }
+}
+
+// MARK: - AIFloatingButtonDelegate
+extension MainTabBarController: AIFloatingButtonDelegate {
+    func aiFloatingButtonDidTap(_ button: AIFloatingButton) {
+        let chatVC = ViewController()
+        chatVC.title = "AI Asistan"
+        chatVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: self,
+            action: #selector(dismissChat)
+        )
+        let nav = UINavigationController(rootViewController: chatVC)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
     }
 }
