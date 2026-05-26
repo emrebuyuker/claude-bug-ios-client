@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00855C4C41FF082B38D3B032 /* AIFloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F311BA6A3A11971DBFB009 /* AIFloatingButton.swift */; };
 		03F8B63491A295591760095A /* PokemonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C8B2D4B60815163AD72082 /* PokemonService.swift */; };
 		05FFA8BA255C1EDE1209BD09 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EFF32BC4713C5ACD6AA413 /* SceneDelegate.swift */; };
 		0977FB07897B682C5670C4A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE43B544B1E4C4D7809611A0 /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 		27607B2A009C579FCA0BED09 /* CountryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697048A917F10C8A1106B078 /* CountryListViewController.swift */; };
 		284A52EBD3BCCAED54483E29 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3357A6B2C6854EDEFD5A75CD /* CountryCell.swift */; };
 		2A48CC44E3582B37E63490B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72F45832A1B09900A0911FC0 /* LaunchScreen.storyboard */; };
+		2B3BC55FA3B24D2C15E7CF95 /* Pods_ClaudeBugPoC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5947EC617322C24BAB80679 /* Pods_ClaudeBugPoC.framework */; };
 		3DD819EE1F7681963DDCAAC7 /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B293F55107C96A8B7F69AA6 /* MovieService.swift */; };
 		42404563BFF53942E1BE4B94 /* CountryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23387DC276854489B8BC01BE /* CountryListViewModel.swift */; };
 		4AC34BF5038D25A1E23FF309 /* LaunchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774CF263DE41ECD44E42DC8E /* LaunchService.swift */; };
@@ -70,7 +72,6 @@
 		F924151CCFD0749176E457BA /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7E822B50110DA519790733 /* MovieDetail.swift */; };
 		F9D3E5B569BC71107609C4CA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39BBCF450B3D218E73D51690 /* GoogleService-Info.plist */; };
 		FCCD06DEDCDE5C0E92FCEAE5 /* CountryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013701218C5219396282F008 /* CountryDetailViewController.swift */; };
-		FCE44B96A6C9724D550B9064 /* Pods_ClaudeBugPoC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BA48B02EACF6BE6162164A1 /* Pods_ClaudeBugPoC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,7 +87,6 @@
 		2D6B86CD305BD935C51E4C85 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		2E1DF3B0166A58CF7284F8BA /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		2EDFFFFC3E11E2CBC14062D5 /* Accessible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accessible.swift; sourceTree = "<group>"; };
-		3142E98BC7EC2994D05C9039 /* Pods-ClaudeBugPoC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.debug.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.debug.xcconfig"; sourceTree = "<group>"; };
 		3357A6B2C6854EDEFD5A75CD /* CountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
 		341A861E0FEB1F1FB3F05ABA /* LayoutingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutingViewController.swift; sourceTree = "<group>"; };
 		341C5ED2CF90C62D151FEF35 /* MealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailViewController.swift; sourceTree = "<group>"; };
@@ -96,7 +96,6 @@
 		4AAA08491D7FFD036CDE0A14 /* PokemonListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewController.swift; sourceTree = "<group>"; };
 		5813A62BBBDAC07E5F302DBC /* Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launch.swift; sourceTree = "<group>"; };
 		5B22401BEECEF1430F7B5959 /* LayoutableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutableView.swift; sourceTree = "<group>"; };
-		5BA48B02EACF6BE6162164A1 /* Pods_ClaudeBugPoC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClaudeBugPoC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6655A94DD00F4D7B3EB49AE3 /* LaunchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchListViewModel.swift; sourceTree = "<group>"; };
 		66D3785055AC6ECFF4C168A6 /* ApiRequestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequestHelper.swift; sourceTree = "<group>"; };
 		697048A917F10C8A1106B078 /* CountryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewController.swift; sourceTree = "<group>"; };
@@ -105,7 +104,6 @@
 		7DE0095FCDD5B64CB2D3AC7C /* MealDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetail.swift; sourceTree = "<group>"; };
 		8026D5C77941B0E730E3F0EC /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		80928A2E721B12C0DC5FAA41 /* MealListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealListView.swift; sourceTree = "<group>"; };
-		8A08723641E94C14CC5F2BAF /* Pods-ClaudeBugPoC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.release.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.release.xcconfig"; sourceTree = "<group>"; };
 		8A325AC31B8CE3312E210451 /* CountryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryService.swift; sourceTree = "<group>"; };
 		8C45887879EB7AE06C45700E /* PokemonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewController.swift; sourceTree = "<group>"; };
 		90DE4E8308DE731352E83580 /* LaunchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchListView.swift; sourceTree = "<group>"; };
@@ -116,9 +114,11 @@
 		9F2A50B7845B868E047C8430 /* PokemonDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetail.swift; sourceTree = "<group>"; };
 		A2E517663C1E464088143696 /* LaunchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchDetailViewModel.swift; sourceTree = "<group>"; };
 		A4090940060C91FE8B2F0A69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A5947EC617322C24BAB80679 /* Pods_ClaudeBugPoC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClaudeBugPoC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5B224CEADC1542945DE3E3E /* LaunchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchDetailView.swift; sourceTree = "<group>"; };
 		A69E74C6D15790124851BBE7 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		A8EFF32BC4713C5ACD6AA413 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		ACAD408328BF498214416D95 /* Pods-ClaudeBugPoC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.release.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.release.xcconfig"; sourceTree = "<group>"; };
 		B7A2B23D39BA3FFDC137315C /* ApiConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConstant.swift; sourceTree = "<group>"; };
 		B87059C68D6DEDADA602DAD1 /* CountryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailViewModel.swift; sourceTree = "<group>"; };
 		BA6D5AF8CFBB0CA89E6D80F5 /* MealListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealListViewController.swift; sourceTree = "<group>"; };
@@ -132,8 +132,10 @@
 		D6C8B2D4B60815163AD72082 /* PokemonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonService.swift; sourceTree = "<group>"; };
 		D7025CEBF9DB91542CEBA3F0 /* PokemonListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewModel.swift; sourceTree = "<group>"; };
 		D88087147ADA061047623167 /* MealListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealListViewModel.swift; sourceTree = "<group>"; };
+		D9B1867A89056DA18B874277 /* Pods-ClaudeBugPoC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.debug.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.debug.xcconfig"; sourceTree = "<group>"; };
 		DCF2DDCB39E4BDC9973713FD /* Layoutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layoutable.swift; sourceTree = "<group>"; };
 		DE43B544B1E4C4D7809611A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E2F311BA6A3A11971DBFB009 /* AIFloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIFloatingButton.swift; sourceTree = "<group>"; };
 		E51EC549248541550C4FDBA5 /* PokemonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailView.swift; sourceTree = "<group>"; };
 		E81E33AB03A0D8066AD0F6C3 /* ApiResponseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponseHelper.swift; sourceTree = "<group>"; };
 		E9451AAC9F7DA54F3A6601FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -145,11 +147,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A2BEA28D6263D05C8DC5320C /* Frameworks */ = {
+		BD2DF34D101A236FDFEB000F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCE44B96A6C9724D550B9064 /* Pods_ClaudeBugPoC.framework in Frameworks */,
+				2B3BC55FA3B24D2C15E7CF95 /* Pods_ClaudeBugPoC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +166,14 @@
 				D0AD397C9A51957EE6A0EE94 /* MealDetailViewModel.swift */,
 			);
 			path = Detail;
+			sourceTree = "<group>";
+		};
+		00867FD1C75BD61BE8340A12 /* AIChat */ = {
+			isa = PBXGroup;
+			children = (
+				E2F311BA6A3A11971DBFB009 /* AIFloatingButton.swift */,
+			);
+			path = AIChat;
 			sourceTree = "<group>";
 		};
 		00CDADDC577D3D098EABDA36 /* Meals */ = {
@@ -181,6 +191,7 @@
 		369210E8A8C2E1221668E7FB /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				00867FD1C75BD61BE8340A12 /* AIChat */,
 				5BC1195842242915B85AAD99 /* Countries */,
 				7FEC7034F131D2CEAB591BC1 /* Launches */,
 				4EF1B74B45D6CB6275BE6435 /* Main */,
@@ -241,12 +252,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		68912603F6ACD114325FDD74 /* Frameworks */ = {
+		6E28A43819A64538A68125F7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5BA48B02EACF6BE6162164A1 /* Pods_ClaudeBugPoC.framework */,
+				D9B1867A89056DA18B874277 /* Pods-ClaudeBugPoC.debug.xcconfig */,
+				ACAD408328BF498214416D95 /* Pods-ClaudeBugPoC.release.xcconfig */,
 			);
-			name = Frameworks;
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		724C2C41DC3F4671C7D1AAA2 /* Cells */ = {
@@ -321,16 +334,6 @@
 			path = Launches;
 			sourceTree = "<group>";
 		};
-		A16A34A01391A6E289F886B0 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				3142E98BC7EC2994D05C9039 /* Pods-ClaudeBugPoC.debug.xcconfig */,
-				8A08723641E94C14CC5F2BAF /* Pods-ClaudeBugPoC.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		A1F82760BED36A21D60F36E0 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,8 +347,8 @@
 			children = (
 				7F1379B9A1694A20F59CFC39 /* ClaudeBugPoC */,
 				CD7A0B2DA17C884FBB46F08C /* Products */,
-				A16A34A01391A6E289F886B0 /* Pods */,
-				68912603F6ACD114325FDD74 /* Frameworks */,
+				6E28A43819A64538A68125F7 /* Pods */,
+				E49B1F7060A003F829DC1703 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -407,6 +410,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		E49B1F7060A003F829DC1703 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A5947EC617322C24BAB80679 /* Pods_ClaudeBugPoC.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F7ADA8A754D9AB67B8D97D97 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,12 +449,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ED75F5BCC9FA1E84F8F09AB9 /* Build configuration list for PBXNativeTarget "ClaudeBugPoC" */;
 			buildPhases = (
-				ED90239C522E304FD02507C9 /* [CP] Check Pods Manifest.lock */,
+				745A2900277E5897A293F7DB /* [CP] Check Pods Manifest.lock */,
 				73311783F5E80380D9727136 /* Sources */,
 				F0FFF9A6A41079C5767AAA7B /* Resources */,
 				3DB6453A9397103475AA5CF1 /* SwiftLint */,
-				A2BEA28D6263D05C8DC5320C /* Frameworks */,
-				8B4FE2FF278BC94E1C0A92C6 /* [CP] Embed Pods Frameworks */,
+				BD2DF34D101A236FDFEB000F /* Frameworks */,
+				67426F1B7998B64617B2BE7A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -464,7 +475,6 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					923D3051E155DA8EB489006D = {
-						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -520,7 +530,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed — run 'brew install swiftlint'\"\nfi\n";
 		};
-		8B4FE2FF278BC94E1C0A92C6 /* [CP] Embed Pods Frameworks */ = {
+		67426F1B7998B64617B2BE7A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -537,7 +547,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ED90239C522E304FD02507C9 /* [CP] Check Pods Manifest.lock */ = {
+		745A2900277E5897A293F7DB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -566,6 +576,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00855C4C41FF082B38D3B032 /* AIFloatingButton.swift in Sources */,
 				52CD90AC9D123FB83BFA7E34 /* APIService.swift in Sources */,
 				11631610C2048896FC143E45 /* Accessible.swift in Sources */,
 				D5379FEEB653F1A2F46C31EB /* ApiConstant.swift in Sources */,
@@ -683,7 +694,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -748,7 +758,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -775,23 +784,22 @@
 		};
 		C6EC44236EE6893CB93AE2CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3142E98BC7EC2994D05C9039 /* Pods-ClaudeBugPoC.debug.xcconfig */;
+			baseConfigurationReference = D9B1867A89056DA18B874277 /* Pods-ClaudeBugPoC.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ClaudeBugPoC/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -809,23 +817,22 @@
 		};
 		F19ACFA932B7B983F73C2583 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8A08723641E94C14CC5F2BAF /* Pods-ClaudeBugPoC.release.xcconfig */;
+			baseConfigurationReference = ACAD408328BF498214416D95 /* Pods-ClaudeBugPoC.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ClaudeBugPoC/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
