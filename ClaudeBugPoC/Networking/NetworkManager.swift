@@ -51,6 +51,7 @@ final class NetworkManager {
             let duration = Date().timeIntervalSince(startTime)
 
             self.log(
+                method: service.method.rawValue,
                 path: service.path,
                 statusCode: statusCode,
                 duration: duration,
@@ -99,7 +100,15 @@ private extension NetworkManager {
         return nil
     }
 
-    func log(path: String, statusCode: Int?, duration: TimeInterval, data: Data?, error: AFError?) {
+    func log(method: String, path: String, statusCode: Int?, duration: TimeInterval, data: Data?, error: AFError?) {
+        ActivityRecorder.shared.recordNetwork(
+            method: method,
+            path: path,
+            status: statusCode,
+            durationMs: Int(duration * 1000),
+            error: error?.localizedDescription
+        )
+
         #if DEBUG
         print("──────── 🌐 NetworkManager ────────")
         print("📍 path: \(path)")

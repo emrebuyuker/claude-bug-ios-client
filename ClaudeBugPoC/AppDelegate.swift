@@ -28,6 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppCheck.setAppCheckProviderFactory(ClaudeBugAppCheckProviderFactory())
 
         FirebaseApp.configure()
+
+        // Swizzle viewDidAppear so every screen transition lands in the bug
+        // report's activity timeline.
+        UIViewController.installScreenTracking()
+
         return true
     }
 

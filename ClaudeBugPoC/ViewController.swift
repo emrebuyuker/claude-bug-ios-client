@@ -28,6 +28,22 @@ enum ChatItem {
     case claude(String)
     case system(String)
     case proposal(ProposedChange)
+    case actionPrompt(ActionPrompt)
+    case jiraTicket(key: String, url: String, summary: String)
+}
+
+// Claude cevabından sonra kullanıcıya "Bug Aç" / "Kodu Düzenle" seçimini sunan kart.
+final class ActionPrompt {
+    enum State { case pending, bugOpened, codeRevealed, bugLoading }
+
+    let bugDescription: String
+    let pendingProposals: [ProposedChange]
+    var state: State = .pending
+
+    init(bugDescription: String, pendingProposals: [ProposedChange]) {
+        self.bugDescription = bugDescription
+        self.pendingProposals = pendingProposals
+    }
 }
 
 // MARK: - Diff helpers
@@ -113,7 +129,7 @@ fileprivate func renderDiff(_ lines: [DiffLine]) -> NSAttributedString {
 
     if lines.isEmpty {
         return NSAttributedString(
-            string: "(değişiklik yok)",
+            string: LocalizationKey.View.AIChat.diffNoChanges.localize,
             attributes: [.font: mono, .foregroundColor: UIColor.secondaryLabel]
         )
     }
@@ -161,17 +177,14 @@ final class ViewController: UIViewController {
     }()
 
     private var items: [ChatItem] = [
-        .system(
-            "👋 Bu uygulamanın kendi Swift kodunu analiz edebilirsin.\n\n"
-            + "Aşağıdan bir bug ya da şüpheli davranış tarif et — Claude, "
-            + "GitHub'daki iOS kaynaklarını (ClaudeBugPoC/) okuyup root cause + fix önerir.\n\n"
-            + "Önerilen her değişiklikte ✓ veya ✗ ile karar ver. Herhangi bir kararı verdiğinde "
-            + "altta 'PR Oluştur' butonu görünür."
-        )
+        .system(LocalizationKey.View.AIChat.welcomeMessage.localize)
     ]
 
     private var lastBugDescription: String?
     private var pendingProposals: [ProposedChange] = []
+    /// `---TEKNİK---` ayracının altındaki teknik açıklama; "Kodu Düzenle" tıklanınca
+    /// system mesajı olarak gösterilir.
+    fileprivate var lastTechnicalDetail: String?
 
     // MARK: UI
     private lazy var tableView: UITableView = {
@@ -179,6 +192,8 @@ final class ViewController: UIViewController {
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.register(ChatMessageCell.self, forCellReuseIdentifier: ChatMessageCell.reuseId)
         tv.register(ProposedChangeCell.self, forCellReuseIdentifier: ProposedChangeCell.reuseId)
+        tv.register(ActionPromptCell.self, forCellReuseIdentifier: ActionPromptCell.reuseId)
+        tv.register(JiraTicketCell.self, forCellReuseIdentifier: JiraTicketCell.reuseId)
         tv.dataSource = self
         tv.estimatedRowHeight = 120
         tv.rowHeight = UITableView.automaticDimension
@@ -217,7 +232,7 @@ final class ViewController: UIViewController {
     private lazy var placeholderLabel: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.text = "Bug'ı tarif et..."
+        lbl.text = LocalizationKey.View.AIChat.inputPlaceholder.localize
         lbl.font = .systemFont(ofSize: 16)
         lbl.textColor = .placeholderText
         lbl.isUserInteractionEnabled = false
@@ -228,7 +243,7 @@ final class ViewController: UIViewController {
     private lazy var sendButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.setTitle("Gönder", for: .normal)
+        btn.setTitle(LocalizationKey.View.AIChat.sendButton.localize, for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         btn.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
         return btn
@@ -244,7 +259,7 @@ final class ViewController: UIViewController {
 
     private lazy var createPRButton: UIButton = {
         var config = UIButton.Configuration.filled()
-        config.title = "🚀 PR Oluştur"
+        config.title = LocalizationKey.View.AIChat.createPRButton.localize
         config.baseBackgroundColor = .systemBlue
         config.baseForegroundColor = .white
         config.cornerStyle = .capsule
@@ -268,7 +283,7 @@ final class ViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Claude Bug Analyzer"
+        title = LocalizationKey.View.AIChat.navigationTitle.localize
         view.backgroundColor = .systemBackground
         setupViews()
         setupKeyboardObservers()
@@ -383,8 +398,11 @@ final class ViewController: UIViewController {
         guard let text = inputField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               !text.isEmpty else { return }
 
+        ActivityRecorder.shared.recordTap("sendButton", context: "bugDescription")
+
         // Reset pending proposals on a new question.
         pendingProposals.removeAll()
+        lastTechnicalDetail = nil
         updatePRButtonVisibility()
         lastBugDescription = text
 
@@ -400,13 +418,14 @@ final class ViewController: UIViewController {
     }
 
     @objc private func createPRTapped() {
+        ActivityRecorder.shared.recordTap("createPRButton")
         let accepted = pendingProposals.filter { $0.decision == .accepted }
         guard !accepted.isEmpty else {
-            append(.system("ℹ️ Hiçbir değişiklik ✓ ile onaylanmadı. PR açılmadı."))
+            append(.system(LocalizationKey.View.AIChat.noChangesApproved.localize))
             return
         }
         guard let bugTitle = lastBugDescription else {
-            append(.system("❌ Önce bir bug tarif etmelisin."))
+            append(.system(LocalizationKey.View.AIChat.describeBugFirst.localize))
             return
         }
 
@@ -430,7 +449,10 @@ final class ViewController: UIViewController {
 
     // MARK: Network
     private func callAskClaude(bugDescription: String) {
-        let payload: [String: Any] = ["bugDescription": bugDescription]
+        var payload: [String: Any] = ["bugDescription": bugDescription]
+        if let timeline = ActivityRecorder.shared.exportTimeline() {
+            payload["activityLog"] = timeline
+        }
         let callable = functions.httpsCallable("askClaude")
         callable.timeoutInterval = 180   // match server-side timeout; default is 70s
         callable.call(payload) { [weak self] result, error in
@@ -441,18 +463,20 @@ final class ViewController: UIViewController {
 
             if let error = error {
                 let nsError = error as NSError
-                let msg = "❌ Hata: \(nsError.localizedDescription)\n"
-                    + "Code: \(nsError.code)\nDomain: \(nsError.domain)"
+                let msg = LocalizationKey.View.AIChat.errorFormat.localize
+                    .replacing("message", with: nsError.localizedDescription)
+                    .replacing("code", with: nsError.code)
+                    .replacing("domain", with: nsError.domain)
                 self.append(.system(msg))
                 return
             }
 
             guard let data = result?.data as? [String: Any] else {
-                self.append(.system("❌ Beklenmedik response formatı"))
+                self.append(.system(LocalizationKey.View.AIChat.unexpectedResponse.localize))
                 return
             }
 
-            let answer = (data["answer"] as? String) ?? "(Claude bir cevap üretemedi)"
+            let rawAnswer = (data["answer"] as? String) ?? LocalizationKey.View.AIChat.noResponse.localize
             let iterations = data["iterations"] as? Int ?? 0
             let cost = data["estimatedCostUsd"] as? Double ?? 0.0
             let inputTokens = data["inputTokens"] as? Int ?? 0
@@ -460,15 +484,26 @@ final class ViewController: UIViewController {
             let cacheRead = data["cacheReadTokens"] as? Int ?? 0
             let cacheCreated = data["cacheCreationTokens"] as? Int ?? 0
 
-            var metadata = "\n\n— — — — —\n"
-                + "📊 \(iterations) iterasyon · 🪙 \(inputTokens)+\(outputTokens) token · "
-                + "💵 $\(String(format: "%.4f", cost))"
+            // Cevabı kullanıcı dostu (üst) + teknik (alt) olarak böl.
+            let (friendly, technical) = self.splitAnswer(rawAnswer)
+
+            let metadataLine = LocalizationKey.View.AIChat.metadataFormat.localize
+                .replacing("iterations", with: iterations)
+                .replacing("inputTokens", with: inputTokens)
+                .replacing("outputTokens", with: outputTokens)
+                .replacing("cost", with: String(format: "%.4f", cost))
+            var metadata = "\n\n— — — — —\n" + metadataLine
             if cacheRead > 0 || cacheCreated > 0 {
-                metadata += "\n♻️ cache: \(cacheRead) read · \(cacheCreated) write"
+                let cacheLine = LocalizationKey.View.AIChat.cacheMetadata.localize
+                    .replacing("read", with: cacheRead)
+                    .replacing("write", with: cacheCreated)
+                metadata += "\n" + cacheLine
             }
 
-            self.append(.claude(answer + metadata))
+            self.append(.claude(friendly + metadata))
 
+            // Proposal'ları sakla — kullanıcı "Kodu Düzenle" tıklayana kadar gösterme.
+            var parsedProposals: [ProposedChange] = []
             if let rawChanges = data["proposedChanges"] as? [[String: Any]] {
                 for raw in rawChanges {
                     guard let id = raw["id"] as? String,
@@ -476,18 +511,126 @@ final class ViewController: UIViewController {
                           let desc = raw["description"] as? String,
                           let oldC = raw["oldContent"] as? String,
                           let newC = raw["newContent"] as? String else { continue }
-                    let change = ProposedChange(
+                    parsedProposals.append(ProposedChange(
                         id: id,
                         filePath: filePath,
                         changeDescription: desc,
                         oldContent: oldC,
                         newContent: newC
-                    )
-                    self.pendingProposals.append(change)
-                    self.append(.proposal(change))
+                    ))
                 }
             }
+
+            // İki butonlu aksiyon kartı. Teknik detay buton arkasında saklı kalır.
+            let prompt = ActionPrompt(
+                bugDescription: bugDescription,
+                pendingProposals: parsedProposals
+            )
+            self.lastTechnicalDetail = technical
+            self.append(.actionPrompt(prompt))
         }
+    }
+
+    /// `---TEKNİK---` ayracını arar; bulamazsa cevabın tamamını friendly say.
+    private func splitAnswer(_ answer: String) -> (friendly: String, technical: String?) {
+        let separator = LocalizationKey.View.AIChat.technicalSeparator.localize
+        guard let range = answer.range(of: separator) else {
+            return (answer.trimmingCharacters(in: .whitespacesAndNewlines), nil)
+        }
+        let friendly = String(answer[..<range.lowerBound])
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        let technical = String(answer[range.upperBound...])
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        return (friendly, technical.isEmpty ? nil : technical)
+    }
+
+    // MARK: ActionPrompt actions
+
+    fileprivate func actionPromptDidTapBug(_ prompt: ActionPrompt) {
+        ActivityRecorder.shared.recordTap("bugOpenButton")
+        guard prompt.state == .pending else { return }
+        prompt.state = .bugLoading
+        reloadActionPrompt(prompt)
+        callCreateBugTicket(bugDescription: prompt.bugDescription, prompt: prompt)
+    }
+
+    fileprivate func actionPromptDidTapCode(_ prompt: ActionPrompt) {
+        ActivityRecorder.shared.recordTap("codeEditButton")
+        guard prompt.state == .pending else { return }
+        prompt.state = .codeRevealed
+        reloadActionPrompt(prompt)
+
+        // Sakladığımız proposal'ları akışa şimdi ekle.
+        pendingProposals = prompt.pendingProposals
+        for change in prompt.pendingProposals {
+            append(.proposal(change))
+        }
+
+        if prompt.pendingProposals.isEmpty {
+            append(.system(LocalizationKey.View.AIChat.noCodeChange.localize))
+        } else if let technical = lastTechnicalDetail, !technical.isEmpty {
+            append(.system(
+                LocalizationKey.View.AIChat.technicalDetailFormat.localize.replacing("detail", with: technical)
+            ))
+        }
+        updatePRButtonVisibility()
+    }
+
+    private func reloadActionPrompt(_ prompt: ActionPrompt) {
+        if let row = items.firstIndex(where: {
+            if case let .actionPrompt(p) = $0 { return p === prompt }
+            return false
+        }) {
+            tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .none)
+        }
+    }
+
+    private func callCreateBugTicket(bugDescription: String, prompt: ActionPrompt) {
+        var payload: [String: Any] = ["bugDescription": bugDescription]
+        if let timeline = ActivityRecorder.shared.exportTimeline() {
+            payload["activityLog"] = timeline
+        }
+        let callable = functions.httpsCallable("createBugTicket")
+        callable.timeoutInterval = 60
+        callable.call(payload) { [weak self] result, error in
+            guard let self = self else { return }
+
+            if let error = error {
+                let nsError = error as NSError
+                prompt.state = .pending
+                self.reloadActionPrompt(prompt)
+                self.append(.system(
+                    LocalizationKey.View.AIChat.jiraError.localize.replacing("message", with: nsError.localizedDescription)
+                ))
+                return
+            }
+
+            guard let data = result?.data as? [String: Any],
+                  let key = data["ticketKey"] as? String,
+                  let url = data["ticketUrl"] as? String,
+                  let summary = data["summary"] as? String else {
+                prompt.state = .pending
+                self.reloadActionPrompt(prompt)
+                self.append(.system(LocalizationKey.View.AIChat.jiraInvalidResponse.localize))
+                return
+            }
+
+            prompt.state = .bugOpened
+            self.reloadActionPrompt(prompt)
+            self.append(.jiraTicket(key: key, url: url, summary: summary))
+
+            if let sprintAdded = data["sprintAdded"] as? Bool, sprintAdded,
+               let sprintName = data["sprintName"] as? String {
+                self.append(.system(
+                    LocalizationKey.View.AIChat.sprintAdded.localize.replacing("sprintName", with: sprintName)
+                ))
+            }
+        }
+    }
+
+    fileprivate func openURL(_ urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        UIApplication.shared.open(url)
     }
 
     private func callCreatePR(bugTitle: String, accepted: [ProposedChange]) {
@@ -515,7 +658,9 @@ final class ViewController: UIViewController {
 
             if let error = error {
                 let nsError = error as NSError
-                self.append(.system("❌ PR oluşturulamadı: \(nsError.localizedDescription)"))
+                self.append(.system(
+                    LocalizationKey.View.AIChat.prError.localize.replacing("message", with: nsError.localizedDescription)
+                ))
                 return
             }
 
@@ -523,14 +668,15 @@ final class ViewController: UIViewController {
                   let prUrl = data["prUrl"] as? String,
                   let prNumber = data["prNumber"] as? Int,
                   let branch = data["branch"] as? String else {
-                self.append(.system("❌ PR yanıtı beklenen formatta değil"))
+                self.append(.system(LocalizationKey.View.AIChat.prInvalidResponse.localize))
                 return
             }
 
             self.append(.system(
-                "✅ PR #\(prNumber) açıldı\n"
-                + "🌿 branch: \(branch)\n"
-                + "🔗 \(prUrl)"
+                LocalizationKey.View.AIChat.prOpened.localize
+                    .replacing("number", with: prNumber)
+                    .replacing("branch", with: branch)
+                    .replacing("url", with: prUrl)
             ))
 
             // Lock in proposals — new PR requires a new analysis.
@@ -541,6 +687,15 @@ final class ViewController: UIViewController {
 
     // MARK: Helpers
     private func append(_ item: ChatItem) {
+        // Kullanıcıya hata gösteren system mesajlarını ALERT olarak kaydet.
+        if case .system(let text) = item, text.hasPrefix("❌") {
+            let firstLine = text
+                .split(separator: "\n", maxSplits: 1)
+                .first
+                .map(String.init) ?? text
+            ActivityRecorder.shared.recordAlert(title: firstLine)
+        }
+
         items.append(item)
         let indexPath = IndexPath(row: items.count - 1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
@@ -589,6 +744,20 @@ extension ViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: ProposedChangeCell.reuseId, for: indexPath) as! ProposedChangeCell
             cell.configure(with: change) { [weak self] in
                 self?.proposalDecided(change)
+            }
+            return cell
+        case .actionPrompt(let prompt):
+            let cell = tableView.dequeueReusableCell(withIdentifier: ActionPromptCell.reuseId, for: indexPath) as! ActionPromptCell
+            cell.configure(
+                with: prompt,
+                onBug: { [weak self] in self?.actionPromptDidTapBug(prompt) },
+                onCode: { [weak self] in self?.actionPromptDidTapCode(prompt) }
+            )
+            return cell
+        case .jiraTicket(let key, let url, let summary):
+            let cell = tableView.dequeueReusableCell(withIdentifier: JiraTicketCell.reuseId, for: indexPath) as! JiraTicketCell
+            cell.configure(key: key, url: url, summary: summary) { [weak self] in
+                self?.openURL(url)
             }
             return cell
         }
@@ -679,17 +848,17 @@ final class ChatMessageCell: UITableViewCell {
         contentLabel.text = content
         switch role {
         case .user:
-            roleLabel.text = "🧑 SEN"
+            roleLabel.text = LocalizationKey.View.AIChat.roleUser.localize
             roleLabel.textColor = .systemBlue
             bubble.backgroundColor = .systemBlue.withAlphaComponent(0.1)
             contentLabel.textColor = .label
         case .claude:
-            roleLabel.text = "🤖 CLAUDE"
+            roleLabel.text = LocalizationKey.View.AIChat.roleAssistant.localize
             roleLabel.textColor = .systemGreen
             bubble.backgroundColor = .systemGreen.withAlphaComponent(0.1)
             contentLabel.textColor = .label
         case .system:
-            roleLabel.text = "ℹ️  SYSTEM"
+            roleLabel.text = LocalizationKey.View.AIChat.roleSystem.localize
             roleLabel.textColor = .secondaryLabel
             bubble.backgroundColor = .systemGray6
             contentLabel.textColor = .secondaryLabel
@@ -721,7 +890,7 @@ final class ProposedChangeCell: UITableViewCell {
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.font = .systemFont(ofSize: 12, weight: .bold)
         lbl.textColor = .systemOrange
-        lbl.text = "📝 ÖNERİLEN DEĞİŞİKLİK"
+        lbl.text = LocalizationKey.View.AIChat.proposedChangeHeader.localize
         return lbl
     }()
 
@@ -758,7 +927,7 @@ final class ProposedChangeCell: UITableViewCell {
 
     private let acceptButton: UIButton = {
         var config = UIButton.Configuration.bordered()
-        config.title = "✓ Ekle"
+        config.title = LocalizationKey.View.AIChat.acceptChange.localize
         config.baseForegroundColor = .systemGreen
         let btn = UIButton(configuration: config)
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -768,7 +937,7 @@ final class ProposedChangeCell: UITableViewCell {
 
     private let rejectButton: UIButton = {
         var config = UIButton.Configuration.bordered()
-        config.title = "✗ Atla"
+        config.title = LocalizationKey.View.AIChat.rejectChange.localize
         config.baseForegroundColor = .systemRed
         let btn = UIButton(configuration: config)
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -871,14 +1040,14 @@ final class ProposedChangeCell: UITableViewCell {
             acceptButton.alpha = 1
             rejectButton.alpha = 1
         case .accepted:
-            statusLabel.text = "✓ EKLENECEK"
+            statusLabel.text = LocalizationKey.View.AIChat.acceptedChange.localize
             statusLabel.textColor = .systemGreen
             container.layer.borderColor = UIColor.systemGreen.cgColor
             container.layer.borderWidth = 2
             acceptButton.alpha = 1
             rejectButton.alpha = 0.4
         case .rejected:
-            statusLabel.text = "✗ ATLANDI"
+            statusLabel.text = LocalizationKey.View.AIChat.rejectedChange.localize
             statusLabel.textColor = .systemRed
             container.layer.borderColor = UIColor.systemRed.cgColor
             container.layer.borderWidth = 2
@@ -900,4 +1069,284 @@ final class ProposedChangeCell: UITableViewCell {
         applyDecisionStyle(.rejected)
         onDecisionChanged?()
     }
+}
+
+// MARK: - Action Prompt Cell
+
+final class ActionPromptCell: UITableViewCell {
+
+    static let reuseId = "ActionPromptCell"
+
+    private var onBug: (() -> Void)?
+    private var onCode: (() -> Void)?
+
+    private let container: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = .secondarySystemBackground
+        v.layer.cornerRadius = 12
+        return v
+    }()
+
+    private let promptLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.text = LocalizationKey.View.AIChat.actionPrompt.localize
+        lbl.font = .systemFont(ofSize: 14, weight: .semibold)
+        lbl.textColor = .label
+        lbl.numberOfLines = 0
+        return lbl
+    }()
+
+    private let bugButton: UIButton = {
+        var config = UIButton.Configuration.filled()
+        config.title = LocalizationKey.View.AIChat.bugActionTitle.localize
+        config.subtitle = LocalizationKey.View.AIChat.bugActionSubtitle.localize
+        config.baseBackgroundColor = .systemOrange
+        config.baseForegroundColor = .white
+        config.cornerStyle = .medium
+        config.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16)
+        config.titleAlignment = .leading
+        let btn = UIButton(configuration: config)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.contentHorizontalAlignment = .leading
+        return btn
+    }()
+
+    private let codeButton: UIButton = {
+        var config = UIButton.Configuration.filled()
+        config.title = LocalizationKey.View.AIChat.codeActionTitle.localize
+        config.subtitle = LocalizationKey.View.AIChat.codeActionSubtitle.localize
+        config.baseBackgroundColor = .systemBlue
+        config.baseForegroundColor = .white
+        config.cornerStyle = .medium
+        config.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16)
+        config.titleAlignment = .leading
+        let btn = UIButton(configuration: config)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.contentHorizontalAlignment = .leading
+        return btn
+    }()
+
+    private let statusLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = .systemFont(ofSize: 13, weight: .medium)
+        lbl.textColor = .secondaryLabel
+        lbl.numberOfLines = 0
+        lbl.isHidden = true
+        return lbl
+    }()
+
+    private let spinner: UIActivityIndicatorView = {
+        let av = UIActivityIndicatorView(style: .medium)
+        av.translatesAutoresizingMaskIntoConstraints = false
+        av.hidesWhenStopped = true
+        return av
+    }()
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupCell()
+    }
+
+    required init?(coder: NSCoder) { fatalError() }
+
+    private func setupCell() {
+        selectionStyle = .none
+        backgroundColor = .clear
+
+        contentView.addSubview(container)
+        container.addSubview(promptLabel)
+        container.addSubview(bugButton)
+        container.addSubview(codeButton)
+        container.addSubview(statusLabel)
+        container.addSubview(spinner)
+
+        bugButton.addTarget(self, action: #selector(bugTapped), for: .touchUpInside)
+        codeButton.addTarget(self, action: #selector(codeTapped), for: .touchUpInside)
+
+        NSLayoutConstraint.activate([
+            container.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
+            container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
+
+            promptLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 14),
+            promptLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 14),
+            promptLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -14),
+
+            bugButton.topAnchor.constraint(equalTo: promptLabel.bottomAnchor, constant: 12),
+            bugButton.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 14),
+            bugButton.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -14),
+
+            codeButton.topAnchor.constraint(equalTo: bugButton.bottomAnchor, constant: 10),
+            codeButton.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 14),
+            codeButton.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -14),
+
+            statusLabel.topAnchor.constraint(equalTo: codeButton.bottomAnchor, constant: 12),
+            statusLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 14),
+            statusLabel.trailingAnchor.constraint(equalTo: spinner.leadingAnchor, constant: -8),
+            statusLabel.bottomAnchor.constraint(lessThanOrEqualTo: container.bottomAnchor, constant: -14),
+
+            spinner.centerYAnchor.constraint(equalTo: statusLabel.centerYAnchor),
+            spinner.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -14),
+
+            codeButton.bottomAnchor.constraint(lessThanOrEqualTo: container.bottomAnchor, constant: -14),
+        ])
+    }
+
+    func configure(with prompt: ActionPrompt, onBug: @escaping () -> Void, onCode: @escaping () -> Void) {
+        self.onBug = onBug
+        self.onCode = onCode
+
+        switch prompt.state {
+        case .pending:
+            bugButton.isEnabled = true
+            codeButton.isEnabled = true
+            bugButton.alpha = 1
+            codeButton.alpha = 1
+            statusLabel.isHidden = true
+            spinner.stopAnimating()
+        case .bugLoading:
+            bugButton.isEnabled = false
+            codeButton.isEnabled = false
+            bugButton.alpha = 0.5
+            codeButton.alpha = 0.5
+            statusLabel.text = LocalizationKey.View.AIChat.jiraCreating.localize
+            statusLabel.textColor = .secondaryLabel
+            statusLabel.isHidden = false
+            spinner.startAnimating()
+        case .bugOpened:
+            bugButton.isEnabled = false
+            codeButton.isEnabled = true
+            bugButton.alpha = 0.5
+            codeButton.alpha = 1
+            statusLabel.text = LocalizationKey.View.AIChat.jiraCreated.localize
+            statusLabel.textColor = .systemGreen
+            statusLabel.isHidden = false
+            spinner.stopAnimating()
+        case .codeRevealed:
+            bugButton.isEnabled = true
+            codeButton.isEnabled = false
+            bugButton.alpha = 1
+            codeButton.alpha = 0.5
+            let suffix = prompt.pendingProposals.isEmpty
+                ? LocalizationKey.View.AIChat.jiraNoChangeSuffix.localize
+                : LocalizationKey.View.AIChat.jiraChangesBelowSuffix.localize
+            statusLabel.text = "🛠️ \(suffix)"
+            statusLabel.textColor = .systemBlue
+            statusLabel.isHidden = false
+            spinner.stopAnimating()
+        }
+    }
+
+    @objc private func bugTapped() { onBug?() }
+    @objc private func codeTapped() { onCode?() }
+}
+
+// MARK: - Jira Ticket Cell
+
+final class JiraTicketCell: UITableViewCell {
+
+    static let reuseId = "JiraTicketCell"
+
+    private var onOpenURL: (() -> Void)?
+
+    private let container: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.08)
+        v.layer.cornerRadius = 10
+        v.layer.borderWidth = 1
+        v.layer.borderColor = UIColor.systemGreen.withAlphaComponent(0.4).cgColor
+        return v
+    }()
+
+    private let headerLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = .systemFont(ofSize: 12, weight: .bold)
+        lbl.textColor = .systemGreen
+        lbl.text = LocalizationKey.View.AIChat.jiraTicketHeader.localize
+        return lbl
+    }()
+
+    private let keyLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = .monospacedSystemFont(ofSize: 14, weight: .semibold)
+        lbl.textColor = .label
+        return lbl
+    }()
+
+    private let summaryLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = .systemFont(ofSize: 14)
+        lbl.textColor = .label
+        lbl.numberOfLines = 0
+        return lbl
+    }()
+
+    private let openButton: UIButton = {
+        var config = UIButton.Configuration.bordered()
+        config.title = LocalizationKey.View.AIChat.openJira.localize
+        config.baseForegroundColor = .systemGreen
+        let btn = UIButton(configuration: config)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+        return btn
+    }()
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupCell()
+    }
+
+    required init?(coder: NSCoder) { fatalError() }
+
+    private func setupCell() {
+        selectionStyle = .none
+        backgroundColor = .clear
+
+        contentView.addSubview(container)
+        container.addSubview(headerLabel)
+        container.addSubview(keyLabel)
+        container.addSubview(summaryLabel)
+        container.addSubview(openButton)
+
+        openButton.addTarget(self, action: #selector(openTapped), for: .touchUpInside)
+
+        NSLayoutConstraint.activate([
+            container.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
+            container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
+
+            headerLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 10),
+            headerLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 12),
+            headerLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -12),
+
+            keyLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 6),
+            keyLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 12),
+            keyLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -12),
+
+            summaryLabel.topAnchor.constraint(equalTo: keyLabel.bottomAnchor, constant: 4),
+            summaryLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 12),
+            summaryLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -12),
+
+            openButton.topAnchor.constraint(equalTo: summaryLabel.bottomAnchor, constant: 10),
+            openButton.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 12),
+            openButton.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -10),
+        ])
+    }
+
+    func configure(key: String, url: String, summary: String, onOpen: @escaping () -> Void) {
+        keyLabel.text = key
+        summaryLabel.text = summary
+        self.onOpenURL = onOpen
+    }
+
+    @objc private func openTapped() { onOpenURL?() }
 }
