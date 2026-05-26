@@ -1,0 +1,171 @@
+//
+//  DefaultStrings.swift
+//  ClaudeBugPoC
+//
+
+import Foundation
+
+// swiftlint:disable all
+enum DefaultStrings: String {
+    case tabPokemon = "tabs.main.pokemon"
+    case tabMeals = "tabs.main.meals"
+    case tabCountries = "tabs.main.countries"
+    case tabLaunches = "tabs.main.launches"
+
+    case commonErrorAlertTitle = "common.alert.error.title"
+    case commonOkButton = "common.alert.ok"
+
+    case aiAssistantTitle = "aiAssistant.title"
+    case aiAssistantAccessibilityLabel = "aiAssistant.accessibilityLabel"
+
+    case aiChatNavigationTitle = "aiChat.navigationTitle"
+    case aiChatWelcomeMessage = "aiChat.welcome.message"
+    case aiChatInputPlaceholder = "aiChat.input.placeholder"
+    case aiChatSendButton = "aiChat.button.send"
+    case aiChatCreatePRButton = "aiChat.button.createPR"
+    case aiChatNoChangesApproved = "aiChat.message.noChangesApproved"
+    case aiChatDescribeBugFirst = "aiChat.message.describeBugFirst"
+    case aiChatErrorFormat = "aiChat.message.error.format"
+    case aiChatUnexpectedResponse = "aiChat.message.unexpectedResponse"
+    case aiChatNoResponse = "aiChat.message.noResponse"
+    case aiChatMetadataFormat = "aiChat.message.metadata.format"
+    case aiChatCacheMetadata = "aiChat.message.metadata.cache"
+    case aiChatTechnicalSeparator = "aiChat.message.technicalSeparator"
+    case aiChatNoCodeChange = "aiChat.message.noCodeChange"
+    case aiChatTechnicalDetailFormat = "aiChat.message.technicalDetail.format"
+    case aiChatJiraError = "aiChat.message.jiraError.format"
+    case aiChatJiraInvalidResponse = "aiChat.message.jiraInvalidResponse"
+    case aiChatSprintAdded = "aiChat.message.sprintAdded.format"
+    case aiChatPRError = "aiChat.message.prError.format"
+    case aiChatPRInvalidResponse = "aiChat.message.prInvalidResponse"
+    case aiChatPROpened = "aiChat.message.prOpened.format"
+    case aiChatDiffNoChanges = "aiChat.diff.noChanges"
+    case aiChatRoleUser = "aiChat.role.user"
+    case aiChatRoleAssistant = "aiChat.role.assistant"
+    case aiChatRoleSystem = "aiChat.role.system"
+    case aiChatProposedChangeHeader = "aiChat.proposedChange.header"
+    case aiChatAcceptChange = "aiChat.proposedChange.accept"
+    case aiChatRejectChange = "aiChat.proposedChange.reject"
+    case aiChatAcceptedChange = "aiChat.proposedChange.accepted"
+    case aiChatRejectedChange = "aiChat.proposedChange.rejected"
+    case aiChatActionPrompt = "aiChat.action.prompt"
+    case aiChatBugActionTitle = "aiChat.action.bug.title"
+    case aiChatBugActionSubtitle = "aiChat.action.bug.subtitle"
+    case aiChatCodeActionTitle = "aiChat.action.code.title"
+    case aiChatCodeActionSubtitle = "aiChat.action.code.subtitle"
+    case aiChatJiraCreating = "aiChat.jira.creating"
+    case aiChatJiraCreated = "aiChat.jira.created"
+    case aiChatJiraNoChangeSuffix = "aiChat.jira.noChangeSuffix"
+    case aiChatJiraChangesBelowSuffix = "aiChat.jira.changesBelowSuffix"
+    case aiChatJiraTicketHeader = "aiChat.jira.ticketHeader"
+    case aiChatOpenJira = "aiChat.jira.openButton"
+
+    case pokemonHeight = "pokemon.detail.height"
+    case pokemonWeight = "pokemon.detail.weight"
+    case pokemonStats = "pokemon.detail.stats"
+
+    case mealsYoutube = "meals.detail.youtube"
+    case mealsIngredients = "meals.detail.ingredients"
+    case mealsInstructions = "meals.detail.instructions"
+    case mealsNoInstructions = "meals.detail.noInstructions"
+
+    case countriesOpenMap = "countries.detail.openMap"
+    case countriesCapital = "countries.detail.capital"
+    case countriesRegion = "countries.detail.region"
+    case countriesPopulation = "countries.detail.population"
+    case countriesArea = "countries.detail.area"
+    case countriesLanguages = "countries.detail.languages"
+    case countriesCurrency = "countries.detail.currency"
+    case countriesTimezone = "countries.detail.timezone"
+    case countriesBorders = "countries.detail.borders"
+
+    case launchesWebcast = "launches.detail.webcast"
+    case launchesArticle = "launches.detail.article"
+    case launchesWikipedia = "launches.detail.wikipedia"
+    case launchesFlightFormat = "launches.detail.flight.format"
+}
+
+extension DefaultStrings {
+    var fallback: String {
+        switch self {
+        case .tabPokemon: return "Pokémon"
+        case .tabMeals: return "Tarifler"
+        case .tabCountries: return "Ülkeler"
+        case .tabLaunches: return "Uzay"
+
+        case .commonErrorAlertTitle: return "Hata"
+        case .commonOkButton: return "Tamam"
+
+        case .aiAssistantTitle: return "AI Asistan"
+        case .aiAssistantAccessibilityLabel: return "AI Asistan"
+
+        case .aiChatNavigationTitle: return "Claude Bug Analyzer"
+        case .aiChatWelcomeMessage:
+            return "👋 Uygulamada gördüğün bir sorunu sade bir dille anlat.\n\nClaude sorunu özetleyip iki seçenek sunar:\n🐛 Bug Aç — Jira'da otomatik ticket açar\n🛠️ Kodu Düzenle — önerilen kod değişikliklerini gösterir, beğenirsen PR oluşturur"
+        case .aiChatInputPlaceholder: return "Bug'ı tarif et..."
+        case .aiChatSendButton: return "Gönder"
+        case .aiChatCreatePRButton: return "🚀 PR Oluştur"
+        case .aiChatNoChangesApproved: return "ℹ️ Hiçbir değişiklik ✓ ile onaylanmadı. PR açılmadı."
+        case .aiChatDescribeBugFirst: return "❌ Önce bir bug tarif etmelisin."
+        case .aiChatErrorFormat: return "❌ Hata: {message}\nCode: {code}\nDomain: {domain}"
+        case .aiChatUnexpectedResponse: return "❌ Beklenmedik response formatı"
+        case .aiChatNoResponse: return "(Claude bir cevap üretemedi)"
+        case .aiChatMetadataFormat: return "📊 {iterations} iterasyon · 🪙 {inputTokens}+{outputTokens} token · 💵 ${cost}"
+        case .aiChatCacheMetadata: return "♻️ cache: {read} read · {write} write"
+        case .aiChatTechnicalSeparator: return "---TEKNİK---"
+        case .aiChatNoCodeChange: return "ℹ️ Claude bu bug için somut bir kod değişikliği önermedi."
+        case .aiChatTechnicalDetailFormat: return "🔧 Teknik detay:\n\n{detail}"
+        case .aiChatJiraError: return "❌ Jira ticket oluşturulamadı: {message}"
+        case .aiChatJiraInvalidResponse: return "❌ Jira yanıtı beklenen formatta değil"
+        case .aiChatSprintAdded: return "✅ Aktif sprint'e eklendi: {sprintName}"
+        case .aiChatPRError: return "❌ PR oluşturulamadı: {message}"
+        case .aiChatPRInvalidResponse: return "❌ PR yanıtı beklenen formatta değil"
+        case .aiChatPROpened: return "✅ PR #{number} açıldı\n🌿 branch: {branch}\n🔗 {url}"
+        case .aiChatDiffNoChanges: return "(değişiklik yok)"
+        case .aiChatRoleUser: return "🧑 SEN"
+        case .aiChatRoleAssistant: return "🤖 CLAUDE"
+        case .aiChatRoleSystem: return "ℹ️  SYSTEM"
+        case .aiChatProposedChangeHeader: return "📝 ÖNERİLEN DEĞİŞİKLİK"
+        case .aiChatAcceptChange: return "✓ Ekle"
+        case .aiChatRejectChange: return "✗ Atla"
+        case .aiChatAcceptedChange: return "✓ EKLENECEK"
+        case .aiChatRejectedChange: return "✗ ATLANDI"
+        case .aiChatActionPrompt: return "Şimdi ne yapmak istersin?"
+        case .aiChatBugActionTitle: return "🐛  Bug Aç"
+        case .aiChatBugActionSubtitle: return "Jira'da otomatik ticket aç"
+        case .aiChatCodeActionTitle: return "🛠️  Kodu Düzenle"
+        case .aiChatCodeActionSubtitle: return "Önerilen değişiklikleri gör ve PR oluştur"
+        case .aiChatJiraCreating: return "Jira ticket'ı oluşturuluyor..."
+        case .aiChatJiraCreated: return "✅ Bug açıldı"
+        case .aiChatJiraNoChangeSuffix: return "Claude bu bug için kod değişikliği önermedi."
+        case .aiChatJiraChangesBelowSuffix: return "Önerilen değişiklikler aşağıda."
+        case .aiChatJiraTicketHeader: return "✅ JIRA TICKET AÇILDI"
+        case .aiChatOpenJira: return "🔗 Jira'da Aç"
+
+        case .pokemonHeight: return "Boy"
+        case .pokemonWeight: return "Ağırlık"
+        case .pokemonStats: return "Statlar"
+
+        case .mealsYoutube: return "YouTube'da İzle"
+        case .mealsIngredients: return "Malzemeler"
+        case .mealsInstructions: return "Hazırlanışı"
+        case .mealsNoInstructions: return "Tarif yok."
+
+        case .countriesOpenMap: return "Haritada Aç"
+        case .countriesCapital: return "Başkent"
+        case .countriesRegion: return "Bölge"
+        case .countriesPopulation: return "Nüfus"
+        case .countriesArea: return "Alan"
+        case .countriesLanguages: return "Diller"
+        case .countriesCurrency: return "Para Birimi"
+        case .countriesTimezone: return "Saat Dilimi"
+        case .countriesBorders: return "Sınır Komşu"
+
+        case .launchesWebcast: return "Yayını İzle"
+        case .launchesArticle: return "Makale"
+        case .launchesWikipedia: return "Wikipedia"
+        case .launchesFlightFormat: return "Uçuş #{number}"
+        }
+    }
+}
+// swiftlint:enable all

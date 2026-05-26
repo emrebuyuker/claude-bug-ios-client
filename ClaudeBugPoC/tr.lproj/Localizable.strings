@@ -1,0 +1,92 @@
+/*
+  Localizable.strings
+  ClaudeBugPoC
+
+  Turkish (tr) strings — base language for the project.
+  Keys follow dot-notation: feature.screen.element
+*/
+
+// MARK: - Tabs
+"tabs.main.pokemon" = "Pokémon";
+"tabs.main.meals" = "Tarifler";
+"tabs.main.countries" = "Ülkeler";
+"tabs.main.launches" = "Uzay";
+
+// MARK: - Common
+"common.alert.error.title" = "Hata";
+"common.alert.ok" = "Tamam";
+
+// MARK: - AI Assistant
+"aiAssistant.title" = "AI Asistan";
+"aiAssistant.accessibilityLabel" = "AI Asistan";
+
+// MARK: - AI Chat
+"aiChat.navigationTitle" = "Claude Bug Analyzer";
+"aiChat.welcome.message" = "👋 Uygulamada gördüğün bir sorunu sade bir dille anlat.\n\nClaude sorunu özetleyip iki seçenek sunar:\n🐛 Bug Aç — Jira'da otomatik ticket açar\n🛠️ Kodu Düzenle — önerilen kod değişikliklerini gösterir, beğenirsen PR oluşturur";
+"aiChat.input.placeholder" = "Bug'ı tarif et...";
+"aiChat.button.send" = "Gönder";
+"aiChat.button.createPR" = "🚀 PR Oluştur";
+"aiChat.message.noChangesApproved" = "ℹ️ Hiçbir değişiklik ✓ ile onaylanmadı. PR açılmadı.";
+"aiChat.message.describeBugFirst" = "❌ Önce bir bug tarif etmelisin.";
+"aiChat.message.error.format" = "❌ Hata: {message}\nCode: {code}\nDomain: {domain}";
+"aiChat.message.unexpectedResponse" = "❌ Beklenmedik response formatı";
+"aiChat.message.noResponse" = "(Claude bir cevap üretemedi)";
+"aiChat.message.metadata.format" = "📊 {iterations} iterasyon · 🪙 {inputTokens}+{outputTokens} token · 💵 ${cost}";
+"aiChat.message.metadata.cache" = "♻️ cache: {read} read · {write} write";
+"aiChat.message.technicalSeparator" = "---TEKNİK---";
+"aiChat.message.noCodeChange" = "ℹ️ Claude bu bug için somut bir kod değişikliği önermedi.";
+"aiChat.message.technicalDetail.format" = "🔧 Teknik detay:\n\n{detail}";
+"aiChat.message.jiraError.format" = "❌ Jira ticket oluşturulamadı: {message}";
+"aiChat.message.jiraInvalidResponse" = "❌ Jira yanıtı beklenen formatta değil";
+"aiChat.message.sprintAdded.format" = "✅ Aktif sprint'e eklendi: {sprintName}";
+"aiChat.message.prError.format" = "❌ PR oluşturulamadı: {message}";
+"aiChat.message.prInvalidResponse" = "❌ PR yanıtı beklenen formatta değil";
+"aiChat.message.prOpened.format" = "✅ PR #{number} açıldı\n🌿 branch: {branch}\n🔗 {url}";
+"aiChat.diff.noChanges" = "(değişiklik yok)";
+"aiChat.role.user" = "🧑 SEN";
+"aiChat.role.assistant" = "🤖 CLAUDE";
+"aiChat.role.system" = "ℹ️  SYSTEM";
+"aiChat.proposedChange.header" = "📝 ÖNERİLEN DEĞİŞİKLİK";
+"aiChat.proposedChange.accept" = "✓ Ekle";
+"aiChat.proposedChange.reject" = "✗ Atla";
+"aiChat.proposedChange.accepted" = "✓ EKLENECEK";
+"aiChat.proposedChange.rejected" = "✗ ATLANDI";
+"aiChat.action.prompt" = "Şimdi ne yapmak istersin?";
+"aiChat.action.bug.title" = "🐛  Bug Aç";
+"aiChat.action.bug.subtitle" = "Jira'da otomatik ticket aç";
+"aiChat.action.code.title" = "🛠️  Kodu Düzenle";
+"aiChat.action.code.subtitle" = "Önerilen değişiklikleri gör ve PR oluştur";
+"aiChat.jira.creating" = "Jira ticket'ı oluşturuluyor...";
+"aiChat.jira.created" = "✅ Bug açıldı";
+"aiChat.jira.noChangeSuffix" = "Claude bu bug için kod değişikliği önermedi.";
+"aiChat.jira.changesBelowSuffix" = "Önerilen değişiklikler aşağıda.";
+"aiChat.jira.ticketHeader" = "✅ JIRA TICKET AÇILDI";
+"aiChat.jira.openButton" = "🔗 Jira'da Aç";
+
+// MARK: - Pokemon Detail
+"pokemon.detail.height" = "Boy";
+"pokemon.detail.weight" = "Ağırlık";
+"pokemon.detail.stats" = "Statlar";
+
+// MARK: - Meals Detail
+"meals.detail.youtube" = "YouTube'da İzle";
+"meals.detail.ingredients" = "Malzemeler";
+"meals.detail.instructions" = "Hazırlanışı";
+"meals.detail.noInstructions" = "Tarif yok.";
+
+// MARK: - Countries Detail
+"countries.detail.openMap" = "Haritada Aç";
+"countries.detail.capital" = "Başkent";
+"countries.detail.region" = "Bölge";
+"countries.detail.population" = "Nüfus";
+"countries.detail.area" = "Alan";
+"countries.detail.languages" = "Diller";
+"countries.detail.currency" = "Para Birimi";
+"countries.detail.timezone" = "Saat Dilimi";
+"countries.detail.borders" = "Sınır Komşu";
+
+// MARK: - Launches Detail
+"launches.detail.webcast" = "Yayını İzle";
+"launches.detail.article" = "Makale";
+"launches.detail.wikipedia" = "Wikipedia";
+"launches.detail.flight.format" = "Uçuş #{number}";

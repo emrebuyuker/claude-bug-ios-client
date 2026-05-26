@@ -63,8 +63,12 @@ extension PokemonListViewController: PokemonListViewModelDelegate {
     }
 
     private func presentError(_ error: Error) {
-        let alert = UIAlertController(title: "Hata", message: error.localizedDescription, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Tamam", style: .default))
+        let alert = UIAlertController(
+            title: LocalizationKey.View.Common.errorAlertTitle.localize,
+            message: error.localizedDescription,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: LocalizationKey.View.Common.okButton.localize, style: .default))
         present(alert, animated: true)
     }
 }

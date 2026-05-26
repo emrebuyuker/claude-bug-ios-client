@@ -69,14 +69,14 @@ final class PokemonDetailView: LayoutableView {
         return stack
     }()
 
-    private lazy var heightCard = makeInfoCard(title: "Boy")
-    private lazy var weightCard = makeInfoCard(title: "Ağırlık")
+    private lazy var heightCard = makeInfoCard(title: LocalizationKey.View.Pokemon.height.localize)
+    private lazy var weightCard = makeInfoCard(title: LocalizationKey.View.Pokemon.weight.localize)
 
     private lazy var statsTitleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .semibold)
         label.textColor = .label
-        label.text = "Statlar"
+        label.text = LocalizationKey.View.Pokemon.stats.localize
         return label
     }()
 

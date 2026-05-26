@@ -64,7 +64,7 @@ final class CountryDetailView: LayoutableView {
 
     private lazy var mapsButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Haritada Aç", for: .normal)
+        button.setTitle(LocalizationKey.View.Countries.openMap.localize, for: .normal)
         button.setImage(UIImage(systemName: "map.fill"), for: .normal)
         button.tintColor = .white
         button.backgroundColor = .systemBlue
@@ -145,17 +145,17 @@ final class CountryDetailView: LayoutableView {
         mapsButton.isHidden = detail.maps?.googleMaps == nil
 
         infoStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        addRow(label: "Başkent", value: detail.capital?.joined(separator: ", ") ?? "—")
-        addRow(label: "Bölge", value: [detail.region, detail.subregion].compactMap { $0 }.joined(separator: " / "))
-        addRow(label: "Nüfus", value: detail.formattedPopulation)
-        addRow(label: "Alan", value: detail.formattedArea)
-        addRow(label: "Diller", value: detail.languagesText)
-        addRow(label: "Para Birimi", value: detail.currenciesText)
+        addRow(label: LocalizationKey.View.Countries.capital.localize, value: detail.capital?.joined(separator: ", ") ?? "—")
+        addRow(label: LocalizationKey.View.Countries.region.localize, value: [detail.region, detail.subregion].compactMap { $0 }.joined(separator: " / "))
+        addRow(label: LocalizationKey.View.Countries.population.localize, value: detail.formattedPopulation)
+        addRow(label: LocalizationKey.View.Countries.area.localize, value: detail.formattedArea)
+        addRow(label: LocalizationKey.View.Countries.languages.localize, value: detail.languagesText)
+        addRow(label: LocalizationKey.View.Countries.currency.localize, value: detail.currenciesText)
         if let timezones = detail.timezones, !timezones.isEmpty {
-            addRow(label: "Saat Dilimi", value: timezones.joined(separator: ", "))
+            addRow(label: LocalizationKey.View.Countries.timezone.localize, value: timezones.joined(separator: ", "))
         }
         if let borders = detail.borders, !borders.isEmpty {
-            addRow(label: "Sınır Komşu", value: borders.joined(separator: ", "))
+            addRow(label: LocalizationKey.View.Countries.borders.localize, value: borders.joined(separator: ", "))
         }
     }
 

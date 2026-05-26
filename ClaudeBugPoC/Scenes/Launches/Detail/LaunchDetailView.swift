@@ -114,9 +114,9 @@ final class LaunchDetailView: LayoutableView {
         return stack
     }()
 
-    private lazy var webcastButton = makeLinkButton(title: "Yayını İzle", icon: "play.rectangle.fill", color: .systemRed, kind: .webcast)
-    private lazy var articleButton = makeLinkButton(title: "Makale", icon: "newspaper.fill", color: .systemBlue, kind: .article)
-    private lazy var wikipediaButton = makeLinkButton(title: "Wikipedia", icon: "book.fill", color: .systemGray, kind: .wikipedia)
+    private lazy var webcastButton = makeLinkButton(title: LocalizationKey.View.Launches.webcast.localize, icon: "play.rectangle.fill", color: .systemRed, kind: .webcast)
+    private lazy var articleButton = makeLinkButton(title: LocalizationKey.View.Launches.article.localize, icon: "newspaper.fill", color: .systemBlue, kind: .article)
+    private lazy var wikipediaButton = makeLinkButton(title: LocalizationKey.View.Launches.wikipedia.localize, icon: "book.fill", color: .systemGray, kind: .wikipedia)
 
     private lazy var loadingIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
@@ -174,7 +174,7 @@ final class LaunchDetailView: LayoutableView {
         titleLabel.text = launch.name
         var subtitleParts: [String] = []
         if let flight = launch.flightNumber {
-            subtitleParts.append("Uçuş #\(flight)")
+            subtitleParts.append(LocalizationKey.View.Launches.flightFormat.localize.replacing("number", with: flight))
         }
         subtitleParts.append(launch.fullDisplayDate)
         subtitleLabel.text = subtitleParts.joined(separator: " • ")

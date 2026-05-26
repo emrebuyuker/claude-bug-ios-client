@@ -58,7 +58,7 @@ final class MealDetailView: LayoutableView {
 
     private lazy var youtubeButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("YouTube'da İzle", for: .normal)
+        button.setTitle(LocalizationKey.View.Meals.youtube.localize, for: .normal)
         button.setImage(UIImage(systemName: "play.rectangle.fill"), for: .normal)
         button.tintColor = .white
         button.backgroundColor = .systemRed
@@ -71,7 +71,7 @@ final class MealDetailView: LayoutableView {
         return button
     }()
 
-    private lazy var ingredientsHeader = makeSectionHeader(title: "Malzemeler")
+    private lazy var ingredientsHeader = makeSectionHeader(title: LocalizationKey.View.Meals.ingredients.localize)
     private lazy var ingredientsStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -79,7 +79,7 @@ final class MealDetailView: LayoutableView {
         return stack
     }()
 
-    private lazy var instructionsHeader = makeSectionHeader(title: "Hazırlanışı")
+    private lazy var instructionsHeader = makeSectionHeader(title: LocalizationKey.View.Meals.instructions.localize)
     private lazy var instructionsLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .regular)
@@ -148,7 +148,7 @@ final class MealDetailView: LayoutableView {
     func configure(with detail: MealDetail) {
         titleLabel.text = detail.name
         heroImageView.kf.setImage(with: detail.thumbnailURL.flatMap(URL.init(string:)))
-        instructionsLabel.text = detail.instructions ?? "Tarif yok."
+        instructionsLabel.text = detail.instructions ?? LocalizationKey.View.Meals.noInstructions.localize
 
         let metaParts = [detail.category, detail.area].compactMap { $0 }.filter { !$0.isEmpty }
         metaLabel.text = metaParts.joined(separator: " • ")

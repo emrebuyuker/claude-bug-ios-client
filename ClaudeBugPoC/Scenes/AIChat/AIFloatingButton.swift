@@ -42,7 +42,7 @@ final class AIFloatingButton: LayoutableView {
         layer.shadowOpacity = 0.25
         layer.shadowOffset = CGSize(width: 0, height: 4)
         layer.shadowRadius = 10
-        accessibilityLabel = "AI Asistan"
+        accessibilityLabel = LocalizationKey.View.AIAssistant.accessibilityLabel.localize
 
         addSubview(iconImageView)
 

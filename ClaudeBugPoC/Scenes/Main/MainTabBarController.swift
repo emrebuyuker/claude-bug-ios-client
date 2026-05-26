@@ -48,25 +48,25 @@ final class MainTabBarController: UITabBarController {
         return [
             wrap(
                 PokemonListViewController(),
-                title: "Pokémon",
+                title: LocalizationKey.Tab.pokemon.localize,
                 systemImage: "circle.hexagongrid.fill",
                 identifier: "pokemonTab"
             ),
             wrap(
                 MealListViewController(),
-                title: "Tarifler",
+                title: LocalizationKey.Tab.meals.localize,
                 systemImage: "fork.knife",
                 identifier: "mealsTab"
             ),
             wrap(
                 CountryListViewController(),
-                title: "Ülkeler",
+                title: LocalizationKey.Tab.countries.localize,
                 systemImage: "globe",
                 identifier: "countriesTab"
             ),
             wrap(
                 LaunchListViewController(),
-                title: "Uzay",
+                title: LocalizationKey.Tab.launches.localize,
                 systemImage: "airplane",
                 identifier: "spaceTab"
             )
@@ -113,7 +113,7 @@ final class MainTabBarController: UITabBarController {
 extension MainTabBarController: AIFloatingButtonDelegate {
     func aiFloatingButtonDidTap(_ button: AIFloatingButton) {
         let chatVC = ViewController()
-        chatVC.title = "AI Asistan"
+        chatVC.title = LocalizationKey.View.AIAssistant.title.localize
         chatVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close,
             target: self,
