@@ -11,6 +11,7 @@
 "tabs.main.meals" = "Tarifler";
 "tabs.main.countries" = "Ülkeler";
 "tabs.main.launches" = "Uzay";
+"tabs.main.testDetay" = "Test Detay";
 
 // MARK: - Common
 "common.alert.error.title" = "Hata";

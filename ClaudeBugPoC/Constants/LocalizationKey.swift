@@ -12,6 +12,7 @@ enum LocalizationKey {
         static let meals = "tabs.main.meals"
         static let countries = "tabs.main.countries"
         static let launches = "tabs.main.launches"
+        static let testDetay = "tabs.main.testDetay"
     }
 
     enum View {

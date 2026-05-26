@@ -93,6 +93,12 @@ final class MainTabBarController: UITabBarController {
                 title: LocalizationKey.Tab.launches.localize,
                 systemImage: "airplane",
                 identifier: "spaceTab"
+            ),
+            wrap(
+                TestDetayViewController(),
+                title: LocalizationKey.Tab.testDetay.localize,
+                systemImage: "simcard",
+                identifier: "testDetayTab"
             )
         ]
     }

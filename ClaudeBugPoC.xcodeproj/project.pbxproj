@@ -23,6 +23,7 @@
 		27607B2A009C579FCA0BED09 /* CountryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697048A917F10C8A1106B078 /* CountryListViewController.swift */; };
 		284A52EBD3BCCAED54483E29 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3357A6B2C6854EDEFD5A75CD /* CountryCell.swift */; };
 		2A48CC44E3582B37E63490B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72F45832A1B09900A0911FC0 /* LaunchScreen.storyboard */; };
+		3C92BC42EB99FE5F144E2B6A /* TestDetayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E98DCBEAE170CE7F661D2 /* TestDetayViewModel.swift */; };
 		3DD819EE1F7681963DDCAAC7 /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B293F55107C96A8B7F69AA6 /* MovieService.swift */; };
 		400A483492A782AF031ED00B /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EA220FE522DE55DA21980C /* LocalizationManager.swift */; };
 		42404563BFF53942E1BE4B94 /* CountryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23387DC276854489B8BC01BE /* CountryListViewModel.swift */; };
@@ -31,11 +32,13 @@
 		504F9EFBF58B8B409CBB2D79 /* LaunchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E517663C1E464088143696 /* LaunchDetailViewModel.swift */; };
 		52CD90AC9D123FB83BFA7E34 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AF9188FEE9CFFBF66E25D6 /* APIService.swift */; };
 		53C5AC26D5A06E75F6CE1A0C /* AIFloatingMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9067329BBE35E33F32208856 /* AIFloatingMenuView.swift */; };
+		5A82A5BEFEBAD9CC49972A09 /* TestDetayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C8DE796FDBEB50F85B0D5B /* TestDetayViewController.swift */; };
 		5E2779C0763C1121BD4805A7 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460684ED28AE9B127C8246F /* Pokemon.swift */; };
 		6009CBA8D7F2CE798C9967C6 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1DF3B0166A58CF7284F8BA /* Movie.swift */; };
 		610EFCADF6988B3B41DD17C0 /* UIViewController+Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB5B33485312772FFA271C3 /* UIViewController+Activity.swift */; };
 		62694647EA34C4780917A392 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60E64A753E49DC6217783EA /* MainTabBarController.swift */; };
 		62FCE9A15D521B93C88F828A /* MealListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D5AF8CFBB0CA89E6D80F5 /* MealListViewController.swift */; };
+		633F2355D7B5214CF2778774 /* TestDetayActionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AD5FAE8EC5B786A6D26B88 /* TestDetayActionRowView.swift */; };
 		636374FF7F8E946E609DA57D /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177B51D7910C024A44DE119 /* CGSize+Extensions.swift */; };
 		650A41B6A3CB3B57EB1270A4 /* PokemonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE7C721BDB99C83D26FC303 /* PokemonCell.swift */; };
 		6977BC3D99C9B383097B01E3 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6B86CD305BD935C51E4C85 /* Meal.swift */; };
@@ -53,12 +56,14 @@
 		8A03BA8BB3276A9FC7E27F66 /* MealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF9BEA671CD9250BAA06CD /* MealCell.swift */; };
 		9435DE044F9A349BAF64AC7F /* Layoutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF2DDCB39E4BDC9973713FD /* Layoutable.swift */; };
 		9440A1574B5A962C43F904A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEEF4C11B0C12AF5B39B288 /* ViewController.swift */; };
+		96E8F2D1F64BDDE01C982C99 /* TestDetayPlanCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B20C04EB0005A594181100 /* TestDetayPlanCardView.swift */; };
 		A0248C7070D37B6570605A28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9451AAC9F7DA54F3A6601FB /* Assets.xcassets */; };
 		A24BECDF75DED5F48B582EE3 /* PokemonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51EC549248541550C4FDBA5 /* PokemonDetailView.swift */; };
 		A5F6818C648C534D86D3C88E /* LaunchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20ABB06762581C871FFA75A1 /* LaunchCell.swift */; };
 		A7697BB8D17C78FF3BAB712D /* ApiRequestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D3785055AC6ECFF4C168A6 /* ApiRequestHelper.swift */; };
 		ABE83D0C17EBAFCA4FA9B608 /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0E994F48F20C104D29552D /* MealService.swift */; };
 		B0B377F0ADC16B3317A3717D /* LocalizationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E37D063023F375DAD5CEA /* LocalizationKey.swift */; };
+		B27F97E6723C7D7C3BA959BD /* TestDetayInfoBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98414321A93812320F6B6B17 /* TestDetayInfoBannerView.swift */; };
 		B9495FAB2D701184396D80B3 /* PokemonDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16DA785F1BF269BA9A9155E /* PokemonDetailViewModel.swift */; };
 		BA2A2BD8CA2894B2727F820F /* FigmaDifferenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FE84EC8FCA215BAD6C86CB /* FigmaDifferenceCell.swift */; };
 		BC0F397F09DC9EC927346218 /* CountryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A325AC31B8CE3312E210451 /* CountryService.swift */; };
@@ -69,6 +74,7 @@
 		CBDA54924FBD7C7A7BDE30AA /* PokemonListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7025CEBF9DB91542CEBA3F0 /* PokemonListViewModel.swift */; };
 		D3A52C16062C712C347D36C0 /* Layouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463CF9F4995C112473F5208C /* Layouting.swift */; };
 		D5379FEEB653F1A2F46C31EB /* ApiConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2B23D39BA3FFDC137315C /* ApiConstant.swift */; };
+		D5DEE60C7A14096143DCABA2 /* TestDetayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93625549212055983B1A6751 /* TestDetayView.swift */; };
 		D93E40DA49F9BAD9FF4CBA20 /* ActivityRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2794F7606CE8E6A7898E8D /* ActivityRecorder.swift */; };
 		DA54A8F7A0EEC1804585906B /* PokemonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C45887879EB7AE06C45700E /* PokemonDetailViewController.swift */; };
 		DB3E51F960DC5E10D44541DC /* DefaultStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9BFDA8CA6034AE00E3908A /* DefaultStrings.swift */; };
@@ -86,6 +92,7 @@
 		F924151CCFD0749176E457BA /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7E822B50110DA519790733 /* MovieDetail.swift */; };
 		F9D3E5B569BC71107609C4CA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39BBCF450B3D218E73D51690 /* GoogleService-Info.plist */; };
 		FCCD06DEDCDE5C0E92FCEAE5 /* CountryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013701218C5219396282F008 /* CountryDetailViewController.swift */; };
+		FE014666E165E33A0E55EFDA /* TestDetayNoticeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B9212A0FB2C1413EC69EBC /* TestDetayNoticeCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +118,8 @@
 		3BAB64B12F7A37DAF92E91D9 /* MealDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailView.swift; sourceTree = "<group>"; };
 		463CF9F4995C112473F5208C /* Layouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layouting.swift; sourceTree = "<group>"; };
 		4AAA08491D7FFD036CDE0A14 /* PokemonListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewController.swift; sourceTree = "<group>"; };
+		4F7E98DCBEAE170CE7F661D2 /* TestDetayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDetayViewModel.swift; sourceTree = "<group>"; };
+		53AD5FAE8EC5B786A6D26B88 /* TestDetayActionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDetayActionRowView.swift; sourceTree = "<group>"; };
 		5813A62BBBDAC07E5F302DBC /* Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launch.swift; sourceTree = "<group>"; };
 		5B22401BEECEF1430F7B5959 /* LayoutableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutableView.swift; sourceTree = "<group>"; };
 		63FE84EC8FCA215BAD6C86CB /* FigmaDifferenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigmaDifferenceCell.swift; sourceTree = "<group>"; };
@@ -119,6 +128,7 @@
 		697048A917F10C8A1106B078 /* CountryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewController.swift; sourceTree = "<group>"; };
 		6AB603FB9E806F3A98EE94C1 /* FigmaCompareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigmaCompareView.swift; sourceTree = "<group>"; };
 		72C347A87BCBE7CD04DAD4E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		75B20C04EB0005A594181100 /* TestDetayPlanCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDetayPlanCardView.swift; sourceTree = "<group>"; };
 		774CF263DE41ECD44E42DC8E /* LaunchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchService.swift; sourceTree = "<group>"; };
 		7DE0095FCDD5B64CB2D3AC7C /* MealDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetail.swift; sourceTree = "<group>"; };
 		8026D5C77941B0E730E3F0EC /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -129,8 +139,11 @@
 		8C45887879EB7AE06C45700E /* PokemonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewController.swift; sourceTree = "<group>"; };
 		9067329BBE35E33F32208856 /* AIFloatingMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIFloatingMenuView.swift; sourceTree = "<group>"; };
 		90DE4E8308DE731352E83580 /* LaunchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchListView.swift; sourceTree = "<group>"; };
+		91B9212A0FB2C1413EC69EBC /* TestDetayNoticeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDetayNoticeCardView.swift; sourceTree = "<group>"; };
+		93625549212055983B1A6751 /* TestDetayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDetayView.swift; sourceTree = "<group>"; };
 		94AF9188FEE9CFFBF66E25D6 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		95F66F0F1821313468AAAD51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		98414321A93812320F6B6B17 /* TestDetayInfoBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDetayInfoBannerView.swift; sourceTree = "<group>"; };
 		9AEEF4C11B0C12AF5B39B288 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9E7E822B50110DA519790733 /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
 		9F2A50B7845B868E047C8430 /* PokemonDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetail.swift; sourceTree = "<group>"; };
@@ -160,6 +173,7 @@
 		DB862E685502E993DD67421B /* FigmaCompareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigmaCompareViewModel.swift; sourceTree = "<group>"; };
 		DCF2DDCB39E4BDC9973713FD /* Layoutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layoutable.swift; sourceTree = "<group>"; };
 		DE43B544B1E4C4D7809611A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E1C8DE796FDBEB50F85B0D5B /* TestDetayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDetayViewController.swift; sourceTree = "<group>"; };
 		E2F311BA6A3A11971DBFB009 /* AIFloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIFloatingButton.swift; sourceTree = "<group>"; };
 		E51EC549248541550C4FDBA5 /* PokemonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailView.swift; sourceTree = "<group>"; };
 		E81E33AB03A0D8066AD0F6C3 /* ApiResponseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponseHelper.swift; sourceTree = "<group>"; };
@@ -224,6 +238,7 @@
 				4EF1B74B45D6CB6275BE6435 /* Main */,
 				00CDADDC577D3D098EABDA36 /* Meals */,
 				BA15A3F75FA9EED7AA425921 /* Pokemon */,
+				556576ECAEABF7D045842B3E /* TestDetay */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -257,6 +272,17 @@
 				D15AEFE8C22501114D23446D /* Services */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		556576ECAEABF7D045842B3E /* TestDetay */ = {
+			isa = PBXGroup;
+			children = (
+				93625549212055983B1A6751 /* TestDetayView.swift */,
+				E1C8DE796FDBEB50F85B0D5B /* TestDetayViewController.swift */,
+				4F7E98DCBEAE170CE7F661D2 /* TestDetayViewModel.swift */,
+				E1EBA0FDEB0E8AD3D2FDFFBF /* Views */,
+			);
+			path = TestDetay;
 			sourceTree = "<group>";
 		};
 		5BC1195842242915B85AAD99 /* Countries */ = {
@@ -455,6 +481,17 @@
 				BB1E37D063023F375DAD5CEA /* LocalizationKey.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		E1EBA0FDEB0E8AD3D2FDFFBF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				53AD5FAE8EC5B786A6D26B88 /* TestDetayActionRowView.swift */,
+				98414321A93812320F6B6B17 /* TestDetayInfoBannerView.swift */,
+				91B9212A0FB2C1413EC69EBC /* TestDetayNoticeCardView.swift */,
+				75B20C04EB0005A594181100 /* TestDetayPlanCardView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		E88A822F8568FB078ADEDE63 /* FigmaCompare */ = {
@@ -656,6 +693,13 @@
 				1DA431CCD3EA43C4DC6D5377 /* Reusable.swift in Sources */,
 				05FFA8BA255C1EDE1209BD09 /* SceneDelegate.swift in Sources */,
 				74A9E2EB2CFC39DADCBF2A2D /* String+Localization.swift in Sources */,
+				633F2355D7B5214CF2778774 /* TestDetayActionRowView.swift in Sources */,
+				B27F97E6723C7D7C3BA959BD /* TestDetayInfoBannerView.swift in Sources */,
+				FE014666E165E33A0E55EFDA /* TestDetayNoticeCardView.swift in Sources */,
+				96E8F2D1F64BDDE01C982C99 /* TestDetayPlanCardView.swift in Sources */,
+				D5DEE60C7A14096143DCABA2 /* TestDetayView.swift in Sources */,
+				5A82A5BEFEBAD9CC49972A09 /* TestDetayViewController.swift in Sources */,
+				3C92BC42EB99FE5F144E2B6A /* TestDetayViewModel.swift in Sources */,
 				610EFCADF6988B3B41DD17C0 /* UIViewController+Activity.swift in Sources */,
 				9440A1574B5A962C43F904A7 /* ViewController.swift in Sources */,
 			);
