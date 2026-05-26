@@ -24,6 +24,17 @@ enum LocalizationKey {
         enum AIAssistant {
             static let title = "aiAssistant.title"
             static let accessibilityLabel = "aiAssistant.accessibilityLabel"
+            static let menuContact = "aiAssistant.menu.contact"
+            static let menuInspect = "aiAssistant.menu.inspect"
+        }
+
+        enum AIInspector {
+            static let title = "aiInspector.title"
+            static let hint = "aiInspector.hint"
+            static let close = "aiInspector.close"
+            static let localizationKeyLabel = "aiInspector.localizationKey.label"
+            static let backendValueLabel = "aiInspector.backendValue.label"
+            static let emptyText = "aiInspector.emptyText"
         }
 
         // swiftlint:disable:next type_body_length

@@ -11,6 +11,7 @@
 		03F8B63491A295591760095A /* PokemonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C8B2D4B60815163AD72082 /* PokemonService.swift */; };
 		05FFA8BA255C1EDE1209BD09 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EFF32BC4713C5ACD6AA413 /* SceneDelegate.swift */; };
 		0977FB07897B682C5670C4A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE43B544B1E4C4D7809611A0 /* AppDelegate.swift */; };
+		0B7C4515D77720BBEB650791 /* AIInspectorDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874F8B4B5E6FCEB50ED1EF10 /* AIInspectorDetailCard.swift */; };
 		0BE3ECA22210D85E65973747 /* LayoutableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C446103BAC76F1CC9193DB /* LayoutableCollectionViewCell.swift */; };
 		0CF7BAD124913A1C1998EDDB /* LaunchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF31A5C2AAF83BD47F05E65 /* LaunchDetailViewController.swift */; };
 		11631610C2048896FC143E45 /* Accessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDFFFFC3E11E2CBC14062D5 /* Accessible.swift */; };
@@ -21,36 +22,42 @@
 		27607B2A009C579FCA0BED09 /* CountryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697048A917F10C8A1106B078 /* CountryListViewController.swift */; };
 		284A52EBD3BCCAED54483E29 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3357A6B2C6854EDEFD5A75CD /* CountryCell.swift */; };
 		2A48CC44E3582B37E63490B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72F45832A1B09900A0911FC0 /* LaunchScreen.storyboard */; };
-		2B3BC55FA3B24D2C15E7CF95 /* Pods_ClaudeBugPoC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5947EC617322C24BAB80679 /* Pods_ClaudeBugPoC.framework */; };
 		3DD819EE1F7681963DDCAAC7 /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B293F55107C96A8B7F69AA6 /* MovieService.swift */; };
+		400A483492A782AF031ED00B /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EA220FE522DE55DA21980C /* LocalizationManager.swift */; };
 		42404563BFF53942E1BE4B94 /* CountryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23387DC276854489B8BC01BE /* CountryListViewModel.swift */; };
 		4AC34BF5038D25A1E23FF309 /* LaunchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774CF263DE41ECD44E42DC8E /* LaunchService.swift */; };
 		503D4AE2BFDCF20DEA39EAAB /* CountryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3751D689F9288AB8B2AE23D /* CountryDetailView.swift */; };
 		504F9EFBF58B8B409CBB2D79 /* LaunchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E517663C1E464088143696 /* LaunchDetailViewModel.swift */; };
 		52CD90AC9D123FB83BFA7E34 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AF9188FEE9CFFBF66E25D6 /* APIService.swift */; };
+		53C5AC26D5A06E75F6CE1A0C /* AIFloatingMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9067329BBE35E33F32208856 /* AIFloatingMenuView.swift */; };
 		5E2779C0763C1121BD4805A7 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460684ED28AE9B127C8246F /* Pokemon.swift */; };
 		6009CBA8D7F2CE798C9967C6 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1DF3B0166A58CF7284F8BA /* Movie.swift */; };
+		610EFCADF6988B3B41DD17C0 /* UIViewController+Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB5B33485312772FFA271C3 /* UIViewController+Activity.swift */; };
 		62694647EA34C4780917A392 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60E64A753E49DC6217783EA /* MainTabBarController.swift */; };
 		62FCE9A15D521B93C88F828A /* MealListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D5AF8CFBB0CA89E6D80F5 /* MealListViewController.swift */; };
 		636374FF7F8E946E609DA57D /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177B51D7910C024A44DE119 /* CGSize+Extensions.swift */; };
 		650A41B6A3CB3B57EB1270A4 /* PokemonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE7C721BDB99C83D26FC303 /* PokemonCell.swift */; };
 		6977BC3D99C9B383097B01E3 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6B86CD305BD935C51E4C85 /* Meal.swift */; };
 		6AC2F1EA32D260AF80F86FEB /* CountryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED88F47135E393DA063CAA76 /* CountryListView.swift */; };
+		74A9E2EB2CFC39DADCBF2A2D /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E50AC4FD258F5EDC47685A /* String+Localization.swift */; };
 		78FB08B765BDE8E84481DE4B /* MealDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD397C9A51957EE6A0EE94 /* MealDetailViewModel.swift */; };
 		79C913FDBF38260DC8AB9632 /* LaunchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B224CEADC1542945DE3E3E /* LaunchDetailView.swift */; };
 		7AB5162BB311D271A727274C /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F58130D359130D9F7D81E1 /* ApiError.swift */; };
 		7B9374D1712F2D30C9F0ADC5 /* LaunchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0FDE3F9D6D57B9225CB285 /* LaunchListViewController.swift */; };
 		825371FBB56BB2E2DCF9DB25 /* PokemonDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2A50B7845B868E047C8430 /* PokemonDetail.swift */; };
 		855DD4C950B37BCA204BAF9D /* ApiResponseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81E33AB03A0D8066AD0F6C3 /* ApiResponseHelper.swift */; };
+		8666CC90BA0E66CA02F0DC8C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FB3BBDD490FFC655D0B102C /* Localizable.strings */; };
 		86F01A3175408E4B5BC30137 /* Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5813A62BBBDAC07E5F302DBC /* Launch.swift */; };
 		8A03BA8BB3276A9FC7E27F66 /* MealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF9BEA671CD9250BAA06CD /* MealCell.swift */; };
 		9435DE044F9A349BAF64AC7F /* Layoutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF2DDCB39E4BDC9973713FD /* Layoutable.swift */; };
 		9440A1574B5A962C43F904A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEEF4C11B0C12AF5B39B288 /* ViewController.swift */; };
+		9A263102A14232B4C7C4A48F /* Pods_ClaudeBugPoC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D2419708F1EC295EB970A14 /* Pods_ClaudeBugPoC.framework */; };
 		A0248C7070D37B6570605A28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9451AAC9F7DA54F3A6601FB /* Assets.xcassets */; };
 		A24BECDF75DED5F48B582EE3 /* PokemonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51EC549248541550C4FDBA5 /* PokemonDetailView.swift */; };
 		A5F6818C648C534D86D3C88E /* LaunchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20ABB06762581C871FFA75A1 /* LaunchCell.swift */; };
 		A7697BB8D17C78FF3BAB712D /* ApiRequestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D3785055AC6ECFF4C168A6 /* ApiRequestHelper.swift */; };
 		ABE83D0C17EBAFCA4FA9B608 /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0E994F48F20C104D29552D /* MealService.swift */; };
+		B0B377F0ADC16B3317A3717D /* LocalizationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E37D063023F375DAD5CEA /* LocalizationKey.swift */; };
 		B9495FAB2D701184396D80B3 /* PokemonDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16DA785F1BF269BA9A9155E /* PokemonDetailViewModel.swift */; };
 		BC0F397F09DC9EC927346218 /* CountryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A325AC31B8CE3312E210451 /* CountryService.swift */; };
 		C0B69F2FD9D752CA3B50AFB6 /* LaunchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6655A94DD00F4D7B3EB49AE3 /* LaunchListViewModel.swift */; };
@@ -59,7 +66,9 @@
 		CBDA54924FBD7C7A7BDE30AA /* PokemonListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7025CEBF9DB91542CEBA3F0 /* PokemonListViewModel.swift */; };
 		D3A52C16062C712C347D36C0 /* Layouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463CF9F4995C112473F5208C /* Layouting.swift */; };
 		D5379FEEB653F1A2F46C31EB /* ApiConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2B23D39BA3FFDC137315C /* ApiConstant.swift */; };
+		D93E40DA49F9BAD9FF4CBA20 /* ActivityRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2794F7606CE8E6A7898E8D /* ActivityRecorder.swift */; };
 		DA54A8F7A0EEC1804585906B /* PokemonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C45887879EB7AE06C45700E /* PokemonDetailViewController.swift */; };
+		DB3E51F960DC5E10D44541DC /* DefaultStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9BFDA8CA6034AE00E3908A /* DefaultStrings.swift */; };
 		DDE3601C4E94A14A01E1AD5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F02E07627403F3F4529BE706 /* Main.storyboard */; };
 		E3AA6E744400563E8013B894 /* MealListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88087147ADA061047623167 /* MealListViewModel.swift */; };
 		E516FA372FCE755532E9E81E /* LaunchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DE4E8308DE731352E83580 /* LaunchListView.swift */; };
@@ -69,6 +78,7 @@
 		E794E13B48B8FFA3C25BD320 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69E74C6D15790124851BBE7 /* Country.swift */; };
 		E97644F320F0948E44E73FA7 /* LayoutableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B22401BEECEF1430F7B5959 /* LayoutableView.swift */; };
 		ED80F92C0BB6A4F763F2C550 /* LayoutingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341A861E0FEB1F1FB3F05ABA /* LayoutingViewController.swift */; };
+		F036327F8F4FB7879D1C8762 /* AIInspectorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD40DE8527184D02EADA772D /* AIInspectorOverlay.swift */; };
 		F924151CCFD0749176E457BA /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7E822B50110DA519790733 /* MovieDetail.swift */; };
 		F9D3E5B569BC71107609C4CA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39BBCF450B3D218E73D51690 /* GoogleService-Info.plist */; };
 		FCCD06DEDCDE5C0E92FCEAE5 /* CountryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013701218C5219396282F008 /* CountryDetailViewController.swift */; };
@@ -78,6 +88,8 @@
 		013701218C5219396282F008 /* CountryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailViewController.swift; sourceTree = "<group>"; };
 		0177B51D7910C024A44DE119 /* CGSize+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
 		0B293F55107C96A8B7F69AA6 /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieService.swift; sourceTree = "<group>"; };
+		0DB5B33485312772FFA271C3 /* UIViewController+Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Activity.swift"; sourceTree = "<group>"; };
+		0FB3BBDD490FFC655D0B102C /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1568C0C8DFC08F12F4C9DAFA /* ClaudeBugPoC.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ClaudeBugPoC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15F58130D359130D9F7D81E1 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		17401D2AD03FB5969EE29F40 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
@@ -94,8 +106,10 @@
 		3BAB64B12F7A37DAF92E91D9 /* MealDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailView.swift; sourceTree = "<group>"; };
 		463CF9F4995C112473F5208C /* Layouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layouting.swift; sourceTree = "<group>"; };
 		4AAA08491D7FFD036CDE0A14 /* PokemonListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewController.swift; sourceTree = "<group>"; };
+		4D2419708F1EC295EB970A14 /* Pods_ClaudeBugPoC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClaudeBugPoC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5813A62BBBDAC07E5F302DBC /* Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launch.swift; sourceTree = "<group>"; };
 		5B22401BEECEF1430F7B5959 /* LayoutableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutableView.swift; sourceTree = "<group>"; };
+		5FDB8A7E8678C7C330893A5F /* Pods-ClaudeBugPoC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.debug.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.debug.xcconfig"; sourceTree = "<group>"; };
 		6655A94DD00F4D7B3EB49AE3 /* LaunchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchListViewModel.swift; sourceTree = "<group>"; };
 		66D3785055AC6ECFF4C168A6 /* ApiRequestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequestHelper.swift; sourceTree = "<group>"; };
 		697048A917F10C8A1106B078 /* CountryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewController.swift; sourceTree = "<group>"; };
@@ -104,9 +118,13 @@
 		7DE0095FCDD5B64CB2D3AC7C /* MealDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetail.swift; sourceTree = "<group>"; };
 		8026D5C77941B0E730E3F0EC /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		80928A2E721B12C0DC5FAA41 /* MealListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealListView.swift; sourceTree = "<group>"; };
+		83E50AC4FD258F5EDC47685A /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
+		874F8B4B5E6FCEB50ED1EF10 /* AIInspectorDetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIInspectorDetailCard.swift; sourceTree = "<group>"; };
 		8A325AC31B8CE3312E210451 /* CountryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryService.swift; sourceTree = "<group>"; };
 		8C45887879EB7AE06C45700E /* PokemonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewController.swift; sourceTree = "<group>"; };
+		9067329BBE35E33F32208856 /* AIFloatingMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIFloatingMenuView.swift; sourceTree = "<group>"; };
 		90DE4E8308DE731352E83580 /* LaunchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchListView.swift; sourceTree = "<group>"; };
+		914B863B93937D5D1305B2EF /* Pods-ClaudeBugPoC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.release.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.release.xcconfig"; sourceTree = "<group>"; };
 		94AF9188FEE9CFFBF66E25D6 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		95F66F0F1821313468AAAD51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9AEEF4C11B0C12AF5B39B288 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -114,25 +132,26 @@
 		9F2A50B7845B868E047C8430 /* PokemonDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetail.swift; sourceTree = "<group>"; };
 		A2E517663C1E464088143696 /* LaunchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchDetailViewModel.swift; sourceTree = "<group>"; };
 		A4090940060C91FE8B2F0A69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		A5947EC617322C24BAB80679 /* Pods_ClaudeBugPoC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClaudeBugPoC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5B224CEADC1542945DE3E3E /* LaunchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchDetailView.swift; sourceTree = "<group>"; };
 		A69E74C6D15790124851BBE7 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		A8EFF32BC4713C5ACD6AA413 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		ACAD408328BF498214416D95 /* Pods-ClaudeBugPoC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.release.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.release.xcconfig"; sourceTree = "<group>"; };
+		AD40DE8527184D02EADA772D /* AIInspectorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIInspectorOverlay.swift; sourceTree = "<group>"; };
 		B7A2B23D39BA3FFDC137315C /* ApiConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConstant.swift; sourceTree = "<group>"; };
 		B87059C68D6DEDADA602DAD1 /* CountryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailViewModel.swift; sourceTree = "<group>"; };
 		BA6D5AF8CFBB0CA89E6D80F5 /* MealListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealListViewController.swift; sourceTree = "<group>"; };
+		BB1E37D063023F375DAD5CEA /* LocalizationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKey.swift; sourceTree = "<group>"; };
 		BBE7C721BDB99C83D26FC303 /* PokemonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCell.swift; sourceTree = "<group>"; };
 		BC0FDE3F9D6D57B9225CB285 /* LaunchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchListViewController.swift; sourceTree = "<group>"; };
+		BE2794F7606CE8E6A7898E8D /* ActivityRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRecorder.swift; sourceTree = "<group>"; };
 		C16DA785F1BF269BA9A9155E /* PokemonDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewModel.swift; sourceTree = "<group>"; };
 		C60E64A753E49DC6217783EA /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		C7EA220FE522DE55DA21980C /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
 		CA0E994F48F20C104D29552D /* MealService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealService.swift; sourceTree = "<group>"; };
 		D0AD397C9A51957EE6A0EE94 /* MealDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailViewModel.swift; sourceTree = "<group>"; };
 		D460684ED28AE9B127C8246F /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		D6C8B2D4B60815163AD72082 /* PokemonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonService.swift; sourceTree = "<group>"; };
 		D7025CEBF9DB91542CEBA3F0 /* PokemonListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewModel.swift; sourceTree = "<group>"; };
 		D88087147ADA061047623167 /* MealListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealListViewModel.swift; sourceTree = "<group>"; };
-		D9B1867A89056DA18B874277 /* Pods-ClaudeBugPoC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.debug.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.debug.xcconfig"; sourceTree = "<group>"; };
 		DCF2DDCB39E4BDC9973713FD /* Layoutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layoutable.swift; sourceTree = "<group>"; };
 		DE43B544B1E4C4D7809611A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2F311BA6A3A11971DBFB009 /* AIFloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIFloatingButton.swift; sourceTree = "<group>"; };
@@ -143,15 +162,16 @@
 		EE192E838173DD221F3F4CC4 /* PokemonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListView.swift; sourceTree = "<group>"; };
 		F2C446103BAC76F1CC9193DB /* LayoutableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutableCollectionViewCell.swift; sourceTree = "<group>"; };
 		F3751D689F9288AB8B2AE23D /* CountryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailView.swift; sourceTree = "<group>"; };
+		FA9BFDA8CA6034AE00E3908A /* DefaultStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStrings.swift; sourceTree = "<group>"; };
 		FCCF9BEA671CD9250BAA06CD /* MealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		BD2DF34D101A236FDFEB000F /* Frameworks */ = {
+		498058620DEDCA2C58EB82D5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B3BC55FA3B24D2C15E7CF95 /* Pods_ClaudeBugPoC.framework in Frameworks */,
+				9A263102A14232B4C7C4A48F /* Pods_ClaudeBugPoC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +192,9 @@
 			isa = PBXGroup;
 			children = (
 				E2F311BA6A3A11971DBFB009 /* AIFloatingButton.swift */,
+				9067329BBE35E33F32208856 /* AIFloatingMenuView.swift */,
+				AD40DE8527184D02EADA772D /* AIInspectorOverlay.swift */,
+				A5780CE9218272346C0147F4 /* Views */,
 			);
 			path = AIChat;
 			sourceTree = "<group>";
@@ -186,6 +209,16 @@
 				0033EE9D8B50728F60433416 /* Detail */,
 			);
 			path = Meals;
+			sourceTree = "<group>";
+		};
+		347B84BA3F14473DE19CF6C8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5FDB8A7E8678C7C330893A5F /* Pods-ClaudeBugPoC.debug.xcconfig */,
+				914B863B93937D5D1305B2EF /* Pods-ClaudeBugPoC.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		369210E8A8C2E1221668E7FB /* Scenes */ = {
@@ -252,16 +285,6 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		6E28A43819A64538A68125F7 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D9B1867A89056DA18B874277 /* Pods-ClaudeBugPoC.debug.xcconfig */,
-				ACAD408328BF498214416D95 /* Pods-ClaudeBugPoC.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		724C2C41DC3F4671C7D1AAA2 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +297,8 @@
 			isa = PBXGroup;
 			children = (
 				0177B51D7910C024A44DE119 /* CGSize+Extensions.swift */,
+				83E50AC4FD258F5EDC47685A /* String+Localization.swift */,
+				0DB5B33485312772FFA271C3 /* UIViewController+Activity.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -296,10 +321,13 @@
 				39BBCF450B3D218E73D51690 /* GoogleService-Info.plist */,
 				A4090940060C91FE8B2F0A69 /* Info.plist */,
 				72F45832A1B09900A0911FC0 /* LaunchScreen.storyboard */,
+				0FB3BBDD490FFC655D0B102C /* Localizable.strings */,
 				F02E07627403F3F4529BE706 /* Main.storyboard */,
 				A8EFF32BC4713C5ACD6AA413 /* SceneDelegate.swift */,
 				9AEEF4C11B0C12AF5B39B288 /* ViewController.swift */,
+				E1036BD91E46B7CEF77A172D /* Constants */,
 				79048F75F42BB4BDF1134637 /* Extensions */,
+				85D51B54F06E65DEA9EAEEEB /* Managers */,
 				50E59BC1D35A05C86AA06517 /* Networking */,
 				F7ADA8A754D9AB67B8D97D97 /* Protocols */,
 				369210E8A8C2E1221668E7FB /* Scenes */,
@@ -334,6 +362,16 @@
 			path = Launches;
 			sourceTree = "<group>";
 		};
+		85D51B54F06E65DEA9EAEEEB /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				BE2794F7606CE8E6A7898E8D /* ActivityRecorder.swift */,
+				FA9BFDA8CA6034AE00E3908A /* DefaultStrings.swift */,
+				C7EA220FE522DE55DA21980C /* LocalizationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		A1F82760BED36A21D60F36E0 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,13 +380,21 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		A5780CE9218272346C0147F4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				874F8B4B5E6FCEB50ED1EF10 /* AIInspectorDetailCard.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		A7B13901BD407A10509EFB51 = {
 			isa = PBXGroup;
 			children = (
 				7F1379B9A1694A20F59CFC39 /* ClaudeBugPoC */,
 				CD7A0B2DA17C884FBB46F08C /* Products */,
-				6E28A43819A64538A68125F7 /* Pods */,
-				E49B1F7060A003F829DC1703 /* Frameworks */,
+				347B84BA3F14473DE19CF6C8 /* Pods */,
+				FA4BE76E2859574D9205E2DB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -410,12 +456,12 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		E49B1F7060A003F829DC1703 /* Frameworks */ = {
+		E1036BD91E46B7CEF77A172D /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				A5947EC617322C24BAB80679 /* Pods_ClaudeBugPoC.framework */,
+				BB1E37D063023F375DAD5CEA /* LocalizationKey.swift */,
 			);
-			name = Frameworks;
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		F7ADA8A754D9AB67B8D97D97 /* Protocols */ = {
@@ -430,6 +476,14 @@
 				17401D2AD03FB5969EE29F40 /* Reusable.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		FA4BE76E2859574D9205E2DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4D2419708F1EC295EB970A14 /* Pods_ClaudeBugPoC.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FD1A806D6CD8808BC8308A43 /* Detail */ = {
@@ -449,12 +503,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ED75F5BCC9FA1E84F8F09AB9 /* Build configuration list for PBXNativeTarget "ClaudeBugPoC" */;
 			buildPhases = (
-				745A2900277E5897A293F7DB /* [CP] Check Pods Manifest.lock */,
+				646347D696D70FF2E11BDDBA /* [CP] Check Pods Manifest.lock */,
 				73311783F5E80380D9727136 /* Sources */,
 				F0FFF9A6A41079C5767AAA7B /* Resources */,
 				3DB6453A9397103475AA5CF1 /* SwiftLint */,
-				BD2DF34D101A236FDFEB000F /* Frameworks */,
-				67426F1B7998B64617B2BE7A /* [CP] Embed Pods Frameworks */,
+				498058620DEDCA2C58EB82D5 /* Frameworks */,
+				3C39D4AFDF5DCBA813971140 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -481,11 +535,11 @@
 			};
 			buildConfigurationList = 624C411D1091A87A6B57CB5C /* Build configuration list for PBXProject "ClaudeBugPoC" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = tr;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
-				en,
+				tr,
 			);
 			mainGroup = A7B13901BD407A10509EFB51;
 			productRefGroup = CD7A0B2DA17C884FBB46F08C /* Products */;
@@ -505,6 +559,7 @@
 				A0248C7070D37B6570605A28 /* Assets.xcassets in Resources */,
 				F9D3E5B569BC71107609C4CA /* GoogleService-Info.plist in Resources */,
 				2A48CC44E3582B37E63490B8 /* LaunchScreen.storyboard in Resources */,
+				8666CC90BA0E66CA02F0DC8C /* Localizable.strings in Resources */,
 				DDE3601C4E94A14A01E1AD5E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,6 +567,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3C39D4AFDF5DCBA813971140 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3DB6453A9397103475AA5CF1 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -530,24 +602,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed — run 'brew install swiftlint'\"\nfi\n";
 		};
-		67426F1B7998B64617B2BE7A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		745A2900277E5897A293F7DB /* [CP] Check Pods Manifest.lock */ = {
+		646347D696D70FF2E11BDDBA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -577,8 +632,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				00855C4C41FF082B38D3B032 /* AIFloatingButton.swift in Sources */,
+				53C5AC26D5A06E75F6CE1A0C /* AIFloatingMenuView.swift in Sources */,
+				0B7C4515D77720BBEB650791 /* AIInspectorDetailCard.swift in Sources */,
+				F036327F8F4FB7879D1C8762 /* AIInspectorOverlay.swift in Sources */,
 				52CD90AC9D123FB83BFA7E34 /* APIService.swift in Sources */,
 				11631610C2048896FC143E45 /* Accessible.swift in Sources */,
+				D93E40DA49F9BAD9FF4CBA20 /* ActivityRecorder.swift in Sources */,
 				D5379FEEB653F1A2F46C31EB /* ApiConstant.swift in Sources */,
 				7AB5162BB311D271A727274C /* ApiError.swift in Sources */,
 				A7697BB8D17C78FF3BAB712D /* ApiRequestHelper.swift in Sources */,
@@ -594,6 +653,7 @@
 				27607B2A009C579FCA0BED09 /* CountryListViewController.swift in Sources */,
 				42404563BFF53942E1BE4B94 /* CountryListViewModel.swift in Sources */,
 				BC0F397F09DC9EC927346218 /* CountryService.swift in Sources */,
+				DB3E51F960DC5E10D44541DC /* DefaultStrings.swift in Sources */,
 				86F01A3175408E4B5BC30137 /* Launch.swift in Sources */,
 				A5F6818C648C534D86D3C88E /* LaunchCell.swift in Sources */,
 				79C913FDBF38260DC8AB9632 /* LaunchDetailView.swift in Sources */,
@@ -608,6 +668,8 @@
 				E97644F320F0948E44E73FA7 /* LayoutableView.swift in Sources */,
 				D3A52C16062C712C347D36C0 /* Layouting.swift in Sources */,
 				ED80F92C0BB6A4F763F2C550 /* LayoutingViewController.swift in Sources */,
+				B0B377F0ADC16B3317A3717D /* LocalizationKey.swift in Sources */,
+				400A483492A782AF031ED00B /* LocalizationManager.swift in Sources */,
 				62694647EA34C4780917A392 /* MainTabBarController.swift in Sources */,
 				6977BC3D99C9B383097B01E3 /* Meal.swift in Sources */,
 				8A03BA8BB3276A9FC7E27F66 /* MealCell.swift in Sources */,
@@ -635,6 +697,8 @@
 				03F8B63491A295591760095A /* PokemonService.swift in Sources */,
 				1DA431CCD3EA43C4DC6D5377 /* Reusable.swift in Sources */,
 				05FFA8BA255C1EDE1209BD09 /* SceneDelegate.swift in Sources */,
+				74A9E2EB2CFC39DADCBF2A2D /* String+Localization.swift in Sources */,
+				610EFCADF6988B3B41DD17C0 /* UIViewController+Activity.swift in Sources */,
 				9440A1574B5A962C43F904A7 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -784,7 +848,7 @@
 		};
 		C6EC44236EE6893CB93AE2CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D9B1867A89056DA18B874277 /* Pods-ClaudeBugPoC.debug.xcconfig */;
+			baseConfigurationReference = 5FDB8A7E8678C7C330893A5F /* Pods-ClaudeBugPoC.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -817,7 +881,7 @@
 		};
 		F19ACFA932B7B983F73C2583 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ACAD408328BF498214416D95 /* Pods-ClaudeBugPoC.release.xcconfig */;
+			baseConfigurationReference = 914B863B93937D5D1305B2EF /* Pods-ClaudeBugPoC.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";

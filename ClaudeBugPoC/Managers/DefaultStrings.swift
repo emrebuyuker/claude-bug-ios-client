@@ -17,6 +17,15 @@ enum DefaultStrings: String {
 
     case aiAssistantTitle = "aiAssistant.title"
     case aiAssistantAccessibilityLabel = "aiAssistant.accessibilityLabel"
+    case aiAssistantMenuContact = "aiAssistant.menu.contact"
+    case aiAssistantMenuInspect = "aiAssistant.menu.inspect"
+
+    case aiInspectorTitle = "aiInspector.title"
+    case aiInspectorHint = "aiInspector.hint"
+    case aiInspectorClose = "aiInspector.close"
+    case aiInspectorLocalizationKeyLabel = "aiInspector.localizationKey.label"
+    case aiInspectorBackendValueLabel = "aiInspector.backendValue.label"
+    case aiInspectorEmptyText = "aiInspector.emptyText"
 
     case aiChatNavigationTitle = "aiChat.navigationTitle"
     case aiChatWelcomeMessage = "aiChat.welcome.message"
@@ -98,6 +107,15 @@ extension DefaultStrings {
 
         case .aiAssistantTitle: return "AI Asistan"
         case .aiAssistantAccessibilityLabel: return "AI Asistan"
+        case .aiAssistantMenuContact: return "💬  AI ile İletişime Geç"
+        case .aiAssistantMenuInspect: return "🔍  Ekrandaki ID'leri Gör"
+
+        case .aiInspectorTitle: return "Eleman Detayı"
+        case .aiInspectorHint: return "Detayını görmek istediğin elemana dokun"
+        case .aiInspectorClose: return "Kapat"
+        case .aiInspectorLocalizationKeyLabel: return "Localization Key"
+        case .aiInspectorBackendValueLabel: return "Backend Değeri"
+        case .aiInspectorEmptyText: return "(metin yok)"
 
         case .aiChatNavigationTitle: return "Claude Bug Analyzer"
         case .aiChatWelcomeMessage:

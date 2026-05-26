@@ -19,6 +19,16 @@
 // MARK: - AI Assistant
 "aiAssistant.title" = "AI Asistan";
 "aiAssistant.accessibilityLabel" = "AI Asistan";
+"aiAssistant.menu.contact" = "💬  AI ile İletişime Geç";
+"aiAssistant.menu.inspect" = "🔍  Ekrandaki ID'leri Gör";
+
+// MARK: - AI Inspector
+"aiInspector.title" = "Eleman Detayı";
+"aiInspector.hint" = "Detayını görmek istediğin elemana dokun";
+"aiInspector.close" = "Kapat";
+"aiInspector.localizationKey.label" = "Localization Key";
+"aiInspector.backendValue.label" = "Backend Değeri";
+"aiInspector.emptyText" = "(metin yok)";
 
 // MARK: - AI Chat
 "aiChat.navigationTitle" = "Claude Bug Analyzer";

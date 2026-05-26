@@ -14,6 +14,14 @@ final class MainTabBarController: UITabBarController {
         return button
     }()
 
+    private lazy var floatingMenu: AIFloatingMenuView = {
+        let menu = AIFloatingMenuView.create()
+        menu.delegate = self
+        menu.isHidden = true
+        return menu
+    }()
+
+    private var inspectorOverlay: AIInspectorOverlay?
     private var didPlaceFloatingButton = false
 
     // MARK: - Lifecycle
@@ -21,13 +29,29 @@ final class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         configureAppearance()
         viewControllers = makeTabs()
+        view.addSubview(floatingMenu)
         view.addSubview(floatingButton)
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         positionFloatingButtonIfNeeded()
+        view.bringSubviewToFront(floatingMenu)
         view.bringSubviewToFront(floatingButton)
+        if let overlay = inspectorOverlay {
+            view.bringSubviewToFront(overlay)
+            view.bringSubviewToFront(floatingButton)
+        }
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        if !floatingMenu.isHidden, let touch = touches.first {
+            let point = touch.location(in: view)
+            if !floatingMenu.frame.contains(point), !floatingButton.frame.contains(point) {
+                hideFloatingMenu()
+            }
+        }
     }
 
     // MARK: - Setup
@@ -104,14 +128,68 @@ final class MainTabBarController: UITabBarController {
         didPlaceFloatingButton = true
     }
 
-    @objc private func dismissChat() {
-        dismiss(animated: true)
+    // MARK: - Floating Menu
+    private func toggleFloatingMenu() {
+        floatingMenu.isHidden ? showFloatingMenu() : hideFloatingMenu()
     }
-}
 
-// MARK: - AIFloatingButtonDelegate
-extension MainTabBarController: AIFloatingButtonDelegate {
-    func aiFloatingButtonDidTap(_ button: AIFloatingButton) {
+    private func showFloatingMenu() {
+        positionFloatingMenu()
+        floatingMenu.isHidden = false
+        view.bringSubviewToFront(floatingMenu)
+        view.bringSubviewToFront(floatingButton)
+        floatingMenu.presentWithAnimation()
+    }
+
+    private func hideFloatingMenu(completion: (() -> Void)? = nil) {
+        guard !floatingMenu.isHidden else {
+            completion?()
+            return
+        }
+        floatingMenu.dismissWithAnimation { [weak self] in
+            self?.floatingMenu.isHidden = true
+            completion?()
+        }
+    }
+
+    private func positionFloatingMenu() {
+        let menuWidth = AIFloatingMenuView.preferredWidth
+        let spacing = AIFloatingMenuView.spacingFromButton
+        let safe = view.safeAreaInsets
+        let margin = AIFloatingButton.edgeMargin
+
+        let estimatedHeight: CGFloat = 108
+        let size = floatingMenu.sizeThatFits(CGSize(width: menuWidth, height: .greatestFiniteMagnitude))
+        let menuHeight = size.height > 0 ? size.height : estimatedHeight
+
+        let buttonFrame = floatingButton.frame
+        let parentBounds = view.bounds
+
+        let preferLeft = buttonFrame.midX > parentBounds.midX
+        var originX: CGFloat
+        if preferLeft {
+            originX = buttonFrame.minX - spacing - menuWidth
+            if originX < safe.left + margin {
+                originX = buttonFrame.maxX + spacing
+            }
+        } else {
+            originX = buttonFrame.maxX + spacing
+            if originX + menuWidth > parentBounds.width - safe.right - margin {
+                originX = buttonFrame.minX - spacing - menuWidth
+            }
+        }
+        originX = max(safe.left + margin, min(originX, parentBounds.width - safe.right - margin - menuWidth))
+
+        var originY = buttonFrame.midY - menuHeight / 2
+        let minY = safe.top + margin
+        let maxY = parentBounds.height - safe.bottom - tabBar.bounds.height - margin - menuHeight
+        originY = max(minY, min(originY, maxY))
+
+        floatingMenu.frame = CGRect(x: originX, y: originY, width: menuWidth, height: menuHeight)
+    }
+
+    // MARK: - Chat
+    private func presentChat() {
         let chatVC = ViewController()
         chatVC.title = LocalizationKey.View.AIAssistant.title.localize
         chatVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -122,5 +200,63 @@ extension MainTabBarController: AIFloatingButtonDelegate {
         let nav = UINavigationController(rootViewController: chatVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
+    }
+
+    @objc private func dismissChat() {
+        dismiss(animated: true)
+    }
+
+    // MARK: - Inspector
+    private func presentInspector() {
+        guard inspectorOverlay == nil else { return }
+        let overlay = AIInspectorOverlay.create()
+        overlay.delegate = self
+        overlay.frame = view.bounds
+        overlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(overlay)
+        view.bringSubviewToFront(floatingButton)
+        inspectorOverlay = overlay
+        overlay.presentWithAnimation()
+    }
+
+    private func dismissInspector() {
+        guard let overlay = inspectorOverlay else { return }
+        inspectorOverlay = nil
+        overlay.dismissWithAnimation { [weak overlay] in
+            overlay?.removeFromSuperview()
+        }
+    }
+}
+
+// MARK: - AIFloatingButtonDelegate
+extension MainTabBarController: AIFloatingButtonDelegate {
+    func aiFloatingButtonDidTap(_ button: AIFloatingButton) {
+        if inspectorOverlay != nil {
+            dismissInspector()
+            return
+        }
+        toggleFloatingMenu()
+    }
+}
+
+// MARK: - AIFloatingMenuViewDelegate
+extension MainTabBarController: AIFloatingMenuViewDelegate {
+    func aiFloatingMenuViewDidSelectContact(_ view: AIFloatingMenuView) {
+        hideFloatingMenu { [weak self] in
+            self?.presentChat()
+        }
+    }
+
+    func aiFloatingMenuViewDidSelectInspect(_ view: AIFloatingMenuView) {
+        hideFloatingMenu { [weak self] in
+            self?.presentInspector()
+        }
+    }
+}
+
+// MARK: - AIInspectorOverlayDelegate
+extension MainTabBarController: AIInspectorOverlayDelegate {
+    func aiInspectorOverlayDidRequestDismiss(_ overlay: AIInspectorOverlay) {
+        dismissInspector()
     }
 }
