@@ -158,7 +158,7 @@ final class MainTabBarController: UITabBarController {
         let safe = view.safeAreaInsets
         let margin = AIFloatingButton.edgeMargin
 
-        let estimatedHeight: CGFloat = 108
+        let estimatedHeight: CGFloat = 162
         let size = floatingMenu.sizeThatFits(CGSize(width: menuWidth, height: .greatestFiniteMagnitude))
         let menuHeight = size.height > 0 ? size.height : estimatedHeight
 
@@ -186,6 +186,48 @@ final class MainTabBarController: UITabBarController {
         originY = max(minY, min(originY, maxY))
 
         floatingMenu.frame = CGRect(x: originX, y: originY, width: menuWidth, height: menuHeight)
+    }
+
+    // MARK: - Figma Compare
+    private func presentFigmaCompare() {
+        let identifier = activeScreenIdentifier()
+        let viewModel = FigmaCompareViewModel(screenIdentifier: identifier)
+        let figmaVC = FigmaCompareViewController(viewModel: viewModel)
+        figmaVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: self,
+            action: #selector(dismissPresented)
+        )
+        let nav = UINavigationController(rootViewController: figmaVC)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
+
+    /// Mevcut tab'da görünür olan en derin VC'nin tip adını döner (ör. "PokemonDetailViewController").
+    /// Cloud function bu identifier'ı kullanarak GitHub'da ilgili scene dosyalarını okur.
+    private func activeScreenIdentifier() -> String {
+        guard let selected = selectedViewController else {
+            return String(describing: type(of: self))
+        }
+        let visible = topmostViewController(from: selected)
+        return String(describing: type(of: visible))
+    }
+
+    private func topmostViewController(from root: UIViewController) -> UIViewController {
+        if let nav = root as? UINavigationController, let top = nav.topViewController {
+            return topmostViewController(from: top)
+        }
+        if let tab = root as? UITabBarController, let selected = tab.selectedViewController {
+            return topmostViewController(from: selected)
+        }
+        if let presented = root.presentedViewController {
+            return topmostViewController(from: presented)
+        }
+        return root
+    }
+
+    @objc private func dismissPresented() {
+        dismiss(animated: true)
     }
 
     // MARK: - Chat
@@ -250,6 +292,12 @@ extension MainTabBarController: AIFloatingMenuViewDelegate {
     func aiFloatingMenuViewDidSelectInspect(_ view: AIFloatingMenuView) {
         hideFloatingMenu { [weak self] in
             self?.presentInspector()
+        }
+    }
+
+    func aiFloatingMenuViewDidSelectFigmaCompare(_ view: AIFloatingMenuView) {
+        hideFloatingMenu { [weak self] in
+            self?.presentFigmaCompare()
         }
     }
 }

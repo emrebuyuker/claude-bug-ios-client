@@ -21,6 +21,34 @@
 "aiAssistant.accessibilityLabel" = "AI Asistan";
 "aiAssistant.menu.contact" = "💬  AI ile İletişime Geç";
 "aiAssistant.menu.inspect" = "🔍  Ekrandaki ID'leri Gör";
+"aiAssistant.menu.figmaCompare" = "🎨  Figma ile Karşılaştır";
+
+// MARK: - Figma Compare
+"figmaCompare.navigationTitle" = "Figma Karşılaştır";
+"figmaCompare.urlInput.title" = "Figma Frame URL'ini Yapıştır";
+"figmaCompare.urlInput.subtitle" = "Bulunduğun ekran ile Figma'daki frame karşılaştırılacak. Frame'i Figma'da sağ tık → Copy link to selection ile alabilirsin.";
+"figmaCompare.urlInput.placeholder" = "https://www.figma.com/design/...";
+"figmaCompare.button.submit" = "Karşılaştır";
+"figmaCompare.button.cancel" = "İptal";
+"figmaCompare.loading.message" = "Ekran karşılaştırılıyor...";
+"figmaCompare.result.title" = "Karşılaştırma Sonucu";
+"figmaCompare.result.empty" = "✅ Belirgin bir fark bulunamadı.";
+"figmaCompare.error.invalidURL" = "❌ Geçerli bir Figma frame URL'i değil. URL şu formatta olmalı: https://www.figma.com/design/<fileId>/...?node-id=<nodeId>";
+"figmaCompare.error.format" = "❌ Hata: {message}";
+"figmaCompare.error.unexpectedResponse" = "❌ Beklenmedik response formatı";
+"figmaCompare.detectedScreen.format" = "📱 Karşılaştırılan ekran: {screen}";
+"figmaCompare.metadata.format" = "📊 {iterations} iterasyon · 🪙 {inputTokens}+{outputTokens} token · 💵 ${cost}";
+"figmaCompare.category.layout" = "📐 Layout";
+"figmaCompare.category.color" = "🎨 Renk";
+"figmaCompare.category.typography" = "🔤 Tipografi";
+"figmaCompare.category.spacing" = "📏 Spacing";
+"figmaCompare.category.missing" = "❌ Eksik Element";
+"figmaCompare.category.extra" = "➕ Fazla Element";
+"figmaCompare.category.icons" = "🖼️ İkon / Görsel";
+"figmaCompare.category.other" = "ℹ️ Diğer";
+"figmaCompare.severity.high" = "🔴 Yüksek";
+"figmaCompare.severity.medium" = "🟡 Orta";
+"figmaCompare.severity.low" = "🟢 Düşük";
 
 // MARK: - AI Inspector
 "aiInspector.title" = "Eleman Detayı";

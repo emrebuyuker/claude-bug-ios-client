@@ -15,6 +15,7 @@
 		0BE3ECA22210D85E65973747 /* LayoutableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C446103BAC76F1CC9193DB /* LayoutableCollectionViewCell.swift */; };
 		0CF7BAD124913A1C1998EDDB /* LaunchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF31A5C2AAF83BD47F05E65 /* LaunchDetailViewController.swift */; };
 		11631610C2048896FC143E45 /* Accessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDFFFFC3E11E2CBC14062D5 /* Accessible.swift */; };
+		12D892902D4E0C6549561FD8 /* FigmaCompareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB862E685502E993DD67421B /* FigmaCompareViewModel.swift */; };
 		18D94D5DD6EBA9DF80DF87D0 /* MealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341C5ED2CF90C62D151FEF35 /* MealDetailViewController.swift */; };
 		1DA431CCD3EA43C4DC6D5377 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17401D2AD03FB5969EE29F40 /* Reusable.swift */; };
 		231B245DE5E25C686B66ABF9 /* PokemonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE192E838173DD221F3F4CC4 /* PokemonListView.swift */; };
@@ -44,6 +45,7 @@
 		79C913FDBF38260DC8AB9632 /* LaunchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B224CEADC1542945DE3E3E /* LaunchDetailView.swift */; };
 		7AB5162BB311D271A727274C /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F58130D359130D9F7D81E1 /* ApiError.swift */; };
 		7B9374D1712F2D30C9F0ADC5 /* LaunchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0FDE3F9D6D57B9225CB285 /* LaunchListViewController.swift */; };
+		8111FE189CE9CD8075591DB2 /* FigmaCompareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB603FB9E806F3A98EE94C1 /* FigmaCompareView.swift */; };
 		825371FBB56BB2E2DCF9DB25 /* PokemonDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2A50B7845B868E047C8430 /* PokemonDetail.swift */; };
 		855DD4C950B37BCA204BAF9D /* ApiResponseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81E33AB03A0D8066AD0F6C3 /* ApiResponseHelper.swift */; };
 		8666CC90BA0E66CA02F0DC8C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FB3BBDD490FFC655D0B102C /* Localizable.strings */; };
@@ -51,7 +53,6 @@
 		8A03BA8BB3276A9FC7E27F66 /* MealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF9BEA671CD9250BAA06CD /* MealCell.swift */; };
 		9435DE044F9A349BAF64AC7F /* Layoutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF2DDCB39E4BDC9973713FD /* Layoutable.swift */; };
 		9440A1574B5A962C43F904A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEEF4C11B0C12AF5B39B288 /* ViewController.swift */; };
-		9A263102A14232B4C7C4A48F /* Pods_ClaudeBugPoC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D2419708F1EC295EB970A14 /* Pods_ClaudeBugPoC.framework */; };
 		A0248C7070D37B6570605A28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9451AAC9F7DA54F3A6601FB /* Assets.xcassets */; };
 		A24BECDF75DED5F48B582EE3 /* PokemonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51EC549248541550C4FDBA5 /* PokemonDetailView.swift */; };
 		A5F6818C648C534D86D3C88E /* LaunchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20ABB06762581C871FFA75A1 /* LaunchCell.swift */; };
@@ -59,8 +60,10 @@
 		ABE83D0C17EBAFCA4FA9B608 /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0E994F48F20C104D29552D /* MealService.swift */; };
 		B0B377F0ADC16B3317A3717D /* LocalizationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E37D063023F375DAD5CEA /* LocalizationKey.swift */; };
 		B9495FAB2D701184396D80B3 /* PokemonDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16DA785F1BF269BA9A9155E /* PokemonDetailViewModel.swift */; };
+		BA2A2BD8CA2894B2727F820F /* FigmaDifferenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FE84EC8FCA215BAD6C86CB /* FigmaDifferenceCell.swift */; };
 		BC0F397F09DC9EC927346218 /* CountryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A325AC31B8CE3312E210451 /* CountryService.swift */; };
 		C0B69F2FD9D752CA3B50AFB6 /* LaunchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6655A94DD00F4D7B3EB49AE3 /* LaunchListViewModel.swift */; };
+		C3184D7019FE24ADB1B1D7A9 /* FigmaCompareResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB992EBAC85D383931ADED /* FigmaCompareResponse.swift */; };
 		C49F1941A019F6D7F34E7433 /* MealDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB64B12F7A37DAF92E91D9 /* MealDetailView.swift */; };
 		CA86DB8A7080839BDC0E5239 /* MealDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE0095FCDD5B64CB2D3AC7C /* MealDetail.swift */; };
 		CBDA54924FBD7C7A7BDE30AA /* PokemonListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7025CEBF9DB91542CEBA3F0 /* PokemonListViewModel.swift */; };
@@ -70,6 +73,7 @@
 		DA54A8F7A0EEC1804585906B /* PokemonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C45887879EB7AE06C45700E /* PokemonDetailViewController.swift */; };
 		DB3E51F960DC5E10D44541DC /* DefaultStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9BFDA8CA6034AE00E3908A /* DefaultStrings.swift */; };
 		DDE3601C4E94A14A01E1AD5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F02E07627403F3F4529BE706 /* Main.storyboard */; };
+		E3A244B11787DD3DE1984E10 /* FigmaCompareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9646784E6AA6D1C0C9A760 /* FigmaCompareViewController.swift */; };
 		E3AA6E744400563E8013B894 /* MealListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88087147ADA061047623167 /* MealListViewModel.swift */; };
 		E516FA372FCE755532E9E81E /* LaunchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DE4E8308DE731352E83580 /* LaunchListView.swift */; };
 		E5D0011168E1306514434A83 /* MealListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80928A2E721B12C0DC5FAA41 /* MealListView.swift */; };
@@ -89,6 +93,7 @@
 		0177B51D7910C024A44DE119 /* CGSize+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
 		0B293F55107C96A8B7F69AA6 /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieService.swift; sourceTree = "<group>"; };
 		0DB5B33485312772FFA271C3 /* UIViewController+Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Activity.swift"; sourceTree = "<group>"; };
+		0EDB992EBAC85D383931ADED /* FigmaCompareResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigmaCompareResponse.swift; sourceTree = "<group>"; };
 		0FB3BBDD490FFC655D0B102C /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1568C0C8DFC08F12F4C9DAFA /* ClaudeBugPoC.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ClaudeBugPoC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15F58130D359130D9F7D81E1 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
@@ -106,13 +111,13 @@
 		3BAB64B12F7A37DAF92E91D9 /* MealDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailView.swift; sourceTree = "<group>"; };
 		463CF9F4995C112473F5208C /* Layouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layouting.swift; sourceTree = "<group>"; };
 		4AAA08491D7FFD036CDE0A14 /* PokemonListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewController.swift; sourceTree = "<group>"; };
-		4D2419708F1EC295EB970A14 /* Pods_ClaudeBugPoC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClaudeBugPoC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5813A62BBBDAC07E5F302DBC /* Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launch.swift; sourceTree = "<group>"; };
 		5B22401BEECEF1430F7B5959 /* LayoutableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutableView.swift; sourceTree = "<group>"; };
-		5FDB8A7E8678C7C330893A5F /* Pods-ClaudeBugPoC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.debug.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.debug.xcconfig"; sourceTree = "<group>"; };
+		63FE84EC8FCA215BAD6C86CB /* FigmaDifferenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigmaDifferenceCell.swift; sourceTree = "<group>"; };
 		6655A94DD00F4D7B3EB49AE3 /* LaunchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchListViewModel.swift; sourceTree = "<group>"; };
 		66D3785055AC6ECFF4C168A6 /* ApiRequestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequestHelper.swift; sourceTree = "<group>"; };
 		697048A917F10C8A1106B078 /* CountryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewController.swift; sourceTree = "<group>"; };
+		6AB603FB9E806F3A98EE94C1 /* FigmaCompareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigmaCompareView.swift; sourceTree = "<group>"; };
 		72C347A87BCBE7CD04DAD4E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		774CF263DE41ECD44E42DC8E /* LaunchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchService.swift; sourceTree = "<group>"; };
 		7DE0095FCDD5B64CB2D3AC7C /* MealDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetail.swift; sourceTree = "<group>"; };
@@ -124,7 +129,6 @@
 		8C45887879EB7AE06C45700E /* PokemonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewController.swift; sourceTree = "<group>"; };
 		9067329BBE35E33F32208856 /* AIFloatingMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIFloatingMenuView.swift; sourceTree = "<group>"; };
 		90DE4E8308DE731352E83580 /* LaunchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchListView.swift; sourceTree = "<group>"; };
-		914B863B93937D5D1305B2EF /* Pods-ClaudeBugPoC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.release.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.release.xcconfig"; sourceTree = "<group>"; };
 		94AF9188FEE9CFFBF66E25D6 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		95F66F0F1821313468AAAD51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9AEEF4C11B0C12AF5B39B288 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 		BBE7C721BDB99C83D26FC303 /* PokemonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCell.swift; sourceTree = "<group>"; };
 		BC0FDE3F9D6D57B9225CB285 /* LaunchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchListViewController.swift; sourceTree = "<group>"; };
 		BE2794F7606CE8E6A7898E8D /* ActivityRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRecorder.swift; sourceTree = "<group>"; };
+		BE9646784E6AA6D1C0C9A760 /* FigmaCompareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigmaCompareViewController.swift; sourceTree = "<group>"; };
 		C16DA785F1BF269BA9A9155E /* PokemonDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewModel.swift; sourceTree = "<group>"; };
 		C60E64A753E49DC6217783EA /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		C7EA220FE522DE55DA21980C /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
@@ -152,6 +157,7 @@
 		D6C8B2D4B60815163AD72082 /* PokemonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonService.swift; sourceTree = "<group>"; };
 		D7025CEBF9DB91542CEBA3F0 /* PokemonListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewModel.swift; sourceTree = "<group>"; };
 		D88087147ADA061047623167 /* MealListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealListViewModel.swift; sourceTree = "<group>"; };
+		DB862E685502E993DD67421B /* FigmaCompareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigmaCompareViewModel.swift; sourceTree = "<group>"; };
 		DCF2DDCB39E4BDC9973713FD /* Layoutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layoutable.swift; sourceTree = "<group>"; };
 		DE43B544B1E4C4D7809611A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2F311BA6A3A11971DBFB009 /* AIFloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIFloatingButton.swift; sourceTree = "<group>"; };
@@ -165,17 +171,6 @@
 		FA9BFDA8CA6034AE00E3908A /* DefaultStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStrings.swift; sourceTree = "<group>"; };
 		FCCF9BEA671CD9250BAA06CD /* MealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		498058620DEDCA2C58EB82D5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A263102A14232B4C7C4A48F /* Pods_ClaudeBugPoC.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		0033EE9D8B50728F60433416 /* Detail */ = {
@@ -211,14 +206,12 @@
 			path = Meals;
 			sourceTree = "<group>";
 		};
-		347B84BA3F14473DE19CF6C8 /* Pods */ = {
+		2042028A00B06D8E42C6EAA0 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				5FDB8A7E8678C7C330893A5F /* Pods-ClaudeBugPoC.debug.xcconfig */,
-				914B863B93937D5D1305B2EF /* Pods-ClaudeBugPoC.release.xcconfig */,
+				63FE84EC8FCA215BAD6C86CB /* FigmaDifferenceCell.swift */,
 			);
-			name = Pods;
-			path = Pods;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		369210E8A8C2E1221668E7FB /* Scenes */ = {
@@ -226,6 +219,7 @@
 			children = (
 				00867FD1C75BD61BE8340A12 /* AIChat */,
 				5BC1195842242915B85AAD99 /* Countries */,
+				E88A822F8568FB078ADEDE63 /* FigmaCompare */,
 				7FEC7034F131D2CEAB591BC1 /* Launches */,
 				4EF1B74B45D6CB6275BE6435 /* Main */,
 				00CDADDC577D3D098EABDA36 /* Meals */,
@@ -339,6 +333,7 @@
 			isa = PBXGroup;
 			children = (
 				A69E74C6D15790124851BBE7 /* Country.swift */,
+				0EDB992EBAC85D383931ADED /* FigmaCompareResponse.swift */,
 				5813A62BBBDAC07E5F302DBC /* Launch.swift */,
 				2D6B86CD305BD935C51E4C85 /* Meal.swift */,
 				7DE0095FCDD5B64CB2D3AC7C /* MealDetail.swift */,
@@ -393,8 +388,6 @@
 			children = (
 				7F1379B9A1694A20F59CFC39 /* ClaudeBugPoC */,
 				CD7A0B2DA17C884FBB46F08C /* Products */,
-				347B84BA3F14473DE19CF6C8 /* Pods */,
-				FA4BE76E2859574D9205E2DB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -464,6 +457,17 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		E88A822F8568FB078ADEDE63 /* FigmaCompare */ = {
+			isa = PBXGroup;
+			children = (
+				6AB603FB9E806F3A98EE94C1 /* FigmaCompareView.swift */,
+				BE9646784E6AA6D1C0C9A760 /* FigmaCompareViewController.swift */,
+				DB862E685502E993DD67421B /* FigmaCompareViewModel.swift */,
+				2042028A00B06D8E42C6EAA0 /* Cells */,
+			);
+			path = FigmaCompare;
+			sourceTree = "<group>";
+		};
 		F7ADA8A754D9AB67B8D97D97 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -476,14 +480,6 @@
 				17401D2AD03FB5969EE29F40 /* Reusable.swift */,
 			);
 			path = Protocols;
-			sourceTree = "<group>";
-		};
-		FA4BE76E2859574D9205E2DB /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4D2419708F1EC295EB970A14 /* Pods_ClaudeBugPoC.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FD1A806D6CD8808BC8308A43 /* Detail */ = {
@@ -503,12 +499,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ED75F5BCC9FA1E84F8F09AB9 /* Build configuration list for PBXNativeTarget "ClaudeBugPoC" */;
 			buildPhases = (
-				646347D696D70FF2E11BDDBA /* [CP] Check Pods Manifest.lock */,
 				73311783F5E80380D9727136 /* Sources */,
 				F0FFF9A6A41079C5767AAA7B /* Resources */,
 				3DB6453A9397103475AA5CF1 /* SwiftLint */,
-				498058620DEDCA2C58EB82D5 /* Frameworks */,
-				3C39D4AFDF5DCBA813971140 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -542,7 +535,6 @@
 				tr,
 			);
 			mainGroup = A7B13901BD407A10509EFB51;
-			productRefGroup = CD7A0B2DA17C884FBB46F08C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -567,23 +559,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3C39D4AFDF5DCBA813971140 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3DB6453A9397103475AA5CF1 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -601,28 +576,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed — run 'brew install swiftlint'\"\nfi\n";
-		};
-		646347D696D70FF2E11BDDBA /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ClaudeBugPoC-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -654,6 +607,11 @@
 				42404563BFF53942E1BE4B94 /* CountryListViewModel.swift in Sources */,
 				BC0F397F09DC9EC927346218 /* CountryService.swift in Sources */,
 				DB3E51F960DC5E10D44541DC /* DefaultStrings.swift in Sources */,
+				C3184D7019FE24ADB1B1D7A9 /* FigmaCompareResponse.swift in Sources */,
+				8111FE189CE9CD8075591DB2 /* FigmaCompareView.swift in Sources */,
+				E3A244B11787DD3DE1984E10 /* FigmaCompareViewController.swift in Sources */,
+				12D892902D4E0C6549561FD8 /* FigmaCompareViewModel.swift in Sources */,
+				BA2A2BD8CA2894B2727F820F /* FigmaDifferenceCell.swift in Sources */,
 				86F01A3175408E4B5BC30137 /* Launch.swift in Sources */,
 				A5F6818C648C534D86D3C88E /* LaunchCell.swift in Sources */,
 				79C913FDBF38260DC8AB9632 /* LaunchDetailView.swift in Sources */,
@@ -848,7 +806,6 @@
 		};
 		C6EC44236EE6893CB93AE2CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5FDB8A7E8678C7C330893A5F /* Pods-ClaudeBugPoC.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -859,7 +816,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ClaudeBugPoC/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -881,7 +837,6 @@
 		};
 		F19ACFA932B7B983F73C2583 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 914B863B93937D5D1305B2EF /* Pods-ClaudeBugPoC.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -892,7 +847,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ClaudeBugPoC/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

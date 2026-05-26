@@ -10,6 +10,7 @@ import SnapKit
 protocol AIFloatingMenuViewDelegate: AnyObject {
     func aiFloatingMenuViewDidSelectContact(_ view: AIFloatingMenuView)
     func aiFloatingMenuViewDidSelectInspect(_ view: AIFloatingMenuView)
+    func aiFloatingMenuViewDidSelectFigmaCompare(_ view: AIFloatingMenuView)
 }
 
 // MARK: - Menu
@@ -44,8 +45,28 @@ final class AIFloatingMenuView: LayoutableView {
         return button
     }()
 
+    private lazy var secondSeparator: UIView = {
+        let view = UIView()
+        view.backgroundColor = .separator
+        return view
+    }()
+
+    private lazy var figmaCompareButton: UIButton = {
+        let button = makeMenuButton(
+            titleKey: LocalizationKey.View.AIAssistant.menuFigmaCompare,
+            action: #selector(handleFigmaCompareTap)
+        )
+        return button
+    }()
+
     private lazy var stackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [contactButton, separator, inspectButton])
+        let stack = UIStackView(arrangedSubviews: [
+            contactButton,
+            separator,
+            inspectButton,
+            secondSeparator,
+            figmaCompareButton
+        ])
         stack.axis = .vertical
         stack.alignment = .fill
         stack.distribution = .fill
@@ -73,6 +94,9 @@ final class AIFloatingMenuView: LayoutableView {
             make.edges.equalToSuperview()
         }
         separator.snp.makeConstraints { make in
+            make.height.equalTo(0.5)
+        }
+        secondSeparator.snp.makeConstraints { make in
             make.height.equalTo(0.5)
         }
     }
@@ -111,6 +135,10 @@ final class AIFloatingMenuView: LayoutableView {
 
     @objc private func handleInspectTap() {
         delegate?.aiFloatingMenuViewDidSelectInspect(self)
+    }
+
+    @objc private func handleFigmaCompareTap() {
+        delegate?.aiFloatingMenuViewDidSelectFigmaCompare(self)
     }
 
     // MARK: - Helpers

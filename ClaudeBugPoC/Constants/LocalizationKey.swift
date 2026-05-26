@@ -26,6 +26,35 @@ enum LocalizationKey {
             static let accessibilityLabel = "aiAssistant.accessibilityLabel"
             static let menuContact = "aiAssistant.menu.contact"
             static let menuInspect = "aiAssistant.menu.inspect"
+            static let menuFigmaCompare = "aiAssistant.menu.figmaCompare"
+        }
+
+        enum FigmaCompare {
+            static let navigationTitle = "figmaCompare.navigationTitle"
+            static let urlInputTitle = "figmaCompare.urlInput.title"
+            static let urlInputSubtitle = "figmaCompare.urlInput.subtitle"
+            static let urlInputPlaceholder = "figmaCompare.urlInput.placeholder"
+            static let submitButton = "figmaCompare.button.submit"
+            static let cancelButton = "figmaCompare.button.cancel"
+            static let loadingMessage = "figmaCompare.loading.message"
+            static let resultTitle = "figmaCompare.result.title"
+            static let resultEmpty = "figmaCompare.result.empty"
+            static let errorInvalidURL = "figmaCompare.error.invalidURL"
+            static let errorFormat = "figmaCompare.error.format"
+            static let unexpectedResponse = "figmaCompare.error.unexpectedResponse"
+            static let detectedScreenFormat = "figmaCompare.detectedScreen.format"
+            static let metadataFormat = "figmaCompare.metadata.format"
+            static let categoryLayout = "figmaCompare.category.layout"
+            static let categoryColor = "figmaCompare.category.color"
+            static let categoryTypography = "figmaCompare.category.typography"
+            static let categorySpacing = "figmaCompare.category.spacing"
+            static let categoryMissing = "figmaCompare.category.missing"
+            static let categoryExtra = "figmaCompare.category.extra"
+            static let categoryIcons = "figmaCompare.category.icons"
+            static let categoryOther = "figmaCompare.category.other"
+            static let severityHigh = "figmaCompare.severity.high"
+            static let severityMedium = "figmaCompare.severity.medium"
+            static let severityLow = "figmaCompare.severity.low"
         }
 
         enum AIInspector {
