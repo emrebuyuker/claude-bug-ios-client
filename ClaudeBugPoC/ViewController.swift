@@ -182,6 +182,9 @@ final class ViewController: UIViewController {
     ]
 
     private var lastBugDescription: String?
+    /// Analizörü açan (kullanıcının baktığı) ekranın class adı; MainTabBarController set eder.
+    /// "Bu sayfa/ekran" ifadelerini çözmek için backend'e currentScreen olarak gönderilir.
+    var originScreen: String?
     private var pendingProposals: [ProposedChange] = []
     /// `---TEKNİK---` ayracının altındaki teknik açıklama; "Kodu Düzenle" tıklanınca
     /// system mesajı olarak gösterilir.
@@ -476,6 +479,9 @@ final class ViewController: UIViewController {
         cancelJobTimeout()
 
         var payload: [String: Any] = ["bugDescription": bugDescription]
+        if let originScreen = originScreen {
+            payload["currentScreen"] = originScreen
+        }
         if let timeline = ActivityRecorder.shared.exportTimeline() {
             payload["activityLog"] = timeline
         }

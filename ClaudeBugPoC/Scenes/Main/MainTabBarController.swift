@@ -238,7 +238,11 @@ final class MainTabBarController: UITabBarController {
 
     // MARK: - Chat
     private func presentChat() {
+        // Analizör modal açılmadan ÖNCE, kullanıcının baktığı ekranı yakala.
+        // "Bu sayfa/ekran" gibi belirsiz bug ifadelerini backend bununla çözer.
+        let originScreen = String(describing: type(of: topmostViewController(from: self)))
         let chatVC = ViewController()
+        chatVC.originScreen = originScreen
         chatVC.title = LocalizationKey.View.AIAssistant.title.localize
         chatVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close,
