@@ -1,5 +1,6 @@
 import UIKit
 import FirebaseFunctions
+import FirebaseFirestore
 import Alamofire
 
 // MARK: - Models
@@ -186,6 +187,20 @@ final class ViewController: UIViewController {
     /// system mesajı olarak gösterilir.
     fileprivate var lastTechnicalDetail: String?
 
+    private lazy var db = Firestore.firestore()
+    /// Aktif bug-analizi job'ının Firestore dökümanını dinleyen listener.
+    private var jobListener: ListenerRegistration?
+    /// Job çalışırken gösterilen geçici "analiz ediliyor…" satırının index'i.
+    /// Yalnızca job başlangıcı ile terminal durum arasında geçerlidir — bu aralıkta
+    /// gönder butonu pasif olduğu için başka satır eklenmez, index sabit kalır.
+    private var progressItemIndex: Int?
+    /// Worker sessizce ölürse (OOM / hard timeout → job 'running'de takılı kalır)
+    /// spinner'ı sonsuza dek dönmekten kurtaran watchdog.
+    private var jobTimeoutWorkItem: DispatchWorkItem?
+    /// Sunucu worker'ının hard timeout'u 540s; watchdog'u onun biraz üstüne (600s)
+    /// koyuyoruz ki gerçekten tamamlanan bir analiz asla erken kesilmesin.
+    private let jobTimeoutSeconds: TimeInterval = 600
+
     // MARK: UI
     private lazy var tableView: UITableView = {
         let tv = UITableView()
@@ -322,6 +337,8 @@ final class ViewController: UIViewController {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+        jobListener?.remove()
+        jobTimeoutWorkItem?.cancel()
     }
 
     // MARK: Setup
@@ -448,70 +465,117 @@ final class ViewController: UIViewController {
     }
 
     // MARK: Network
+    /// Bug analizini ASENKRON başlatır: `startBugAnalysis` anında bir jobId döner,
+    /// ağır agentic iş sunucuda arka planda çalışır ve sonucu Firestore'a yazar.
+    /// Böylece uzun analizlerde client tarafı DEADLINE_EXCEEDED'a takılmaz — sonucu
+    /// `bugJobs/{jobId}` dökümanını realtime dinleyerek alırız.
     private func callAskClaude(bugDescription: String) {
+        // Önceki job dinleyicisini ve watchdog'u bırak (yeni soru eskisinin yerini alır).
+        jobListener?.remove()
+        jobListener = nil
+        cancelJobTimeout()
+
         var payload: [String: Any] = ["bugDescription": bugDescription]
         if let timeline = ActivityRecorder.shared.exportTimeline() {
             payload["activityLog"] = timeline
         }
-        let callable = functions.httpsCallable("askClaude")
-        callable.timeoutInterval = 180   // match server-side timeout; default is 70s
+
+        // Job'ı başlat — anında döner, kısa timeout yeterli.
+        let callable = functions.httpsCallable("startBugAnalysis")
+        callable.timeoutInterval = 30
         callable.call(payload) { [weak self] result, error in
             guard let self = self else { return }
 
-            self.loadingView.stopAnimating()
-            self.sendButton.isEnabled = true
-
             if let error = error {
-                let nsError = error as NSError
-                let msg = LocalizationKey.View.AIChat.errorFormat.localize
-                    .replacing("message", with: nsError.localizedDescription)
-                    .replacing("code", with: nsError.code)
-                    .replacing("domain", with: nsError.domain)
-                self.append(.system(msg))
+                self.finishLoadingWithError(error)
                 return
             }
-
-            guard let data = result?.data as? [String: Any] else {
+            guard let data = result?.data as? [String: Any],
+                  let jobId = data["jobId"] as? String else {
+                self.loadingView.stopAnimating()
+                self.sendButton.isEnabled = true
                 self.append(.system(LocalizationKey.View.AIChat.unexpectedResponse.localize))
                 return
             }
 
-            let rawAnswer = (data["answer"] as? String) ?? LocalizationKey.View.AIChat.noResponse.localize
-            let iterations = data["iterations"] as? Int ?? 0
-            let cost = data["estimatedCostUsd"] as? Double ?? 0.0
-            let inputTokens = data["inputTokens"] as? Int ?? 0
-            let outputTokens = data["outputTokens"] as? Int ?? 0
-            let cacheRead = data["cacheReadTokens"] as? Int ?? 0
-            let cacheCreated = data["cacheCreationTokens"] as? Int ?? 0
+            self.observeJob(jobId: jobId, bugDescription: bugDescription)
+        }
+    }
 
-            // Cevabı kullanıcı dostu (üst) + teknik (alt) olarak böl.
-            let (friendly, technical) = self.splitAnswer(rawAnswer)
+    /// `bugJobs/{jobId}` dökümanını dinler; status geçişlerine göre ilerleme/sonuç/hata gösterir.
+    private func observeJob(jobId: String, bugDescription: String) {
+        var lastReportedIteration = 0
+        jobListener = db.collection("bugJobs").document(jobId)
+            .addSnapshotListener { [weak self] snapshot, error in
+                guard let self = self else { return }
 
-            let metadataLine = LocalizationKey.View.AIChat.metadataFormat.localize
-                .replacing("iterations", with: iterations)
-                .replacing("inputTokens", with: inputTokens)
-                .replacing("outputTokens", with: outputTokens)
-                .replacing("cost", with: String(format: "%.4f", cost))
-            var metadata = "\n\n— — — — —\n" + metadataLine
-            if cacheRead > 0 || cacheCreated > 0 {
-                let cacheLine = LocalizationKey.View.AIChat.cacheMetadata.localize
-                    .replacing("read", with: cacheRead)
-                    .replacing("write", with: cacheCreated)
-                metadata += "\n" + cacheLine
+                if let error = error {
+                    self.jobListener?.remove()
+                    self.jobListener = nil
+                    self.finishLoadingWithError(error)
+                    return
+                }
+
+                guard let data = snapshot?.data(),
+                      let status = data["status"] as? String else { return }
+
+                switch status {
+                case "pending":
+                    break   // worker henüz işi almadı; merkezdeki spinner yeterli
+                case "running":
+                    let iterations = (data["iterations"] as? NSNumber)?.intValue ?? 0
+                    if iterations > lastReportedIteration {
+                        lastReportedIteration = iterations
+                        self.showProgress(iterations: iterations)
+                    }
+                case "done":
+                    self.jobListener?.remove()
+                    self.jobListener = nil
+                    self.cancelJobTimeout()
+                    self.handleJobDone(jobId: jobId, data: data, bugDescription: bugDescription)
+                case "error":
+                    self.jobListener?.remove()
+                    self.jobListener = nil
+                    self.cancelJobTimeout()
+                    self.loadingView.stopAnimating()
+                    self.sendButton.isEnabled = true
+                    self.removeProgress()
+                    let message = (data["error"] as? String) ?? "bilinmeyen hata"
+                    self.append(.system(
+                        LocalizationKey.View.AIChat.errorFormat.localize
+                            .replacing("message", with: message)
+                            .replacing("code", with: "—")
+                            .replacing("domain", with: "processBugAnalysis")
+                    ))
+                default:
+                    break
+                }
             }
 
-            self.append(.claude(friendly + metadata))
+        // Sonuç hiç gelmezse (worker sessizce öldüyse) spinner'ı kurtaran watchdog.
+        scheduleJobTimeout()
+    }
 
-            // Proposal'ları sakla — kullanıcı "Kodu Düzenle" tıklayana kadar gösterme.
-            var parsedProposals: [ProposedChange] = []
-            if let rawChanges = data["proposedChanges"] as? [[String: Any]] {
-                for raw in rawChanges {
-                    guard let id = raw["id"] as? String,
-                          let filePath = raw["filePath"] as? String,
-                          let desc = raw["description"] as? String,
-                          let oldC = raw["oldContent"] as? String,
-                          let newC = raw["newContent"] as? String else { continue }
-                    parsedProposals.append(ProposedChange(
+    /// Job bitince proposal'ları alt-koleksiyondan çekip sonucu render eder.
+    private func handleJobDone(jobId: String, data: [String: Any], bugDescription: String) {
+        db.collection("bugJobs").document(jobId).collection("proposals")
+            .order(by: "order")
+            .getDocuments { [weak self] snapshot, _ in
+                guard let self = self else { return }
+
+                self.loadingView.stopAnimating()
+                self.sendButton.isEnabled = true
+                self.removeProgress()
+
+                var proposals: [ProposedChange] = []
+                for doc in snapshot?.documents ?? [] {
+                    let d = doc.data()
+                    guard let id = d["id"] as? String,
+                          let filePath = d["filePath"] as? String,
+                          let desc = d["description"] as? String,
+                          let oldC = d["oldContent"] as? String,
+                          let newC = d["newContent"] as? String else { continue }
+                    proposals.append(ProposedChange(
                         id: id,
                         filePath: filePath,
                         changeDescription: desc,
@@ -519,16 +583,109 @@ final class ViewController: UIViewController {
                         newContent: newC
                     ))
                 }
-            }
 
-            // İki butonlu aksiyon kartı. Teknik detay buton arkasında saklı kalır.
-            let prompt = ActionPrompt(
-                bugDescription: bugDescription,
-                pendingProposals: parsedProposals
-            )
-            self.lastTechnicalDetail = technical
-            self.append(.actionPrompt(prompt))
+                self.renderAnalysisResult(data: data, proposals: proposals, bugDescription: bugDescription)
+            }
+    }
+
+    /// Job dökümanı + proposal'lardan kullanıcı dostu cevap + aksiyon kartını basar.
+    private func renderAnalysisResult(data: [String: Any], proposals: [ProposedChange], bugDescription: String) {
+        let rawAnswer = (data["answer"] as? String) ?? LocalizationKey.View.AIChat.noResponse.localize
+        let iterations = (data["iterations"] as? NSNumber)?.intValue ?? 0
+        let cost = (data["estimatedCostUsd"] as? NSNumber)?.doubleValue ?? 0.0
+        let inputTokens = (data["inputTokens"] as? NSNumber)?.intValue ?? 0
+        let outputTokens = (data["outputTokens"] as? NSNumber)?.intValue ?? 0
+        let cacheRead = (data["cacheReadTokens"] as? NSNumber)?.intValue ?? 0
+        let cacheCreated = (data["cacheCreationTokens"] as? NSNumber)?.intValue ?? 0
+
+        // Cevabı kullanıcı dostu (üst) + teknik (alt) olarak böl.
+        let (friendly, technical) = splitAnswer(rawAnswer)
+
+        let metadataLine = LocalizationKey.View.AIChat.metadataFormat.localize
+            .replacing("iterations", with: iterations)
+            .replacing("inputTokens", with: inputTokens)
+            .replacing("outputTokens", with: outputTokens)
+            .replacing("cost", with: String(format: "%.4f", cost))
+        var metadata = "\n\n— — — — —\n" + metadataLine
+        if cacheRead > 0 || cacheCreated > 0 {
+            let cacheLine = LocalizationKey.View.AIChat.cacheMetadata.localize
+                .replacing("read", with: cacheRead)
+                .replacing("write", with: cacheCreated)
+            metadata += "\n" + cacheLine
         }
+
+        append(.claude(friendly + metadata))
+
+        // İki butonlu aksiyon kartı. Teknik detay buton arkasında saklı kalır.
+        let prompt = ActionPrompt(
+            bugDescription: bugDescription,
+            pendingProposals: proposals
+        )
+        lastTechnicalDetail = technical
+        append(.actionPrompt(prompt))
+    }
+
+    /// Job başlatma / dinleme hatasında spinner'ı durdurup hatayı gösterir.
+    private func finishLoadingWithError(_ error: Error) {
+        loadingView.stopAnimating()
+        sendButton.isEnabled = true
+        removeProgress()
+        cancelJobTimeout()
+        let nsError = error as NSError
+        let msg = LocalizationKey.View.AIChat.errorFormat.localize
+            .replacing("message", with: nsError.localizedDescription)
+            .replacing("code", with: nsError.code)
+            .replacing("domain", with: nsError.domain)
+        append(.system(msg))
+    }
+
+    /// "🔄 Analiz ediliyor… (N. adım)" satırını oluşturur veya yerinde günceller.
+    private func showProgress(iterations: Int) {
+        let text = LocalizationKey.View.AIChat.analyzing.localize
+            .replacing("iterations", with: iterations)
+        if let idx = progressItemIndex, idx < items.count {
+            items[idx] = .system(text)
+            tableView.reloadRows(at: [IndexPath(row: idx, section: 0)], with: .none)
+        } else {
+            items.append(.system(text))
+            let idx = items.count - 1
+            progressItemIndex = idx
+            tableView.insertRows(at: [IndexPath(row: idx, section: 0)], with: .automatic)
+            tableView.scrollToRow(at: IndexPath(row: idx, section: 0), at: .bottom, animated: true)
+        }
+    }
+
+    /// İlerleme satırını kaldırır (terminal durumda, cevap basılmadan önce).
+    private func removeProgress() {
+        guard let idx = progressItemIndex, idx < items.count else {
+            progressItemIndex = nil
+            return
+        }
+        progressItemIndex = nil
+        items.remove(at: idx)
+        tableView.deleteRows(at: [IndexPath(row: idx, section: 0)], with: .automatic)
+    }
+
+    /// Sonuç `jobTimeoutSeconds` içinde gelmezse spinner'ı durdurup zaman aşımı gösterir.
+    private func scheduleJobTimeout() {
+        cancelJobTimeout()
+        let work = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            self.jobTimeoutWorkItem = nil
+            self.jobListener?.remove()
+            self.jobListener = nil
+            self.loadingView.stopAnimating()
+            self.sendButton.isEnabled = true
+            self.removeProgress()
+            self.append(.system(LocalizationKey.View.AIChat.jobTimeout.localize))
+        }
+        jobTimeoutWorkItem = work
+        DispatchQueue.main.asyncAfter(deadline: .now() + jobTimeoutSeconds, execute: work)
+    }
+
+    private func cancelJobTimeout() {
+        jobTimeoutWorkItem?.cancel()
+        jobTimeoutWorkItem = nil
     }
 
     /// `---TEKNİK---` ayracını arar; bulamazsa cevabın tamamını friendly say.

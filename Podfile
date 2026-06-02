@@ -14,6 +14,7 @@ target 'ClaudeBugPoC' do
 
   # Firebase (matches the previous SPM setup)
   pod 'FirebaseFunctions'
+  pod 'FirebaseFirestore'
   pod 'FirebaseAppCheck'
 end
 

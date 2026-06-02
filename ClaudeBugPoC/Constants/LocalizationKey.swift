@@ -86,6 +86,8 @@ enum LocalizationKey {
             static let noChangesApproved = "aiChat.message.noChangesApproved"
             static let describeBugFirst = "aiChat.message.describeBugFirst"
             static let errorFormat = "aiChat.message.error.format"
+            static let analyzing = "aiChat.message.analyzing.format"
+            static let jobTimeout = "aiChat.message.jobTimeout"
             static let unexpectedResponse = "aiChat.message.unexpectedResponse"
             static let noResponse = "aiChat.message.noResponse"
             static let metadataFormat = "aiChat.message.metadata.format"
