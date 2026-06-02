@@ -30,6 +30,7 @@ final class PokemonListViewController: LayoutingViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Japonya"
         viewModel.delegate = self
         layoutableView.setLoading(true)
         viewModel.viewDidLoad()
