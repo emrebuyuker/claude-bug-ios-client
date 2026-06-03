@@ -140,7 +140,14 @@ final class CountryDetailView: LayoutableView {
     func configure(with detail: CountryDetail) {
         nameLabel.text = detail.name.common
         officialLabel.text = detail.name.official
-        flagImageView.kf.setImage(with: (detail.flags.png ?? detail.flags.svg).flatMap(URL.init(string:)))
+
+        // Kingfisher SVG formatını desteklemez; sadece PNG URL'si kullanılır.
+        // PNG yoksa image view boş (placeholder renkli arka plan) kalır.
+        if let pngURLString = detail.flags.png, let pngURL = URL(string: pngURLString) {
+            flagImageView.kf.setImage(with: pngURL)
+        } else {
+            flagImageView.image = nil
+        }
 
         mapsButton.isHidden = detail.maps?.googleMaps == nil
 
