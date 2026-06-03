@@ -33,6 +33,41 @@ final class CountryDetailView: LayoutableView {
         return stack
     }()
 
+    private lazy var warningBannerView: UIView = {
+        let container = UIView()
+        container.backgroundColor = UIColor(red: 1.0, green: 0.95, blue: 0.80, alpha: 1.0)
+        container.layer.cornerRadius = 10
+        container.clipsToBounds = true
+
+        let iconImageView = UIImageView()
+        iconImageView.image = UIImage(systemName: "info.circle.fill")
+        iconImageView.tintColor = UIColor(red: 1.0, green: 0.60, blue: 0.10, alpha: 1.0)
+        iconImageView.contentMode = .scaleAspectFit
+        iconImageView.setContentHuggingPriority(.required, for: .horizontal)
+        iconImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+        let textLabel = UILabel()
+        textLabel.text = "Bu plan eSIM io'nun Global eSIM'ine dahil değil..."
+        textLabel.font = .systemFont(ofSize: 13, weight: .medium)
+        textLabel.textColor = UIColor(red: 0.55, green: 0.35, blue: 0.00, alpha: 1.0)
+        textLabel.numberOfLines = 0
+
+        let hStack = UIStackView(arrangedSubviews: [iconImageView, textLabel])
+        hStack.axis = .horizontal
+        hStack.spacing = 8
+        hStack.alignment = .center
+
+        container.addSubview(hStack)
+        hStack.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12))
+        }
+        iconImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(20)
+        }
+
+        return container
+    }()
+
     private lazy var flagImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
@@ -101,6 +136,7 @@ final class CountryDetailView: LayoutableView {
         addSubview(loadingIndicator)
         scrollView.addSubview(contentStack)
 
+        contentStack.addArrangedSubview(warningBannerView)
         contentStack.addArrangedSubview(flagImageView)
         contentStack.addArrangedSubview(nameLabel)
         contentStack.addArrangedSubview(officialLabel)
