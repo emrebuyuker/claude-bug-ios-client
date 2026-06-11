@@ -9,6 +9,7 @@ import SnapKit
 // MARK: - Delegate
 protocol FigmaCompareViewDelegate: AnyObject {
     func figmaCompareView(_ view: FigmaCompareView, didTapSubmitWith url: String)
+    func figmaCompareViewDidTapPickImage(_ view: FigmaCompareView)
     func figmaCompareViewDidTapReset(_ view: FigmaCompareView)
     func figmaCompareViewDidTapCreateJira(_ view: FigmaCompareView)
     func figmaCompareView(_ view: FigmaCompareView, didTapEditFor differenceId: UUID)
@@ -72,6 +73,17 @@ final class FigmaCompareView: LayoutableView {
         return button
     }()
 
+    private lazy var pickImageButton: UIButton = {
+        var config = UIButton.Configuration.plain()
+        config.title = LocalizationKey.View.FigmaCompare.pickImageButton.localize
+        config.image = UIImage(systemName: "photo.on.rectangle")
+        config.imagePadding = 6
+        config.baseForegroundColor = .systemIndigo
+        let button = UIButton(configuration: config)
+        button.addTarget(self, action: #selector(handlePickImage), for: .touchUpInside)
+        return button
+    }()
+
     private lazy var screenInfoLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 13, weight: .medium)
@@ -88,6 +100,7 @@ final class FigmaCompareView: LayoutableView {
         view.addSubview(subtitleLabel)
         view.addSubview(urlTextField)
         view.addSubview(submitButton)
+        view.addSubview(pickImageButton)
         view.addSubview(screenInfoLabel)
         return view
     }()
@@ -340,8 +353,12 @@ final class FigmaCompareView: LayoutableView {
             make.top.equalTo(urlTextField.snp.bottom).offset(16)
             make.centerX.equalToSuperview()
         }
+        pickImageButton.snp.makeConstraints { make in
+            make.top.equalTo(submitButton.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+        }
         screenInfoLabel.snp.makeConstraints { make in
-            make.top.equalTo(submitButton.snp.bottom).offset(16)
+            make.top.equalTo(pickImageButton.snp.bottom).offset(12)
             make.leading.trailing.equalToSuperview().inset(20)
         }
     }
@@ -495,6 +512,10 @@ final class FigmaCompareView: LayoutableView {
     @objc private func handleSubmit() {
         let text = urlTextField.text ?? ""
         delegate?.figmaCompareView(self, didTapSubmitWith: text)
+    }
+
+    @objc private func handlePickImage() {
+        delegate?.figmaCompareViewDidTapPickImage(self)
     }
 
     @objc private func handleReset() {

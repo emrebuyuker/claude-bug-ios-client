@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		00855C4C41FF082B38D3B032 /* AIFloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F311BA6A3A11971DBFB009 /* AIFloatingButton.swift */; };
-		01E440FF7039853CFE1D7CF6 /* Pods_ClaudeBugPoC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C06CEA344B6BE25E3A28CA11 /* Pods_ClaudeBugPoC.framework */; };
 		03F8B63491A295591760095A /* PokemonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C8B2D4B60815163AD72082 /* PokemonService.swift */; };
 		05FFA8BA255C1EDE1209BD09 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EFF32BC4713C5ACD6AA413 /* SceneDelegate.swift */; };
 		0977FB07897B682C5670C4A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE43B544B1E4C4D7809611A0 /* AppDelegate.swift */; };
@@ -20,6 +19,7 @@
 		18D94D5DD6EBA9DF80DF87D0 /* MealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341C5ED2CF90C62D151FEF35 /* MealDetailViewController.swift */; };
 		1DA431CCD3EA43C4DC6D5377 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17401D2AD03FB5969EE29F40 /* Reusable.swift */; };
 		231B245DE5E25C686B66ABF9 /* PokemonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE192E838173DD221F3F4CC4 /* PokemonListView.swift */; };
+		2637A496C50B7B41A0B5B795 /* Pods_ClaudeBugPoC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A43AC94FB7085ACD35A36582 /* Pods_ClaudeBugPoC.framework */; };
 		275AE2DD29E09C1108ABBB5A /* PokemonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA08491D7FFD036CDE0A14 /* PokemonListViewController.swift */; };
 		27607B2A009C579FCA0BED09 /* CountryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697048A917F10C8A1106B078 /* CountryListViewController.swift */; };
 		284A52EBD3BCCAED54483E29 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3357A6B2C6854EDEFD5A75CD /* CountryCell.swift */; };
@@ -109,6 +109,7 @@
 		1EF31A5C2AAF83BD47F05E65 /* LaunchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchDetailViewController.swift; sourceTree = "<group>"; };
 		20ABB06762581C871FFA75A1 /* LaunchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchCell.swift; sourceTree = "<group>"; };
 		23387DC276854489B8BC01BE /* CountryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewModel.swift; sourceTree = "<group>"; };
+		252CC425C0C4D4AF5B2FDD8E /* Pods-ClaudeBugPoC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.release.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.release.xcconfig"; sourceTree = "<group>"; };
 		2D6B86CD305BD935C51E4C85 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		2E1DF3B0166A58CF7284F8BA /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		2EDFFFFC3E11E2CBC14062D5 /* Accessible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accessible.swift; sourceTree = "<group>"; };
@@ -120,7 +121,6 @@
 		463CF9F4995C112473F5208C /* Layouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layouting.swift; sourceTree = "<group>"; };
 		4AAA08491D7FFD036CDE0A14 /* PokemonListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewController.swift; sourceTree = "<group>"; };
 		4F7E98DCBEAE170CE7F661D2 /* TestDetayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDetayViewModel.swift; sourceTree = "<group>"; };
-		52EA36313D8FFCF58876D8A8 /* Pods-ClaudeBugPoC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.release.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.release.xcconfig"; sourceTree = "<group>"; };
 		53AD5FAE8EC5B786A6D26B88 /* TestDetayActionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDetayActionRowView.swift; sourceTree = "<group>"; };
 		5813A62BBBDAC07E5F302DBC /* Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launch.swift; sourceTree = "<group>"; };
 		5B22401BEECEF1430F7B5959 /* LayoutableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutableView.swift; sourceTree = "<group>"; };
@@ -132,6 +132,7 @@
 		72C347A87BCBE7CD04DAD4E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		75B20C04EB0005A594181100 /* TestDetayPlanCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDetayPlanCardView.swift; sourceTree = "<group>"; };
 		774CF263DE41ECD44E42DC8E /* LaunchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchService.swift; sourceTree = "<group>"; };
+		7ACDE40C44EA5B1A26E0C648 /* Pods-ClaudeBugPoC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.debug.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.debug.xcconfig"; sourceTree = "<group>"; };
 		7DE0095FCDD5B64CB2D3AC7C /* MealDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetail.swift; sourceTree = "<group>"; };
 		8026D5C77941B0E730E3F0EC /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		80928A2E721B12C0DC5FAA41 /* MealListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealListView.swift; sourceTree = "<group>"; };
@@ -151,6 +152,7 @@
 		9F2A50B7845B868E047C8430 /* PokemonDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetail.swift; sourceTree = "<group>"; };
 		A2E517663C1E464088143696 /* LaunchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchDetailViewModel.swift; sourceTree = "<group>"; };
 		A4090940060C91FE8B2F0A69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A43AC94FB7085ACD35A36582 /* Pods_ClaudeBugPoC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClaudeBugPoC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5B224CEADC1542945DE3E3E /* LaunchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchDetailView.swift; sourceTree = "<group>"; };
 		A69E74C6D15790124851BBE7 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		A8EFF32BC4713C5ACD6AA413 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -163,7 +165,6 @@
 		BC0FDE3F9D6D57B9225CB285 /* LaunchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchListViewController.swift; sourceTree = "<group>"; };
 		BE2794F7606CE8E6A7898E8D /* ActivityRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRecorder.swift; sourceTree = "<group>"; };
 		BE9646784E6AA6D1C0C9A760 /* FigmaCompareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigmaCompareViewController.swift; sourceTree = "<group>"; };
-		C06CEA344B6BE25E3A28CA11 /* Pods_ClaudeBugPoC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClaudeBugPoC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C16DA785F1BF269BA9A9155E /* PokemonDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewModel.swift; sourceTree = "<group>"; };
 		C60E64A753E49DC6217783EA /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		C7EA220FE522DE55DA21980C /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
@@ -179,7 +180,6 @@
 		E1C8DE796FDBEB50F85B0D5B /* TestDetayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDetayViewController.swift; sourceTree = "<group>"; };
 		E2F311BA6A3A11971DBFB009 /* AIFloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIFloatingButton.swift; sourceTree = "<group>"; };
 		E51EC549248541550C4FDBA5 /* PokemonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailView.swift; sourceTree = "<group>"; };
-		E67CCA0620A26326218F3AC1 /* Pods-ClaudeBugPoC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClaudeBugPoC.debug.xcconfig"; path = "Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC.debug.xcconfig"; sourceTree = "<group>"; };
 		E81E33AB03A0D8066AD0F6C3 /* ApiResponseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponseHelper.swift; sourceTree = "<group>"; };
 		E9451AAC9F7DA54F3A6601FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ED88F47135E393DA063CAA76 /* CountryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListView.swift; sourceTree = "<group>"; };
@@ -191,11 +191,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		B76FB5322D7239DE716BC63D /* Frameworks */ = {
+		1CE35D764698380155BEF4A2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01E440FF7039853CFE1D7CF6 /* Pods_ClaudeBugPoC.framework in Frameworks */,
+				2637A496C50B7B41A0B5B795 /* Pods_ClaudeBugPoC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +300,14 @@
 			path = TestDetay;
 			sourceTree = "<group>";
 		};
+		586B6F54E4E9F47264E2CE1A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A43AC94FB7085ACD35A36582 /* Pods_ClaudeBugPoC.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5BC1195842242915B85AAD99 /* Countries */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,16 +354,6 @@
 				A2E517663C1E464088143696 /* LaunchDetailViewModel.swift */,
 			);
 			path = Detail;
-			sourceTree = "<group>";
-		};
-		7CFDF8E4E840B22AB1D735B3 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E67CCA0620A26326218F3AC1 /* Pods-ClaudeBugPoC.debug.xcconfig */,
-				52EA36313D8FFCF58876D8A8 /* Pods-ClaudeBugPoC.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		7F1379B9A1694A20F59CFC39 /* ClaudeBugPoC */ = {
@@ -418,14 +416,6 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		9A1DDF333DB0B77E6ED120BA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C06CEA344B6BE25E3A28CA11 /* Pods_ClaudeBugPoC.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		A1F82760BED36A21D60F36E0 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -447,8 +437,8 @@
 			children = (
 				7F1379B9A1694A20F59CFC39 /* ClaudeBugPoC */,
 				CD7A0B2DA17C884FBB46F08C /* Products */,
-				7CFDF8E4E840B22AB1D735B3 /* Pods */,
-				9A1DDF333DB0B77E6ED120BA /* Frameworks */,
+				BCB955DD25BBFE81CDA359A1 /* Pods */,
+				586B6F54E4E9F47264E2CE1A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -462,6 +452,16 @@
 				49C56DA22B8E29521576B1BF /* Detail */,
 			);
 			path = Pokemon;
+			sourceTree = "<group>";
+		};
+		BCB955DD25BBFE81CDA359A1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7ACDE40C44EA5B1A26E0C648 /* Pods-ClaudeBugPoC.debug.xcconfig */,
+				252CC425C0C4D4AF5B2FDD8E /* Pods-ClaudeBugPoC.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		CD7A0B2DA17C884FBB46F08C /* Products */ = {
@@ -571,12 +571,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ED75F5BCC9FA1E84F8F09AB9 /* Build configuration list for PBXNativeTarget "ClaudeBugPoC" */;
 			buildPhases = (
-				EEA19478A43BAFCFEFC21F95 /* [CP] Check Pods Manifest.lock */,
+				2ED8D1E2A5D37F972EF38F04 /* [CP] Check Pods Manifest.lock */,
 				73311783F5E80380D9727136 /* Sources */,
 				F0FFF9A6A41079C5767AAA7B /* Resources */,
 				3DB6453A9397103475AA5CF1 /* SwiftLint */,
-				B76FB5322D7239DE716BC63D /* Frameworks */,
-				A727EC26AFDC2888F5431DE5 /* [CP] Embed Pods Frameworks */,
+				1CE35D764698380155BEF4A2 /* Frameworks */,
+				3EF42C515E618E9A07ABDD4E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -637,42 +637,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3DB6453A9397103475AA5CF1 /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed — run 'brew install swiftlint'\"\nfi\n";
-		};
-		A727EC26AFDC2888F5431DE5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EEA19478A43BAFCFEFC21F95 /* [CP] Check Pods Manifest.lock */ = {
+		2ED8D1E2A5D37F972EF38F04 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -692,6 +657,41 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3DB6453A9397103475AA5CF1 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed — run 'brew install swiftlint'\"\nfi\n";
+		};
+		3EF42C515E618E9A07ABDD4E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ClaudeBugPoC/Pods-ClaudeBugPoC-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -932,7 +932,7 @@
 		};
 		C6EC44236EE6893CB93AE2CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E67CCA0620A26326218F3AC1 /* Pods-ClaudeBugPoC.debug.xcconfig */;
+			baseConfigurationReference = 7ACDE40C44EA5B1A26E0C648 /* Pods-ClaudeBugPoC.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -966,7 +966,7 @@
 		};
 		F19ACFA932B7B983F73C2583 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52EA36313D8FFCF58876D8A8 /* Pods-ClaudeBugPoC.release.xcconfig */;
+			baseConfigurationReference = 252CC425C0C4D4AF5B2FDD8E /* Pods-ClaudeBugPoC.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";

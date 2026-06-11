@@ -65,6 +65,11 @@ final class FigmaCompareViewModel {
         callFigmaCompare(figmaURL: trimmed)
     }
 
+    func submit(imageBase64: String, mediaType: String) {
+        updateState(.loading)
+        callFigmaCompare(figmaURL: nil, imageBase64: imageBase64, imageMediaType: mediaType)
+    }
+
     func reset() {
         updateState(.input)
     }
@@ -203,11 +208,18 @@ final class FigmaCompareViewModel {
     }
 
     // MARK: - Network
-    private func callFigmaCompare(figmaURL: String) {
-        let payload: [String: Any] = [
-            "figmaURL": figmaURL,
-            "screenIdentifier": screenIdentifier
-        ]
+    private func callFigmaCompare(
+        figmaURL: String?,
+        imageBase64: String? = nil,
+        imageMediaType: String? = nil
+    ) {
+        var payload: [String: Any] = ["screenIdentifier": screenIdentifier]
+        if let imageBase64 {
+            payload["imageBase64"] = imageBase64
+            payload["imageMediaType"] = imageMediaType ?? "image/png"
+        } else if let figmaURL {
+            payload["figmaURL"] = figmaURL
+        }
         let callable = functions.httpsCallable("figmaCompare")
         callable.timeoutInterval = Self.callableTimeout
         callable.call(payload) { [weak self] result, error in
