@@ -181,8 +181,8 @@ final class LaunchDetailView: LayoutableView {
 
         statusBadge.text = " \(launch.statusText) "
         switch launch.success {
-        case true: statusBadge.backgroundColor = .systemGreen
-        case false: statusBadge.backgroundColor = .systemRed
+        case true: statusBadge.backgroundColor = .systemRed
+        case false: statusBadge.backgroundColor = .systemGreen
         default: statusBadge.backgroundColor = .systemGray
         }
 
