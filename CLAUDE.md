@@ -128,6 +128,7 @@ ClaudeBugPoC/
 - **RxSwift / Combine**: ❌ Yasak — delegate pattern kullan.
 - **MARK**: `// MARK: - X` altında **boş satır yok**, üstünde boşluk OK.
 - **Memory**: `[weak self]` closure'larda, `weak var` delegate'lerde.
+- **Yorum dili**: Tüm kod yorumları (`//`, `///`, `/* */`, MARK başlıkları) **İngilizce** yazılır. Kullanıcıya görünen string'ler ve Localizable değerleri Türkçe kalır.
 
 ---
 

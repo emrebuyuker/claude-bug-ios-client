@@ -33,7 +33,7 @@ enum ChatItem {
     case jiraTicket(key: String, url: String, summary: String)
 }
 
-// Claude cevabından sonra kullanıcıya "Bug Aç" / "Kodu Düzenle" seçimini sunan kart.
+// Card that offers the user the "Open Bug" / "Edit Code" choice after Claude's answer.
 final class ActionPrompt {
     enum State { case pending, bugOpened, codeRevealed, bugLoading }
 
@@ -182,26 +182,26 @@ final class ViewController: UIViewController {
     ]
 
     private var lastBugDescription: String?
-    /// Analizörü açan (kullanıcının baktığı) ekranın class adı; MainTabBarController set eder.
-    /// "Bu sayfa/ekran" ifadelerini çözmek için backend'e currentScreen olarak gönderilir.
+    /// Class name of the screen (the one the user was looking at) that opened the analyzer; set by MainTabBarController.
+    /// Sent to the backend as currentScreen so it can resolve "this page/screen" phrases.
     var originScreen: String?
     private var pendingProposals: [ProposedChange] = []
-    /// `---TEKNİK---` ayracının altındaki teknik açıklama; "Kodu Düzenle" tıklanınca
-    /// system mesajı olarak gösterilir.
+    /// Technical explanation below the `---TEKNİK---` separator; shown as a system
+    /// message when "Edit Code" is tapped.
     fileprivate var lastTechnicalDetail: String?
 
     private lazy var db = Firestore.firestore()
-    /// Aktif bug-analizi job'ının Firestore dökümanını dinleyen listener.
+    /// Listener watching the Firestore document of the active bug-analysis job.
     private var jobListener: ListenerRegistration?
-    /// Job çalışırken gösterilen geçici "analiz ediliyor…" satırının index'i.
-    /// Yalnızca job başlangıcı ile terminal durum arasında geçerlidir — bu aralıkta
-    /// gönder butonu pasif olduğu için başka satır eklenmez, index sabit kalır.
+    /// Index of the temporary "analyzing…" row shown while the job is running.
+    /// Only valid between job start and a terminal state — within that window the
+    /// send button is disabled, so no other rows get added and the index stays fixed.
     private var progressItemIndex: Int?
-    /// Worker sessizce ölürse (OOM / hard timeout → job 'running'de takılı kalır)
-    /// spinner'ı sonsuza dek dönmekten kurtaran watchdog.
+    /// Watchdog that saves the spinner from spinning forever if the worker dies
+    /// silently (OOM / hard timeout → job stays stuck in 'running').
     private var jobTimeoutWorkItem: DispatchWorkItem?
-    /// Sunucu worker'ının hard timeout'u 540s; watchdog'u onun biraz üstüne (600s)
-    /// koyuyoruz ki gerçekten tamamlanan bir analiz asla erken kesilmesin.
+    /// The server worker's hard timeout is 540s; we set the watchdog slightly above
+    /// it (600s) so an analysis that actually completes is never cut off early.
     private let jobTimeoutSeconds: TimeInterval = 600
 
     // MARK: UI
@@ -228,8 +228,8 @@ final class ViewController: UIViewController {
     }()
 
     // ── BUG FIX: UITextField → UITextView ──────────────────────────────────
-    // UITextField tek satır gösterir; uzun metinler kesilir.
-    // UITextView çok satırlı metin girişini destekler.
+    // UITextField shows a single line; long text gets cut off.
+    // UITextView supports multi-line text input.
     private lazy var inputField: UITextView = {
         let tv = UITextView()
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -246,7 +246,7 @@ final class ViewController: UIViewController {
         return tv
     }()
 
-    // Placeholder etiketi (UITextView'ın built-in placeholder'ı yok)
+    // Placeholder label (UITextView has no built-in placeholder)
     private lazy var placeholderLabel: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -295,7 +295,7 @@ final class ViewController: UIViewController {
     }()
 
     private var inputBottomConstraint: NSLayoutConstraint?
-    // inputField'ın yüksekliğini dinamik tutmak için
+    // For keeping inputField's height dynamic
     private var inputFieldHeightConstraint: NSLayoutConstraint?
 
     // MARK: Lifecycle
@@ -308,9 +308,9 @@ final class ViewController: UIViewController {
         demoNetworkManager()
     }
 
-    /// Demo: NetworkManager üzerinden TMDB'ye gerçek bir istek atar ve
-    /// sonucu console'a yazar. ApiConstant.bearerToken'ı kendi TMDB v4
-    /// token'ınla değiştirdikten sonra çalışır.
+    /// Demo: makes a real request to TMDB through NetworkManager and prints
+    /// the result to the console. Works once you replace ApiConstant.bearerToken
+    /// with your own TMDB v4 token.
     private func demoNetworkManager() {
         guard ApiConstant.bearerToken != "YOUR_TMDB_V4_TOKEN_HERE" else {
             print("⚠️  TMDB token not configured — set ApiConstant.bearerToken to run the NetworkManager demo.")
@@ -349,7 +349,7 @@ final class ViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(inputContainer)
         inputContainer.addSubview(inputField)
-        inputContainer.addSubview(placeholderLabel)   // placeholder ekle
+        inputContainer.addSubview(placeholderLabel)   // add placeholder
         inputContainer.addSubview(sendButton)
         view.addSubview(loadingView)
         view.addSubview(createPRButton)
@@ -359,7 +359,7 @@ final class ViewController: UIViewController {
         )
         inputBottomConstraint = bottomConstraint
 
-        // inputField başlangıç yüksekliği: 1 satır (~40 pt)
+        // inputField initial height: 1 line (~40 pt)
         let heightConstraint = inputField.heightAnchor.constraint(equalToConstant: 40)
         inputFieldHeightConstraint = heightConstraint
 
@@ -379,7 +379,7 @@ final class ViewController: UIViewController {
             inputField.bottomAnchor.constraint(equalTo: inputContainer.bottomAnchor, constant: -10),
             heightConstraint,
 
-            // Placeholder: textContainerInset ile hizalı
+            // Placeholder: aligned with textContainerInset
             placeholderLabel.leadingAnchor.constraint(equalTo: inputField.leadingAnchor, constant: 10),
             placeholderLabel.topAnchor.constraint(equalTo: inputField.topAnchor, constant: 8),
 
@@ -454,10 +454,10 @@ final class ViewController: UIViewController {
         callCreatePR(bugTitle: bugTitle, accepted: accepted)
     }
 
-    // MARK: inputField yükseklik güncelleme
+    // MARK: inputField height update
     private func updateInputFieldHeight() {
-        let maxHeight: CGFloat = 120   // ~4 satır
-        let minHeight: CGFloat = 40    // 1 satır
+        let maxHeight: CGFloat = 120   // ~4 lines
+        let minHeight: CGFloat = 40    // 1 line
         let fittingSize = inputField.sizeThatFits(
             CGSize(width: inputField.bounds.width, height: .greatestFiniteMagnitude)
         )
@@ -468,12 +468,12 @@ final class ViewController: UIViewController {
     }
 
     // MARK: Network
-    /// Bug analizini ASENKRON başlatır: `startBugAnalysis` anında bir jobId döner,
-    /// ağır agentic iş sunucuda arka planda çalışır ve sonucu Firestore'a yazar.
-    /// Böylece uzun analizlerde client tarafı DEADLINE_EXCEEDED'a takılmaz — sonucu
-    /// `bugJobs/{jobId}` dökümanını realtime dinleyerek alırız.
+    /// Starts the bug analysis ASYNCHRONOUSLY: `startBugAnalysis` returns a jobId
+    /// immediately, the heavy agentic work runs server-side in the background and
+    /// writes its result to Firestore. So on long analyses the client never hits
+    /// DEADLINE_EXCEEDED — we get the result by listening to `bugJobs/{jobId}` in realtime.
     private func callAskClaude(bugDescription: String) {
-        // Önceki job dinleyicisini ve watchdog'u bırak (yeni soru eskisinin yerini alır).
+        // Release the previous job listener and watchdog (a new question replaces the old one).
         jobListener?.remove()
         jobListener = nil
         cancelJobTimeout()
@@ -486,7 +486,7 @@ final class ViewController: UIViewController {
             payload["activityLog"] = timeline
         }
 
-        // Job'ı başlat — anında döner, kısa timeout yeterli.
+        // Start the job — returns immediately, a short timeout is enough.
         let callable = functions.httpsCallable("startBugAnalysis")
         callable.timeoutInterval = 30
         callable.call(payload) { [weak self] result, error in
@@ -508,7 +508,7 @@ final class ViewController: UIViewController {
         }
     }
 
-    /// `bugJobs/{jobId}` dökümanını dinler; status geçişlerine göre ilerleme/sonuç/hata gösterir.
+    /// Listens to the `bugJobs/{jobId}` document; shows progress/result/error based on status transitions.
     private func observeJob(jobId: String, bugDescription: String) {
         var lastReportedIteration = 0
         jobListener = db.collection("bugJobs").document(jobId)
@@ -527,7 +527,7 @@ final class ViewController: UIViewController {
 
                 switch status {
                 case "pending":
-                    break   // worker henüz işi almadı; merkezdeki spinner yeterli
+                    break   // worker hasn't picked up the job yet; the centered spinner is enough
                 case "running":
                     let iterations = (data["iterations"] as? NSNumber)?.intValue ?? 0
                     if iterations > lastReportedIteration {
@@ -558,11 +558,11 @@ final class ViewController: UIViewController {
                 }
             }
 
-        // Sonuç hiç gelmezse (worker sessizce öldüyse) spinner'ı kurtaran watchdog.
+        // Watchdog that rescues the spinner if the result never arrives (worker died silently).
         scheduleJobTimeout()
     }
 
-    /// Job bitince proposal'ları alt-koleksiyondan çekip sonucu render eder.
+    /// Once the job is done, fetches the proposals from the subcollection and renders the result.
     private func handleJobDone(jobId: String, data: [String: Any], bugDescription: String) {
         db.collection("bugJobs").document(jobId).collection("proposals")
             .order(by: "order")
@@ -594,7 +594,7 @@ final class ViewController: UIViewController {
             }
     }
 
-    /// Job dökümanı + proposal'lardan kullanıcı dostu cevap + aksiyon kartını basar.
+    /// Renders the user-friendly answer + action card from the job document + proposals.
     private func renderAnalysisResult(data: [String: Any], proposals: [ProposedChange], bugDescription: String) {
         let rawAnswer = (data["answer"] as? String) ?? LocalizationKey.View.AIChat.noResponse.localize
         let iterations = (data["iterations"] as? NSNumber)?.intValue ?? 0
@@ -604,7 +604,7 @@ final class ViewController: UIViewController {
         let cacheRead = (data["cacheReadTokens"] as? NSNumber)?.intValue ?? 0
         let cacheCreated = (data["cacheCreationTokens"] as? NSNumber)?.intValue ?? 0
 
-        // Cevabı kullanıcı dostu (üst) + teknik (alt) olarak böl.
+        // Split the answer into user-friendly (top) + technical (bottom).
         let (friendly, technical) = splitAnswer(rawAnswer)
 
         let metadataLine = LocalizationKey.View.AIChat.metadataFormat.localize
@@ -622,7 +622,7 @@ final class ViewController: UIViewController {
 
         append(.claude(friendly + metadata))
 
-        // İki butonlu aksiyon kartı. Teknik detay buton arkasında saklı kalır.
+        // Two-button action card. The technical detail stays hidden behind the button.
         let prompt = ActionPrompt(
             bugDescription: bugDescription,
             pendingProposals: proposals
@@ -631,7 +631,7 @@ final class ViewController: UIViewController {
         append(.actionPrompt(prompt))
     }
 
-    /// Job başlatma / dinleme hatasında spinner'ı durdurup hatayı gösterir.
+    /// On a job start / listen error, stops the spinner and shows the error.
     private func finishLoadingWithError(_ error: Error) {
         loadingView.stopAnimating()
         sendButton.isEnabled = true
@@ -645,7 +645,7 @@ final class ViewController: UIViewController {
         append(.system(msg))
     }
 
-    /// "🔄 Analiz ediliyor… (N. adım)" satırını oluşturur veya yerinde günceller.
+    /// Creates the "🔄 Analyzing… (step N)" row or updates it in place.
     private func showProgress(iterations: Int) {
         let text = LocalizationKey.View.AIChat.analyzing.localize
             .replacing("iterations", with: iterations)
@@ -661,7 +661,7 @@ final class ViewController: UIViewController {
         }
     }
 
-    /// İlerleme satırını kaldırır (terminal durumda, cevap basılmadan önce).
+    /// Removes the progress row (on a terminal state, before the answer is printed).
     private func removeProgress() {
         guard let idx = progressItemIndex, idx < items.count else {
             progressItemIndex = nil
@@ -672,7 +672,7 @@ final class ViewController: UIViewController {
         tableView.deleteRows(at: [IndexPath(row: idx, section: 0)], with: .automatic)
     }
 
-    /// Sonuç `jobTimeoutSeconds` içinde gelmezse spinner'ı durdurup zaman aşımı gösterir.
+    /// If the result doesn't arrive within `jobTimeoutSeconds`, stops the spinner and shows a timeout.
     private func scheduleJobTimeout() {
         cancelJobTimeout()
         let work = DispatchWorkItem { [weak self] in
@@ -694,7 +694,7 @@ final class ViewController: UIViewController {
         jobTimeoutWorkItem = nil
     }
 
-    /// `---TEKNİK---` ayracını arar; bulamazsa cevabın tamamını friendly say.
+    /// Looks for the `---TEKNİK---` separator; if missing, treats the whole answer as friendly.
     private func splitAnswer(_ answer: String) -> (friendly: String, technical: String?) {
         let separator = LocalizationKey.View.AIChat.technicalSeparator.localize
         guard let range = answer.range(of: separator) else {
@@ -723,7 +723,7 @@ final class ViewController: UIViewController {
         prompt.state = .codeRevealed
         reloadActionPrompt(prompt)
 
-        // Sakladığımız proposal'ları akışa şimdi ekle.
+        // Now add the proposals we stashed to the feed.
         pendingProposals = prompt.pendingProposals
         for change in prompt.pendingProposals {
             append(.proposal(change))
@@ -850,7 +850,7 @@ final class ViewController: UIViewController {
 
     // MARK: Helpers
     private func append(_ item: ChatItem) {
-        // Kullanıcıya hata gösteren system mesajlarını ALERT olarak kaydet.
+        // Record system messages that show the user an error as ALERTs.
         if case .system(let text) = item, text.hasPrefix("❌") {
             let firstLine = text
                 .split(separator: "\n", maxSplits: 1)
@@ -927,19 +927,19 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - TextViewDelegate (eski TextFieldDelegate'in yerini alır)
+// MARK: - TextViewDelegate (replaces the old TextFieldDelegate)
 extension ViewController: UITextViewDelegate {
 
-    // Return tuşuna basılınca gönder
+    // Send when the return key is pressed
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             sendTapped()
-            return false   // yeni satır ekleme
+            return false   // don't insert a newline
         }
         return true
     }
 
-    // Her değişiklikte yüksekliği ve placeholder'ı güncelle
+    // Update the height and the placeholder on every change
     func textViewDidChange(_ textView: UITextView) {
         placeholderLabel.isHidden = !textView.text.isEmpty
         updateInputFieldHeight()

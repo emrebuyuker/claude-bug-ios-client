@@ -6,6 +6,10 @@
 
 ## 1. Code Style
 
+### Comment Language
+
+> **ZORUNLU:** Tüm kod yorumları (`//`, `///`, `/* */` ve `// MARK: -` başlıkları) **İngilizce** yazılır. Kullanıcıya görünen string'ler, `Localizable.strings` değerleri ve `DefaultStrings` fallback'leri Türkçe kalır — bu kural yalnızca yorumlar içindir.
+
 ### MARK Comments
 
 > **ZORUNLU:** `// MARK: - <Section>` yorumunun **hemen altında** kod gelmelidir — MARK ile bir sonraki declaration arasında boş satır olamaz. MARK'in **üstünde** boş satır olabilir (görsel ayrım için), **altında** olamaz.

@@ -67,8 +67,8 @@ extension TestDetayViewController: TestDetayViewModelDelegate {
     }
 
     func testDetayViewModelDidSelect(action: EsimActionType) {
-        // Tab seviyesinde root VC — push hedefi yok.
-        // İleride bağlanacak: install → kurulum akışı, repurchase → satın alma, otherPlans → liste.
+        // Root VC at tab level — no push target.
+        // To be wired up later: install → installation flow, repurchase → purchase, otherPlans → list.
     }
 
     func testDetayViewModelDidTapBack() {

@@ -177,8 +177,8 @@ final class CountryDetailView: LayoutableView {
         nameLabel.text = detail.name.common
         officialLabel.text = detail.name.official
 
-        // Kingfisher SVG formatını desteklemez; sadece PNG URL'si kullanılır.
-        // PNG yoksa image view boş (placeholder renkli arka plan) kalır.
+        // Kingfisher does not support the SVG format; only the PNG URL is used.
+        // If there is no PNG, the image view stays empty (placeholder colored background).
         if let pngURLString = detail.flags.png, let pngURL = URL(string: pngURLString) {
             flagImageView.kf.setImage(with: pngURL)
         } else {
