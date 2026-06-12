@@ -6,6 +6,28 @@
 import Foundation
 import FirebaseFunctions
 
+// MARK: - Provider
+enum FigmaCompareProvider {
+    case claude
+    case gemini
+
+    var callableName: String {
+        switch self {
+        case .claude: return "figmaCompare"
+        case .gemini: return "figmaCompareGemini"
+        }
+    }
+
+    /// Jira ticket / PR (applyFix) actions are only offered in the Claude flow;
+    /// Gemini mode produces a comparison report only.
+    var supportsActions: Bool {
+        switch self {
+        case .claude: return true
+        case .gemini: return false
+        }
+    }
+}
+
 // MARK: - State
 enum FigmaCompareState {
     case input
@@ -38,6 +60,7 @@ final class FigmaCompareViewModel {
     private(set) var state: FigmaCompareState = .input
     private(set) var actionState: FigmaCompareActionState = .idle
     let screenIdentifier: String
+    let provider: FigmaCompareProvider
 
     // MARK: - Private
     private let functions: Functions
@@ -47,9 +70,11 @@ final class FigmaCompareViewModel {
     // MARK: - Init
     init(
         screenIdentifier: String,
+        provider: FigmaCompareProvider = .claude,
         functions: Functions = Functions.functions(region: "us-central1")
     ) {
         self.screenIdentifier = screenIdentifier
+        self.provider = provider
         self.functions = functions
     }
 
@@ -84,6 +109,7 @@ final class FigmaCompareViewModel {
     }
 
     func createJiraTicket() {
+        guard provider.supportsActions else { return }
         guard case .result(let response) = state else { return }
         guard !response.differences.isEmpty else { return }
         if case .creatingJira = actionState { return }
@@ -122,6 +148,7 @@ final class FigmaCompareViewModel {
     }
 
     func applyFix(forDifferenceId id: UUID) {
+        guard provider.supportsActions else { return }
         guard let difference = difference(withId: id) else { return }
         if case .applyingFix = actionState { return }
         if case .creatingJira = actionState { return }
@@ -220,7 +247,7 @@ final class FigmaCompareViewModel {
         } else if let figmaURL {
             payload["figmaURL"] = figmaURL
         }
-        let callable = functions.httpsCallable("figmaCompare")
+        let callable = functions.httpsCallable(provider.callableName)
         callable.timeoutInterval = Self.callableTimeout
         callable.call(payload) { [weak self] result, error in
             guard let self else { return }

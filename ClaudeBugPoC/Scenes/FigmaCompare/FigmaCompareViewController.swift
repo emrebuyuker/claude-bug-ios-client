@@ -31,11 +31,14 @@ final class FigmaCompareViewController: LayoutingViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = LocalizationKey.View.FigmaCompare.navigationTitle.localize
+        title = viewModel.provider == .gemini
+            ? LocalizationKey.View.FigmaCompare.navigationTitleGemini.localize
+            : LocalizationKey.View.FigmaCompare.navigationTitle.localize
         viewModel.delegate = self
         layoutableView.delegate = self
         layoutableView.setCollectionDataSource(self)
         layoutableView.configureInput(screenIdentifier: viewModel.screenIdentifier)
+        layoutableView.setActionsAvailable(viewModel.provider.supportsActions)
         applyState()
     }
 
@@ -208,6 +211,7 @@ extension FigmaCompareViewController: UICollectionViewDataSource, UICollectionVi
         }
         cell.configure(with: sortedDifferences[indexPath.item])
         cell.delegate = layoutableView
+        cell.setEditHidden(!viewModel.provider.supportsActions)
         if case .applyingFix = viewModel.actionState {
             cell.setEditEnabled(false)
         } else if case .creatingJira = viewModel.actionState {
@@ -241,8 +245,10 @@ extension FigmaCompareViewController: UICollectionViewDataSource, UICollectionVi
             .systemFont(ofSize: 14, weight: .regular),
             width: textWidth
         )
-        // top(12) + category(18) + 6 + title + 4 + detail + 8 + (hint or 0) + 10 + edit(32) + 10
-        var total: CGFloat = 12 + 18 + 6 + titleHeight + 4 + detailHeight + 8 + 10 + 32 + 10
+        // top(12) + category(18) + 6 + title + 4 + detail + 8 + (hint or 0) + edit area
+        // While the edit button is visible: 10 + edit(32) + 10; hidden in Gemini mode: bottom padding 12.
+        var total: CGFloat = 12 + 18 + 6 + titleHeight + 4 + detailHeight + 8
+        total += viewModel.provider.supportsActions ? (10 + 32 + 10) : 12
         if let hint = difference.codeHint, !hint.isEmpty {
             let hintHeight = hint.heightForFont(
                 .monospacedSystemFont(ofSize: 12, weight: .regular),
@@ -293,7 +299,7 @@ extension FigmaCompareViewController {
             title: LocalizationKey.View.FigmaCompare.cancelButton.localize,
             style: .cancel
         ))
-        // iPad: action sheet bir popover olarak sunulur, kaynak gerekir.
+        // iPad: the action sheet is presented as a popover, a source is required.
         if let popover = sheet.popoverPresentationController {
             popover.sourceView = sourceView
             popover.sourceRect = CGRect(
@@ -351,8 +357,8 @@ extension FigmaCompareViewController {
     private static let maxImageDimension: CGFloat = 1568
     private static let maxUploadBytes = 5 * 1024 * 1024
 
-    /// Görseli ~1568px uzun kenara küçültüp önce PNG dener; 5MB'ı aşarsa JPEG'e
-    /// düşer. Anthropic görsel başına ~5MB ve ~1568px uzun kenar önerir.
+    /// Downscales the image to ~1568px on the long edge and tries PNG first; falls
+    /// back to JPEG if it exceeds 5MB. Anthropic recommends ~5MB and ~1568px long edge per image.
     private static func encodeForUpload(_ image: UIImage) -> (data: Data, mediaType: String)? {
         let resized = resized(image, maxDimension: maxImageDimension)
         if let png = resized.pngData(), png.count <= maxUploadBytes {

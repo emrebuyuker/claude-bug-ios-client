@@ -164,9 +164,15 @@ final class MainTabBarController: UITabBarController {
         let safe = view.safeAreaInsets
         let margin = AIFloatingButton.edgeMargin
 
-        let estimatedHeight: CGFloat = 162
-        let size = floatingMenu.sizeThatFits(CGSize(width: menuWidth, height: .greatestFiniteMagnitude))
-        let menuHeight = size.height > 0 ? size.height : estimatedHeight
+        // sizeThatFits does not measure Auto Layout content (returns current bounds);
+        // systemLayoutSizeFitting computes the stack's actual height.
+        let estimatedHeight: CGFloat = 216
+        let fitting = floatingMenu.systemLayoutSizeFitting(
+            CGSize(width: menuWidth, height: UIView.layoutFittingCompressedSize.height),
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        )
+        let menuHeight = fitting.height > 0 ? fitting.height : estimatedHeight
 
         let buttonFrame = floatingButton.frame
         let parentBounds = view.bounds
@@ -195,9 +201,9 @@ final class MainTabBarController: UITabBarController {
     }
 
     // MARK: - Figma Compare
-    private func presentFigmaCompare() {
+    private func presentFigmaCompare(provider: FigmaCompareProvider) {
         let identifier = activeScreenIdentifier()
-        let viewModel = FigmaCompareViewModel(screenIdentifier: identifier)
+        let viewModel = FigmaCompareViewModel(screenIdentifier: identifier, provider: provider)
         let figmaVC = FigmaCompareViewController(viewModel: viewModel)
         figmaVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close,
@@ -209,8 +215,8 @@ final class MainTabBarController: UITabBarController {
         present(nav, animated: true)
     }
 
-    /// Mevcut tab'da görünür olan en derin VC'nin tip adını döner (ör. "PokemonDetailViewController").
-    /// Cloud function bu identifier'ı kullanarak GitHub'da ilgili scene dosyalarını okur.
+    /// Returns the type name of the deepest visible VC in the current tab (e.g. "PokemonDetailViewController").
+    /// The cloud function uses this identifier to read the related scene files on GitHub.
     private func activeScreenIdentifier() -> String {
         guard let selected = selectedViewController else {
             return String(describing: type(of: self))
@@ -238,8 +244,8 @@ final class MainTabBarController: UITabBarController {
 
     // MARK: - Chat
     private func presentChat() {
-        // Analizör modal açılmadan ÖNCE, kullanıcının baktığı ekranı yakala.
-        // "Bu sayfa/ekran" gibi belirsiz bug ifadelerini backend bununla çözer.
+        // Capture the screen the user is looking at BEFORE the analyzer modal opens.
+        // The backend uses this to resolve vague bug phrases like "this page/screen".
         let originScreen = String(describing: type(of: topmostViewController(from: self)))
         let chatVC = ViewController()
         chatVC.originScreen = originScreen
@@ -307,7 +313,13 @@ extension MainTabBarController: AIFloatingMenuViewDelegate {
 
     func aiFloatingMenuViewDidSelectFigmaCompare(_ view: AIFloatingMenuView) {
         hideFloatingMenu { [weak self] in
-            self?.presentFigmaCompare()
+            self?.presentFigmaCompare(provider: .claude)
+        }
+    }
+
+    func aiFloatingMenuViewDidSelectFigmaCompareGemini(_ view: AIFloatingMenuView) {
+        hideFloatingMenu { [weak self] in
+            self?.presentFigmaCompare(provider: .gemini)
         }
     }
 }

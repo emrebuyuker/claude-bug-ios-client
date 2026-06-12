@@ -11,6 +11,7 @@ protocol AIFloatingMenuViewDelegate: AnyObject {
     func aiFloatingMenuViewDidSelectContact(_ view: AIFloatingMenuView)
     func aiFloatingMenuViewDidSelectInspect(_ view: AIFloatingMenuView)
     func aiFloatingMenuViewDidSelectFigmaCompare(_ view: AIFloatingMenuView)
+    func aiFloatingMenuViewDidSelectFigmaCompareGemini(_ view: AIFloatingMenuView)
 }
 
 // MARK: - Menu
@@ -19,7 +20,9 @@ final class AIFloatingMenuView: LayoutableView {
     // MARK: - Public
     weak var delegate: AIFloatingMenuViewDelegate?
 
-    static let preferredWidth: CGFloat = 240
+    // 280: so the longest title ("🎨  Figma ile Karşılaştır (Claude)" ≈ 230pt) fits on
+    // a single line with the content insets (16+16) — at 240 it wraps to two lines.
+    static let preferredWidth: CGFloat = 280
     static let spacingFromButton: CGFloat = 8
 
     // MARK: - UI
@@ -59,13 +62,29 @@ final class AIFloatingMenuView: LayoutableView {
         return button
     }()
 
+    private lazy var thirdSeparator: UIView = {
+        let view = UIView()
+        view.backgroundColor = .separator
+        return view
+    }()
+
+    private lazy var figmaCompareGeminiButton: UIButton = {
+        let button = makeMenuButton(
+            titleKey: LocalizationKey.View.AIAssistant.menuFigmaCompareGemini,
+            action: #selector(handleFigmaCompareGeminiTap)
+        )
+        return button
+    }()
+
     private lazy var stackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [
             contactButton,
             separator,
             inspectButton,
             secondSeparator,
-            figmaCompareButton
+            figmaCompareButton,
+            thirdSeparator,
+            figmaCompareGeminiButton
         ])
         stack.axis = .vertical
         stack.alignment = .fill
@@ -97,6 +116,9 @@ final class AIFloatingMenuView: LayoutableView {
             make.height.equalTo(0.5)
         }
         secondSeparator.snp.makeConstraints { make in
+            make.height.equalTo(0.5)
+        }
+        thirdSeparator.snp.makeConstraints { make in
             make.height.equalTo(0.5)
         }
     }
@@ -139,6 +161,10 @@ final class AIFloatingMenuView: LayoutableView {
 
     @objc private func handleFigmaCompareTap() {
         delegate?.aiFloatingMenuViewDidSelectFigmaCompare(self)
+    }
+
+    @objc private func handleFigmaCompareGeminiTap() {
+        delegate?.aiFloatingMenuViewDidSelectFigmaCompareGemini(self)
     }
 
     // MARK: - Helpers

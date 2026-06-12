@@ -171,6 +171,28 @@ final class FigmaDifferenceCell: LayoutableCollectionViewCell {
         editButton.alpha = enabled ? 1.0 : 0.5
     }
 
+    /// In Gemini mode there is no PR/fix action: the button is hidden entirely and
+    /// the space it occupies collapses (constraints are remade).
+    func setEditHidden(_ hidden: Bool) {
+        guard editButton.isHidden != hidden else { return }
+        editButton.isHidden = hidden
+        if hidden {
+            editButton.snp.remakeConstraints { make in
+                make.top.equalTo(codeHintLabel.snp.bottom)
+                make.trailing.equalToSuperview().inset(14)
+                make.height.equalTo(0)
+                make.bottom.equalToSuperview().inset(12)
+            }
+        } else {
+            editButton.snp.remakeConstraints { make in
+                make.top.equalTo(codeHintLabel.snp.bottom).offset(10)
+                make.trailing.equalToSuperview().inset(14)
+                make.bottom.equalToSuperview().inset(10)
+                make.height.equalTo(32)
+            }
+        }
+    }
+
     override func prepareForReuse() {
         super.prepareForReuse()
         differenceId = nil

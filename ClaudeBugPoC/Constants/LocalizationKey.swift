@@ -28,10 +28,12 @@ enum LocalizationKey {
             static let menuContact = "aiAssistant.menu.contact"
             static let menuInspect = "aiAssistant.menu.inspect"
             static let menuFigmaCompare = "aiAssistant.menu.figmaCompare"
+            static let menuFigmaCompareGemini = "aiAssistant.menu.figmaCompareGemini"
         }
 
         enum FigmaCompare {
             static let navigationTitle = "figmaCompare.navigationTitle"
+            static let navigationTitleGemini = "figmaCompare.navigationTitle.gemini"
             static let urlInputTitle = "figmaCompare.urlInput.title"
             static let urlInputSubtitle = "figmaCompare.urlInput.subtitle"
             static let urlInputPlaceholder = "figmaCompare.urlInput.placeholder"

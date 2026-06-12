@@ -22,6 +22,9 @@ final class FigmaCompareView: LayoutableView {
     // MARK: - Public
     weak var delegate: FigmaCompareViewDelegate?
 
+    // MARK: - Private
+    private var actionsAvailable = true
+
     // MARK: - Input UI
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -436,6 +439,23 @@ final class FigmaCompareView: LayoutableView {
         screenInfoLabel.text = format.replacing("screen", with: screenIdentifier)
     }
 
+    /// In Gemini mode no Jira/PR actions are offered: the bottom button bar is
+    /// hidden and the list extends to the bottom of the screen. Must be called after setupLayout.
+    func setActionsAvailable(_ available: Bool) {
+        guard actionsAvailable != available else { return }
+        actionsAvailable = available
+        jiraButtonContainer.isHidden = !available
+        collectionView.snp.remakeConstraints { make in
+            make.top.equalTo(resultMetadataLabel.snp.bottom).offset(8)
+            make.leading.trailing.equalToSuperview().inset(20)
+            if available {
+                make.bottom.equalTo(jiraButtonContainer.snp.top)
+            } else {
+                make.bottom.equalToSuperview()
+            }
+        }
+    }
+
     func showInput() {
         inputContainer.isHidden = false
         loadingContainer.isHidden = true
@@ -476,8 +496,9 @@ final class FigmaCompareView: LayoutableView {
             .replacing("cost", with: String(format: "%.4f", response.estimatedCostUsd))
 
         resultEmptyLabel.isHidden = !response.differences.isEmpty
-        createJiraButton.isEnabled = !response.differences.isEmpty
-        createJiraButton.alpha = response.differences.isEmpty ? 0.5 : 1.0
+        let jiraEnabled = actionsAvailable && !response.differences.isEmpty
+        createJiraButton.isEnabled = jiraEnabled
+        createJiraButton.alpha = jiraEnabled ? 1.0 : 0.5
         collectionView.reloadData()
     }
 

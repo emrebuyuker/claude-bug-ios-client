@@ -22,10 +22,12 @@
 "aiAssistant.accessibilityLabel" = "AI Asistan";
 "aiAssistant.menu.contact" = "💬  AI ile İletişime Geç";
 "aiAssistant.menu.inspect" = "🔍  Ekrandaki ID'leri Gör";
-"aiAssistant.menu.figmaCompare" = "🎨  Figma ile Karşılaştır";
+"aiAssistant.menu.figmaCompare" = "🎨  Figma ile Karşılaştır (Claude)";
+"aiAssistant.menu.figmaCompareGemini" = "✨  Figma ile Karşılaştır (Gemini)";
 
 // MARK: - Figma Compare
 "figmaCompare.navigationTitle" = "Figma Karşılaştır";
+"figmaCompare.navigationTitle.gemini" = "Figma Karşılaştır (Gemini)";
 "figmaCompare.urlInput.title" = "Figma Frame URL'ini Yapıştır";
 "figmaCompare.urlInput.subtitle" = "Bulunduğun ekran ile Figma'daki frame karşılaştırılacak. Frame'i Figma'da sağ tık → Copy link to selection ile alabilirsin.";
 "figmaCompare.urlInput.placeholder" = "https://www.figma.com/design/...";

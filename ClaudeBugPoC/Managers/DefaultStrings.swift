@@ -20,8 +20,10 @@ enum DefaultStrings: String {
     case aiAssistantMenuContact = "aiAssistant.menu.contact"
     case aiAssistantMenuInspect = "aiAssistant.menu.inspect"
     case aiAssistantMenuFigmaCompare = "aiAssistant.menu.figmaCompare"
+    case aiAssistantMenuFigmaCompareGemini = "aiAssistant.menu.figmaCompareGemini"
 
     case figmaCompareNavigationTitle = "figmaCompare.navigationTitle"
+    case figmaCompareNavigationTitleGemini = "figmaCompare.navigationTitle.gemini"
     case figmaCompareUrlInputTitle = "figmaCompare.urlInput.title"
     case figmaCompareUrlInputSubtitle = "figmaCompare.urlInput.subtitle"
     case figmaCompareUrlInputPlaceholder = "figmaCompare.urlInput.placeholder"
@@ -143,9 +145,11 @@ extension DefaultStrings {
         case .aiAssistantAccessibilityLabel: return "AI Asistan"
         case .aiAssistantMenuContact: return "💬  AI ile İletişime Geç"
         case .aiAssistantMenuInspect: return "🔍  Ekrandaki ID'leri Gör"
-        case .aiAssistantMenuFigmaCompare: return "🎨  Figma ile Karşılaştır"
+        case .aiAssistantMenuFigmaCompare: return "🎨  Figma ile Karşılaştır (Claude)"
+        case .aiAssistantMenuFigmaCompareGemini: return "✨  Figma ile Karşılaştır (Gemini)"
 
         case .figmaCompareNavigationTitle: return "Figma Karşılaştır"
+        case .figmaCompareNavigationTitleGemini: return "Figma Karşılaştır (Gemini)"
         case .figmaCompareUrlInputTitle: return "Figma Frame URL'ini Yapıştır"
         case .figmaCompareUrlInputSubtitle: return "Bulunduğun ekran ile Figma'daki frame karşılaştırılacak. Frame'i Figma'da sağ tık → Copy link to selection ile alabilirsin."
         case .figmaCompareUrlInputPlaceholder: return "https://www.figma.com/design/..."
