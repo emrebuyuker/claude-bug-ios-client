@@ -79,19 +79,12 @@ final class TestDetayView: LayoutableView {
         return button
     }()
 
-    private lazy var topBarSeparator: UIView = {
-        let view = UIView()
-        view.backgroundColor = Const.separatorColor
-        return view
-    }()
-
     private lazy var topBar: UIView = {
         let view = UIView()
         view.backgroundColor = Const.bgColor
         view.addSubview(backButton)
         view.addSubview(titleLabel)
         view.addSubview(infoButton)
-        view.addSubview(topBarSeparator)
         backButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(Const.horizontalInset)
             make.centerY.equalToSuperview()
@@ -104,10 +97,6 @@ final class TestDetayView: LayoutableView {
             make.trailing.equalToSuperview().inset(Const.horizontalInset)
             make.centerY.equalToSuperview()
             make.size.equalTo(24)
-        }
-        topBarSeparator.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(1)
         }
         return view
     }()
